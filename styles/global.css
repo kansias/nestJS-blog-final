@@ -1,0 +1,27 @@
+/* 기본 링크 스타일 제거 */
+a {
+  color: inherit; /* 부모 요소의 색상 상속 */
+  text-decoration: none; /* 기본 밑줄 제거 */
+  transition: color 0.3s; /* 색상 변화 애니메이션 */
+}
+
+/* 링크 호버 스타일 */
+a:hover {
+  color: #ffcc00; /* 호버 시 색상 변경 */
+}
+
+/* 호버 효과를 위한 밑줄 추가 */
+a::after {
+  content: ""; /* 빈 콘텐츠 생성 */
+  display: block; /* 블록 요소로 설정 */
+  width: 0; /* 초기 너비 0 */
+  height: 2px; /* 밑줄 두께 */
+  background: #ffcc00; /* 밑줄 색상 */
+  transition: width 0.3s; /* 너비 변화 애니메이션 */
+  position: relative; /* 상대 위치 설정 */
+  bottom: -5px; /* 아래쪽 위치 조정 */
+}
+
+a:hover::after {
+  width: 100%; /* 호버 시 너비를 100%로 변경 */
+}

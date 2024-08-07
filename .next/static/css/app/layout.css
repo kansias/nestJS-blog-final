@@ -1,0 +1,86 @@
+/*!************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[7].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[7].use[3]!./styles/navigation.module.css ***!
+  \************************************************************************************************************************************************************************************************************************************************************************/
+.navigation_nav___kX_6 {
+  background-color: #333; /* 네비게이션 바 배경색 */
+  padding: 10px 20px;
+}
+
+.navigation_nav___kX_6 ul {
+  list-style: none; /* 기본 리스트 스타일 제거 */
+  display: flex; /* 수평 정렬 */
+  gap: 20px; /* 항목 간격 */
+}
+
+.navigation_nav___kX_6 li {
+  color: white; /* 텍스트 색상 */
+  text-decoration: none; /* 기본 링크 스타일 제거 */
+  transition: color 0.3s; /* 색상 변화 애니메이션 */
+}
+
+.navigation_nav___kX_6 li:hover {
+  color: #ffcc00; /* 호버 시 텍스트 색상 */
+}
+
+.navigation_linkCheck__Wg47x {
+  content: "";
+  display: block;
+  width: 0;
+  height: 2px;
+  background: #ffcc00;
+  transition: width 0.3s;
+  position: relative;
+  bottom: -5px;
+}
+
+.navigation_active__0StsH .navigation_linkCheck__Wg47x {
+  width: 100%;
+}
+
+/*!***************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[12].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[12].use[3]!./styles/global.css ***!
+  \***************************************************************************************************************************************************************************************************************************************************************/
+/* 기본 링크 스타일 제거 */
+a {
+  color: inherit; /* 부모 요소의 색상 상속 */
+  text-decoration: none; /* 기본 밑줄 제거 */
+  transition: color 0.3s; /* 색상 변화 애니메이션 */
+}
+
+/* 링크 호버 스타일 */
+a:hover {
+  color: #ffcc00; /* 호버 시 색상 변경 */
+}
+
+/* 호버 효과를 위한 밑줄 추가 */
+a::after {
+  content: ""; /* 빈 콘텐츠 생성 */
+  display: block; /* 블록 요소로 설정 */
+  width: 0; /* 초기 너비 0 */
+  height: 2px; /* 밑줄 두께 */
+  background: #ffcc00; /* 밑줄 색상 */
+  transition: width 0.3s; /* 너비 변화 애니메이션 */
+  position: relative; /* 상대 위치 설정 */
+  bottom: -5px; /* 아래쪽 위치 조정 */
+}
+
+a:hover::after {
+  width: 100%; /* 호버 시 너비를 100%로 변경 */
+}
+
+/*!********************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[7].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[7].use[3]!./styles/footer.module.css ***!
+  \********************************************************************************************************************************************************************************************************************************************************************/
+.footer_footer__e_ilT {
+  background-color: #333;
+  color: white;
+  padding: 20px 0;
+  text-align: center;
+}
+
+.footer_container__x1oma {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
