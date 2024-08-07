@@ -13,7 +13,7 @@ export default async function Index() {
 
       <h1 className="text-4xl py-4">안녕하세요</h1>
       <div className="flex flex-row w-auto h-auto border rounded-xl ">
-        <div className="w-full h-64 sm:w-64 sm:h-64  flex justify-center items-center bg-gray-100">
+        <div className="w-full h-64 sm:w-64 sm:h-64 w-6 flex justify-center items-center bg-gray-100">
           사진
         </div>
         <div className="">
