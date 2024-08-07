@@ -12,6 +12,24 @@ exports.id = "app/(home)/page";
 exports.ids = ["app/(home)/page"];
 exports.modules = {
 
+/***/ "(rsc)/./node_modules/mysql2/lib sync recursive ^cardinal.*$":
+/*!****************************************************!*\
+  !*** ./node_modules/mysql2/lib/ sync ^cardinal.*$ ***!
+  \****************************************************/
+/***/ ((module) => {
+
+function webpackEmptyContext(req) {
+	var e = new Error("Cannot find module '" + req + "'");
+	e.code = 'MODULE_NOT_FOUND';
+	throw e;
+}
+webpackEmptyContext.keys = () => ([]);
+webpackEmptyContext.resolve = webpackEmptyContext;
+webpackEmptyContext.id = "(rsc)/./node_modules/mysql2/lib sync recursive ^cardinal.*$";
+module.exports = webpackEmptyContext;
+
+/***/ }),
+
 /***/ "./action-async-storage.external":
 /*!****************************************************************************!*\
   !*** external "next/dist/client/components/action-async-storage.external" ***!
@@ -86,6 +104,138 @@ module.exports = require("next/dist/client/components/static-generation-async-st
 
 "use strict";
 module.exports = require("next/dist/compiled/next-server/app-page.runtime.dev.js");
+
+/***/ }),
+
+/***/ "buffer":
+/*!*************************!*\
+  !*** external "buffer" ***!
+  \*************************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("buffer");
+
+/***/ }),
+
+/***/ "crypto":
+/*!*************************!*\
+  !*** external "crypto" ***!
+  \*************************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("crypto");
+
+/***/ }),
+
+/***/ "events":
+/*!*************************!*\
+  !*** external "events" ***!
+  \*************************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("events");
+
+/***/ }),
+
+/***/ "net":
+/*!**********************!*\
+  !*** external "net" ***!
+  \**********************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("net");
+
+/***/ }),
+
+/***/ "process":
+/*!**************************!*\
+  !*** external "process" ***!
+  \**************************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("process");
+
+/***/ }),
+
+/***/ "stream":
+/*!*************************!*\
+  !*** external "stream" ***!
+  \*************************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("stream");
+
+/***/ }),
+
+/***/ "string_decoder":
+/*!*********************************!*\
+  !*** external "string_decoder" ***!
+  \*********************************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("string_decoder");
+
+/***/ }),
+
+/***/ "timers":
+/*!*************************!*\
+  !*** external "timers" ***!
+  \*************************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("timers");
+
+/***/ }),
+
+/***/ "tls":
+/*!**********************!*\
+  !*** external "tls" ***!
+  \**********************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("tls");
+
+/***/ }),
+
+/***/ "url":
+/*!**********************!*\
+  !*** external "url" ***!
+  \**********************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("url");
+
+/***/ }),
+
+/***/ "util":
+/*!***********************!*\
+  !*** external "util" ***!
+  \***********************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("util");
+
+/***/ }),
+
+/***/ "zlib":
+/*!***********************!*\
+  !*** external "zlib" ***!
+  \***********************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("zlib");
 
 /***/ }),
 
@@ -179,7 +329,18 @@ eval("// Exports\nmodule.exports = {\n\t\"nav\": \"navigation_nav___kX_6\",\n\t\
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (/* binding */ Index)\n/* harmony export */ });\n/* harmony import */ var react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-dev-runtime */ \"(rsc)/./node_modules/next/dist/server/future/route-modules/app-page/vendored/rsc/react-jsx-dev-runtime.js\");\n/* harmony import */ var react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_0__);\n\nfunction Index() {\n    return /*#__PURE__*/ (0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxDEV)(\"div\", {\n        children: /*#__PURE__*/ (0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxDEV)(\"h1\", {\n            children: \"메인 페이지\"\n        }, void 0, false, {\n            fileName: \"C:\\\\Users\\\\aico-2\\\\Desktop\\\\workspace\\\\nextjs-test\\\\app\\\\(home)\\\\page.jsx\",\n            lineNumber: 4,\n            columnNumber: 7\n        }, this)\n    }, void 0, false, {\n        fileName: \"C:\\\\Users\\\\aico-2\\\\Desktop\\\\workspace\\\\nextjs-test\\\\app\\\\(home)\\\\page.jsx\",\n        lineNumber: 3,\n        columnNumber: 5\n    }, this);\n}\n//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiKHJzYykvLi9hcHAvKGhvbWUpL3BhZ2UuanN4IiwibWFwcGluZ3MiOiI7Ozs7Ozs7QUFBZSxTQUFTQTtJQUN0QixxQkFDRSw4REFBQ0M7a0JBQ0MsNEVBQUNDO3NCQUFHOzs7Ozs7Ozs7OztBQUdWIiwic291cmNlcyI6WyJ3ZWJwYWNrOi8vbmV4dGpzLXRlc3QvLi9hcHAvKGhvbWUpL3BhZ2UuanN4PzMxYjUiXSwic291cmNlc0NvbnRlbnQiOlsiZXhwb3J0IGRlZmF1bHQgZnVuY3Rpb24gSW5kZXgoKSB7XHJcbiAgcmV0dXJuIChcclxuICAgIDxkaXY+XHJcbiAgICAgIDxoMT7rqZTsnbgg7Y6Y7J207KeAPC9oMT5cclxuICAgIDwvZGl2PlxyXG4gICk7XHJcbn1cclxuIl0sIm5hbWVzIjpbIkluZGV4IiwiZGl2IiwiaDEiXSwic291cmNlUm9vdCI6IiJ9\n//# sourceURL=webpack-internal:///(rsc)/./app/(home)/page.jsx\n");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (/* binding */ Index)\n/* harmony export */ });\n/* harmony import */ var react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-dev-runtime */ \"(rsc)/./node_modules/next/dist/server/future/route-modules/app-page/vendored/rsc/react-jsx-dev-runtime.js\");\n/* harmony import */ var react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _lib_db__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../_lib/db */ \"(rsc)/./app/_lib/db.jsx\");\n\n\nasync function Index() {\n    const sql = \"select * from post_tb\";\n    const data = await (0,_lib_db__WEBPACK_IMPORTED_MODULE_1__[\"default\"])(sql, \"\");\n    // json 데이터를 객체로 다시 !\n    const getdata = JSON.parse(JSON.stringify(data));\n    console.log(\"main Index = \" + getdata);\n    return /*#__PURE__*/ (0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxDEV)(\"div\", {\n        children: /*#__PURE__*/ (0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxDEV)(\"h1\", {\n            children: \"메인 페이지\"\n        }, void 0, false, {\n            fileName: \"C:\\\\Users\\\\aico-2\\\\Desktop\\\\workspace\\\\nextjs-test\\\\app\\\\(home)\\\\page.jsx\",\n            lineNumber: 12,\n            columnNumber: 7\n        }, this)\n    }, void 0, false, {\n        fileName: \"C:\\\\Users\\\\aico-2\\\\Desktop\\\\workspace\\\\nextjs-test\\\\app\\\\(home)\\\\page.jsx\",\n        lineNumber: 11,\n        columnNumber: 5\n    }, this);\n}\n//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiKHJzYykvLi9hcHAvKGhvbWUpL3BhZ2UuanN4IiwibWFwcGluZ3MiOiI7Ozs7Ozs7O0FBQXNDO0FBRXZCLGVBQWVDO0lBQzVCLE1BQU1DLE1BQU07SUFDWixNQUFNQyxPQUFPLE1BQU1ILG1EQUFZQSxDQUFDRSxLQUFLO0lBQ3JDLHFCQUFxQjtJQUNyQixNQUFNRSxVQUFVQyxLQUFLQyxLQUFLLENBQUNELEtBQUtFLFNBQVMsQ0FBQ0o7SUFDMUNLLFFBQVFDLEdBQUcsQ0FBQyxrQkFBa0JMO0lBRTlCLHFCQUNFLDhEQUFDTTtrQkFDQyw0RUFBQ0M7c0JBQUc7Ozs7Ozs7Ozs7O0FBR1YiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly9uZXh0anMtdGVzdC8uL2FwcC8oaG9tZSkvcGFnZS5qc3g/MzFiNSJdLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgZXhlY3V0ZVF1ZXJ5IGZyb20gXCIuLi9fbGliL2RiXCI7XHJcblxyXG5leHBvcnQgZGVmYXVsdCBhc3luYyBmdW5jdGlvbiBJbmRleCgpIHtcclxuICBjb25zdCBzcWwgPSBcInNlbGVjdCAqIGZyb20gcG9zdF90YlwiO1xyXG4gIGNvbnN0IGRhdGEgPSBhd2FpdCBleGVjdXRlUXVlcnkoc3FsLCBcIlwiKTtcclxuICAvLyBqc29uIOuNsOydtO2EsOulvCDqsJ3ssrTroZwg64uk7IucICFcclxuICBjb25zdCBnZXRkYXRhID0gSlNPTi5wYXJzZShKU09OLnN0cmluZ2lmeShkYXRhKSk7XHJcbiAgY29uc29sZS5sb2coXCJtYWluIEluZGV4ID0gXCIgKyBnZXRkYXRhKTtcclxuXHJcbiAgcmV0dXJuIChcclxuICAgIDxkaXY+XHJcbiAgICAgIDxoMT7rqZTsnbgg7Y6Y7J207KeAPC9oMT5cclxuICAgIDwvZGl2PlxyXG4gICk7XHJcbn1cclxuIl0sIm5hbWVzIjpbImV4ZWN1dGVRdWVyeSIsIkluZGV4Iiwic3FsIiwiZGF0YSIsImdldGRhdGEiLCJKU09OIiwicGFyc2UiLCJzdHJpbmdpZnkiLCJjb25zb2xlIiwibG9nIiwiZGl2IiwiaDEiXSwic291cmNlUm9vdCI6IiJ9\n//# sourceURL=webpack-internal:///(rsc)/./app/(home)/page.jsx\n");
+
+/***/ }),
+
+/***/ "(rsc)/./app/_lib/db.jsx":
+/*!*************************!*\
+  !*** ./app/_lib/db.jsx ***!
+  \*************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var mysql2__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! mysql2 */ \"(rsc)/./node_modules/mysql2/index.js\");\n\nconst pool = (0,mysql2__WEBPACK_IMPORTED_MODULE_0__.createPool)({\n    host: \"localhost\",\n    user: \"root\",\n    password: \"1234\",\n    database: \"metadb\",\n    port: 3306\n});\npool.getConnection((err, conn)=>{\n    if (err) console.log(\"Error connecting to db...\");\n    else console.log(\"Connected to db...!\");\n    conn.release();\n});\nconst executeQuery = (query, arrParams)=>{\n    return new Promise((resolve, reject)=>{\n        try {\n            pool.query(query, arrParams, (err, data)=>{\n                if (err) {\n                    console.log(\"Error in executing the query\");\n                    reject(err);\n                }\n                console.log(\"------db.jsx------\");\n                //console.log(data)\n                resolve(data);\n            });\n        } catch (err) {\n            reject(err);\n        }\n    });\n};\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (executeQuery);\n//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiKHJzYykvLi9hcHAvX2xpYi9kYi5qc3giLCJtYXBwaW5ncyI6Ijs7Ozs7QUFBb0M7QUFFcEMsTUFBTUMsT0FBT0Qsa0RBQVVBLENBQUM7SUFDdEJFLE1BQU07SUFDTkMsTUFBTTtJQUNOQyxVQUFVO0lBQ1ZDLFVBQVU7SUFDVkMsTUFBTTtBQUNSO0FBRUFMLEtBQUtNLGFBQWEsQ0FBQyxDQUFDQyxLQUFLQztJQUN2QixJQUFJRCxLQUFLRSxRQUFRQyxHQUFHLENBQUM7U0FDaEJELFFBQVFDLEdBQUcsQ0FBQztJQUNqQkYsS0FBS0csT0FBTztBQUNkO0FBRUEsTUFBTUMsZUFBZSxDQUFDQyxPQUFPQztJQUMzQixPQUFPLElBQUlDLFFBQVEsQ0FBQ0MsU0FBU0M7UUFDM0IsSUFBSTtZQUNGakIsS0FBS2EsS0FBSyxDQUFDQSxPQUFPQyxXQUFXLENBQUNQLEtBQUtXO2dCQUNqQyxJQUFJWCxLQUFLO29CQUNQRSxRQUFRQyxHQUFHLENBQUM7b0JBQ1pPLE9BQU9WO2dCQUNUO2dCQUNBRSxRQUFRQyxHQUFHLENBQUM7Z0JBQ1osbUJBQW1CO2dCQUNuQk0sUUFBUUU7WUFDVjtRQUNGLEVBQUUsT0FBT1gsS0FBSztZQUNaVSxPQUFPVjtRQUNUO0lBQ0Y7QUFDRjtBQUVBLGlFQUFlSyxZQUFZQSxFQUFDIiwic291cmNlcyI6WyJ3ZWJwYWNrOi8vbmV4dGpzLXRlc3QvLi9hcHAvX2xpYi9kYi5qc3g/YzY1ZCJdLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgeyBjcmVhdGVQb29sIH0gZnJvbSBcIm15c3FsMlwiO1xyXG5cclxuY29uc3QgcG9vbCA9IGNyZWF0ZVBvb2woe1xyXG4gIGhvc3Q6IFwibG9jYWxob3N0XCIsXHJcbiAgdXNlcjogXCJyb290XCIsXHJcbiAgcGFzc3dvcmQ6IFwiMTIzNFwiLFxyXG4gIGRhdGFiYXNlOiBcIm1ldGFkYlwiLFxyXG4gIHBvcnQ6IDMzMDYsXHJcbn0pO1xyXG5cclxucG9vbC5nZXRDb25uZWN0aW9uKChlcnIsIGNvbm4pID0+IHtcclxuICBpZiAoZXJyKSBjb25zb2xlLmxvZyhcIkVycm9yIGNvbm5lY3RpbmcgdG8gZGIuLi5cIik7XHJcbiAgZWxzZSBjb25zb2xlLmxvZyhcIkNvbm5lY3RlZCB0byBkYi4uLiFcIik7XHJcbiAgY29ubi5yZWxlYXNlKCk7XHJcbn0pO1xyXG5cclxuY29uc3QgZXhlY3V0ZVF1ZXJ5ID0gKHF1ZXJ5LCBhcnJQYXJhbXMpID0+IHtcclxuICByZXR1cm4gbmV3IFByb21pc2UoKHJlc29sdmUsIHJlamVjdCkgPT4ge1xyXG4gICAgdHJ5IHtcclxuICAgICAgcG9vbC5xdWVyeShxdWVyeSwgYXJyUGFyYW1zLCAoZXJyLCBkYXRhKSA9PiB7XHJcbiAgICAgICAgaWYgKGVycikge1xyXG4gICAgICAgICAgY29uc29sZS5sb2coXCJFcnJvciBpbiBleGVjdXRpbmcgdGhlIHF1ZXJ5XCIpO1xyXG4gICAgICAgICAgcmVqZWN0KGVycik7XHJcbiAgICAgICAgfVxyXG4gICAgICAgIGNvbnNvbGUubG9nKFwiLS0tLS0tZGIuanN4LS0tLS0tXCIpO1xyXG4gICAgICAgIC8vY29uc29sZS5sb2coZGF0YSlcclxuICAgICAgICByZXNvbHZlKGRhdGEpO1xyXG4gICAgICB9KTtcclxuICAgIH0gY2F0Y2ggKGVycikge1xyXG4gICAgICByZWplY3QoZXJyKTtcclxuICAgIH1cclxuICB9KTtcclxufTtcclxuXHJcbmV4cG9ydCBkZWZhdWx0IGV4ZWN1dGVRdWVyeTtcclxuIl0sIm5hbWVzIjpbImNyZWF0ZVBvb2wiLCJwb29sIiwiaG9zdCIsInVzZXIiLCJwYXNzd29yZCIsImRhdGFiYXNlIiwicG9ydCIsImdldENvbm5lY3Rpb24iLCJlcnIiLCJjb25uIiwiY29uc29sZSIsImxvZyIsInJlbGVhc2UiLCJleGVjdXRlUXVlcnkiLCJxdWVyeSIsImFyclBhcmFtcyIsIlByb21pc2UiLCJyZXNvbHZlIiwicmVqZWN0IiwiZGF0YSJdLCJzb3VyY2VSb290IjoiIn0=\n//# sourceURL=webpack-internal:///(rsc)/./app/_lib/db.jsx\n");
 
 /***/ }),
 
@@ -223,7 +384,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 var __webpack_require__ = require("../../webpack-runtime.js");
 __webpack_require__.C(exports);
 var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-var __webpack_exports__ = __webpack_require__.X(0, ["vendor-chunks/next","vendor-chunks/@swc"], () => (__webpack_exec__("(rsc)/./node_modules/next/dist/build/webpack/loaders/next-app-loader.js?name=app%2F(home)%2Fpage&page=%2F(home)%2Fpage&appPaths=%2F(home)%2Fpage&pagePath=private-next-app-dir%2F(home)%2Fpage.jsx&appDir=C%3A%5CUsers%5Caico-2%5CDesktop%5Cworkspace%5Cnextjs-test%5Capp&pageExtensions=tsx&pageExtensions=ts&pageExtensions=jsx&pageExtensions=js&rootDir=C%3A%5CUsers%5Caico-2%5CDesktop%5Cworkspace%5Cnextjs-test&isDev=true&tsconfigPath=tsconfig.json&basePath=&assetPrefix=&nextConfigOutput=&preferredRegion=&middlewareConfig=e30%3D!")));
+var __webpack_exports__ = __webpack_require__.X(0, ["vendor-chunks/next","vendor-chunks/mysql2","vendor-chunks/aws-ssl-profiles","vendor-chunks/iconv-lite","vendor-chunks/lru-cache","vendor-chunks/long","vendor-chunks/named-placeholders","vendor-chunks/denque","vendor-chunks/is-property","vendor-chunks/sqlstring","vendor-chunks/seq-queue","vendor-chunks/generate-function","vendor-chunks/@swc","vendor-chunks/safer-buffer"], () => (__webpack_exec__("(rsc)/./node_modules/next/dist/build/webpack/loaders/next-app-loader.js?name=app%2F(home)%2Fpage&page=%2F(home)%2Fpage&appPaths=%2F(home)%2Fpage&pagePath=private-next-app-dir%2F(home)%2Fpage.jsx&appDir=C%3A%5CUsers%5Caico-2%5CDesktop%5Cworkspace%5Cnextjs-test%5Capp&pageExtensions=tsx&pageExtensions=ts&pageExtensions=jsx&pageExtensions=js&rootDir=C%3A%5CUsers%5Caico-2%5CDesktop%5Cworkspace%5Cnextjs-test&isDev=true&tsconfigPath=tsconfig.json&basePath=&assetPrefix=&nextConfigOutput=&preferredRegion=&middlewareConfig=e30%3D!")));
 module.exports = __webpack_exports__;
 
 })();
