@@ -41,6 +41,7 @@ export default async function Index() {
                   </div>
                   <div className={`${styles.textClamp} w-auto`}>
                     {post.content}
+                    {/* dkldkkd */}
                   </div>
                 </div>
               </div>
