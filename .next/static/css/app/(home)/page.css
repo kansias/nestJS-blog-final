@@ -10,3 +10,11 @@
   transform: translateY(-5px);
 }
 
+.styles_textClamp__gmkvp {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2; /* 줄 수 설정 */
+  overflow: hidden; /* 넘치는 부분 숨기기 */
+  text-overflow: ellipsis; /* ... 표시 */
+}
+
