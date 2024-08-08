@@ -1,6 +1,7 @@
 import executeQuery from "../_lib/db";
 import styles from "../../styles/index.module.css";
 import { IndexDTO } from "../util/IndexResponse";
+import Link from "next/link";
 
 export default async function Index() {
   const sql = "select * from post_tb order by rand() limit 8";
@@ -22,19 +23,21 @@ export default async function Index() {
       <div className="flex flex-wrap justify-between">
         {indexList.map((post) => (
           <div key={post.id} className="w-full sm:w-1/2 p-2">
-            <div
-              className={`${styles.card} flex flex-row w-auto h-auto border rounded-xl`}
-            >
-              <div className="w-full h-64 sm:w-64 sm:h-64 w-6 flex justify-center items-center bg-gray-100">
-                {post.thumbnail_file}
-              </div>
-              <div className="ml-7">
-                <div className="text-2xl text-yellow-400 w-auto mt-3 mb-8">
-                  {post.title}
+            <Link href={`/post/${post.id}`}>
+              <div
+                className={`${styles.card} flex flex-row w-auto h-auto border rounded-xl`}
+              >
+                <div className="w-full h-64 sm:w-64 sm:h-64 w-6 flex justify-center items-center bg-gray-100">
+                  {post.thumbnail_file}
                 </div>
-                <div className="w-auto ">{post.content}</div>
+                <div className="ml-7">
+                  <div className="text-2xl text-yellow-400 w-auto mt-3 mb-8">
+                    {post.title}
+                  </div>
+                  <div className="w-auto ">{post.content}</div>
+                </div>
               </div>
-            </div>
+            </Link>
           </div>
         ))}
       </div>
