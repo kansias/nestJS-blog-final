@@ -2,6 +2,7 @@ import executeQuery from "../../../_lib/db";
 import { DetailDTO } from "../../../util/PostResponse";
 
 export default async function Detail({ params }) {
+  console.log("param = " + JSON.stringify(params));
   const { id } = params;
 
   const sql = "select * from post_tb where id = ?";
