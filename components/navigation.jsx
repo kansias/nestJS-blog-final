@@ -22,10 +22,21 @@ export default function Navigation() {
             <span className={styles.linkCheck}></span>
           </Link>
         </li>
-        <li>구독자관리</li>
-        <li>내구독리스트</li>
-        <li>계정관리</li>
-        <li>카테고리관리</li>
+        <li className={path === "/user/joinForm" ? styles.active : ""}>
+          <Link href="/user/joinForm">회원가입</Link>
+        </li>
+        <li className={path === "/user/loginForm" ? styles.active : ""}>
+          <Link href="/user/loginForm">로그인</Link>
+        </li>
+        <li className={path === "/sub" ? styles.active : ""}>
+          <Link href="/sub">내구독리스트</Link>
+        </li>
+        <li className={path === "/user/updateForm" ? styles.active : ""}>
+          <Link href="/user/updateForm">계정관리</Link>
+        </li>
+        <li className={path === "/category" ? styles.active : ""}>
+          <Link href="/category">카테고리관리</Link>
+        </li>
         <li>로그아웃</li>
       </ul>
     </nav>
