@@ -1,9 +1,9 @@
 {
   "pages": {
-    "/(post)/post/[id]/page": [
+    "/(user)/user/loginForm/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/(post)/post/[id]/page.js"
+      "static/chunks/app/(user)/user/loginForm/page.js"
     ],
     "/layout": [
       "static/chunks/webpack.js",
@@ -16,36 +16,6 @@
       "static/chunks/main-app.js",
       "static/css/app/(home)/page.css",
       "static/chunks/app/(home)/page.js"
-    ],
-    "/(post)/post/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/(post)/post/page.js"
-    ],
-    "/(user)/user/joinForm/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/(user)/user/joinForm/page.js"
-    ],
-    "/(user)/user/loginForm/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/(user)/user/loginForm/page.js"
-    ],
-    "/(sub)/sub/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/(sub)/sub/page.js"
-    ],
-    "/(user)/user/updateForm/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/(user)/user/updateForm/page.js"
-    ],
-    "/(category)/category/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/(category)/category/page.js"
     ]
   }
 }
