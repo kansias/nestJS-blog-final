@@ -1,6 +1,6 @@
-import "../styles/global.css";
 import Footer from "../components/footer";
 import Navigation from "../components/navigation";
+import "../styles/global.css";
 
 export const metadata = {
   title: "Home",
@@ -12,7 +12,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body>
         <Navigation />
-        {children}
+        <div id="wrap">{children}</div>
         <Footer />
       </body>
     </html>

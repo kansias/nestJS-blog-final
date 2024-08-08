@@ -2,7 +2,7 @@
   !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[7].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[7].use[3]!./styles/navigation.module.css ***!
   \************************************************************************************************************************************************************************************************************************************************************************/
 .navigation_nav___kX_6 {
-  background-color: #333; /* 네비게이션 바 배경색 */
+  background-color: #31b4a0; /* 네비게이션 바 배경색 */
   padding: 10px 20px;
 }
 
@@ -35,6 +35,22 @@
 
 .navigation_active__0StsH .navigation_linkCheck__Wg47x {
   width: 100%;
+}
+
+/*!********************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[7].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[7].use[3]!./styles/footer.module.css ***!
+  \********************************************************************************************************************************************************************************************************************************************************************/
+.footer_footer__e_ilT {
+  background-color: #31b4a0;
+  color: white;
+  padding: 20px 0;
+  text-align: center;
+}
+
+.footer_container__x1oma {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
 }
 
 /*!***************************************************************************************************************************************************************************************************************************************************************!*\
@@ -580,8 +596,17 @@ video {
   margin-left: 1rem;
   margin-right: 1rem;
 }
+.mb-3 {
+  margin-bottom: 0.75rem;
+}
 .mb-8 {
   margin-bottom: 2rem;
+}
+.ml-7 {
+  margin-left: 1.75rem;
+}
+.mt-3 {
+  margin-top: 0.75rem;
 }
 .flex {
   display: flex;
@@ -595,6 +620,9 @@ video {
 .h-screen {
   height: 100vh;
 }
+.w-6 {
+  width: 1.5rem;
+}
 .w-auto {
   width: auto;
 }
@@ -607,6 +635,9 @@ video {
 .flex-col {
   flex-direction: column;
 }
+.flex-wrap {
+  flex-wrap: wrap;
+}
 .items-center {
   align-items: center;
 }
@@ -615,6 +646,13 @@ video {
 }
 .justify-center {
   justify-content: center;
+}
+.justify-between {
+  justify-content: space-between;
+}
+.gap-x-8 {
+  -moz-column-gap: 2rem;
+       column-gap: 2rem;
 }
 .gap-y-4 {
   row-gap: 1rem;
@@ -629,12 +667,12 @@ video {
   --tw-bg-opacity: 1;
   background-color: rgb(243 244 246 / var(--tw-bg-opacity));
 }
+.p-2 {
+  padding: 0.5rem;
+}
 .py-4 {
   padding-top: 1rem;
   padding-bottom: 1rem;
-}
-.text-center {
-  text-align: center;
 }
 .text-2xl {
   font-size: 1.5rem;
@@ -683,24 +721,12 @@ a:hover::after {
     height: 16rem;
   }
 
+  .sm\:w-1\/2 {
+    width: 50%;
+  }
+
   .sm\:w-64 {
     width: 16rem;
   }
-}
-
-/*!********************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[7].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[7].use[3]!./styles/footer.module.css ***!
-  \********************************************************************************************************************************************************************************************************************************************************************/
-.footer_footer__e_ilT {
-  background-color: #333;
-  color: white;
-  padding: 20px 0;
-  text-align: center;
-}
-
-.footer_container__x1oma {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
 }
 

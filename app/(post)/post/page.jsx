@@ -4,7 +4,7 @@ export default async function Post() {
   const sql = "select * from post_tb";
   const data = await executeQuery(sql, "");
   const getdata = JSON.parse(JSON.stringify(data));
-  console.log(getdata);
+  // console.log(getdata);
   return (
     <div>
       {getdata.map((data) => {

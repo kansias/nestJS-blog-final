@@ -5,12 +5,12 @@ export default function Footer() {
   return (
     <footer className={styles.footer}>
       <div className={styles.container}>
-        <p>© 2024 Your Company Name. All rights reserved.</p>
-        <div>
+        <div className="flex flex-row gap-x-8 justify-center mb-3">
           <Link href="/about">About</Link>
           <Link href="/contact">Contact</Link>
           <Link href="/privacy">Privacy Policy</Link>
         </div>
+        <p>© 2024 Your Company Name. All rights reserved.</p>
       </div>
     </footer>
   );
