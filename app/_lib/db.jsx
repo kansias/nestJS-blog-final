@@ -6,12 +6,13 @@ const pool = createPool({
   password: "1234",
   database: "metadb",
   port: 3306,
+  connectionLimit: 10,
 });
 
 pool.getConnection((err, conn) => {
   if (err) console.log("Error connecting to db...");
   else console.log("Connected to db...!");
-  conn.release();
+  conn.release(); // 연결 해제
 });
 
 const executeQuery = (query, arrParams) => {

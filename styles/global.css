@@ -9,18 +9,13 @@ a {
   transition: color 0.3s; /* 색상 변화 애니메이션 */
 }
 
-/* 링크 호버 스타일 */
-a:hover {
-  color: #ffcc00; /* 호버 시 색상 변경 */
-}
-
 /* 호버 효과를 위한 밑줄 추가 */
 a::after {
   content: ""; /* 빈 콘텐츠 생성 */
   display: block; /* 블록 요소로 설정 */
   width: 0; /* 초기 너비 0 */
   height: 2px; /* 밑줄 두께 */
-  background: #ffcc00; /* 밑줄 색상 */
+  /* background: #31b4a0;  */
   transition: width 0.3s; /* 너비 변화 애니메이션 */
   position: relative; /* 상대 위치 설정 */
   bottom: -5px; /* 아래쪽 위치 조정 */

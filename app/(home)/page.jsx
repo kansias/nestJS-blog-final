@@ -31,7 +31,7 @@ export default async function Index() {
                   {post.thumbnail_file}
                 </div>
                 <div className="ml-7">
-                  <div className="text-2xl text-yellow-400 w-auto mt-3 mb-8">
+                  <div className="text-2xl text-teal-500 w-auto mt-3 mb-8">
                     {post.title}
                   </div>
                   <div className="w-auto ">{post.content}</div>
