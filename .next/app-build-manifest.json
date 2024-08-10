@@ -1,21 +1,15 @@
 {
   "pages": {
-    "/(user)/user/loginForm/page": [
+    "/(user)/user/joinForm/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/(user)/user/loginForm/page.js"
+      "static/chunks/app/(user)/user/joinForm/page.js"
     ],
     "/layout": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/css/app/layout.css",
       "static/chunks/app/layout.js"
-    ],
-    "/(home)/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/css/app/(home)/page.css",
-      "static/chunks/app/(home)/page.js"
     ]
   }
 }
