@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import axios from "axios";
 
 export default function LoginForm() {
   const [username, setUsername] = useState("");
@@ -11,21 +12,24 @@ export default function LoginForm() {
   const loginForm = async (e) => {
     e.preventDefault();
 
-    const res = await fetch("/api/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ username, password }),
-    });
+    try {
+      // 애가 request에 담겨야하는데
+      const res = await axios.post("/api/login", {
+        username,
+        password,
+      });
 
-    const result = await res.json();
-
-    if (result.success) {
-      console.log("로그인 성공", result.user);
-      router.push("/"); //리다이렉션
-    } else {
-      alert(result.message);
+      if (res.status === 200) {
+        alert("로그인 성공!!");
+        router.push("/");
+      }
+    } catch (error) {
+      console.log("1111 " + error);
+      console.log("1111 " + JSON.stringify(error.response));
+      if (error.response) {
+        console.log("에러에러");
+        alert(error.response.data.msg);
+      }
     }
   };
 
