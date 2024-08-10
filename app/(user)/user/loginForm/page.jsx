@@ -3,11 +3,13 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
+import { useAuth } from "../../../util/AuthContext";
 
 export default function LoginForm() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter(); //라우터
+  const { login } = useAuth();
 
   const loginForm = async (e) => {
     e.preventDefault();
@@ -21,6 +23,8 @@ export default function LoginForm() {
 
       if (res.status === 200) {
         alert("로그인 성공!!");
+        // 애를 호출해야지 true 가 되지!!
+        login();
         router.push("/");
       }
     } catch (error) {
