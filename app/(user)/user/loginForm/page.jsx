@@ -28,10 +28,10 @@ export default function LoginForm() {
         router.push("/");
       }
     } catch (error) {
-      console.log("1111 " + error);
-      console.log("1111 " + JSON.stringify(error.response));
+      // console.log("1111 " + error);
+      // console.log("1111 " + JSON.stringify(error.response));
       if (error.response) {
-        console.log("에러에러");
+        // console.log("에러에러");
         alert(error.response.data.msg);
       }
     }

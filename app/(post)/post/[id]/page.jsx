@@ -35,6 +35,14 @@ export default async function Detail({ params }) {
       <div>
         <h4 className="mb-40">{post.content}</h4>
       </div>
+      <div className="flex flex-row justify-end">
+        <button className="border p-2 bg-teal-700 rounded-md text-white">
+          수정
+        </button>
+        <button className="border p-2 bg-red-700 rounded-md text-white mr-5">
+          삭제
+        </button>
+      </div>
 
       {/* 댓글 뷰 */}
       <div className="flex flex-col p-6 bg-white rounded-lg border">

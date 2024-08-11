@@ -1,3 +1,6 @@
 {
-  "/(user)/user/joinForm/page": "app/(user)/user/joinForm/page.js"
+  "/(user)/user/joinForm/page": "app/(user)/user/joinForm/page.js",
+  "/(user)/user/loginForm/page": "app/(user)/user/loginForm/page.js",
+  "/(home)/page": "app/(home)/page.js",
+  "/(post)/post/[id]/page": "app/(post)/post/[id]/page.js"
 }
