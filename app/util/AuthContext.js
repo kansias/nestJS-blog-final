@@ -6,10 +6,14 @@ import { useRouter } from "next/navigation";
 const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
+  const [user, setUser] = useState(null);
   const [isLogin, setIsLogin] = useState(false);
   const route = useRouter();
 
-  const login = () => {
+  // res.data 주기 (userData)
+  const login = (userData) => {
+    console.log("userData " + JSON.stringify(userData));
+    setUser(userData);
     setIsLogin(true);
   };
 
@@ -20,9 +24,10 @@ export function AuthProvider({ children }) {
   };
 
   console.log("로그인 상태 " + isLogin);
+  console.log("로그인 유저 정보 " + JSON.stringify(user));
 
   return (
-    <AuthContext.Provider value={{ isLogin, login, logout }}>
+    <AuthContext.Provider value={{ isLogin, login, logout, user }}>
       {children}
     </AuthContext.Provider>
   );

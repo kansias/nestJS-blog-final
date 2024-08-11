@@ -1,11 +1,12 @@
 import { format } from "date-fns";
 
 export class DetailDTO {
-  constructor(id, title, content, createdAt) {
+  constructor(id, title, content, createdAt, userId) {
     this.id = id;
     this.title = title;
     this.content = content;
     this.createdAt = this.formatDate(createdAt);
+    this.userId = userId;
   }
 
   formatDate(dateToString) {

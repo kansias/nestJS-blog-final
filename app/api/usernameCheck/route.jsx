@@ -1,4 +1,4 @@
-import { success, fail } from "../../util/apiUtil";
+import { success, fail } from "../../util/ApiUtil";
 import executeQuery from "../../_lib/db";
 
 export async function POST(request) {

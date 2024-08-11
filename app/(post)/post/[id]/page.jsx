@@ -1,7 +1,11 @@
+"use client";
+
 import executeQuery from "../../../_lib/db";
+import { useAuth } from "../../../util/AuthContext";
 import { DetailDTO } from "../../../util/PostResponse";
 
 export default async function Detail({ params }) {
+  const { user } = useAuth();
   console.log("param = " + JSON.stringify(params));
   const { id } = params;
 
@@ -20,7 +24,8 @@ export default async function Detail({ params }) {
           getdata[0].id,
           getdata[0].title,
           getdata[0].content,
-          getdata[0].created_at
+          getdata[0].created_at,
+          getdata[0].user_id
         )
       : null;
   console.log("Post Detail = " + JSON.stringify(post));
@@ -35,14 +40,17 @@ export default async function Detail({ params }) {
       <div>
         <h4 className="mb-40">{post.content}</h4>
       </div>
-      <div className="flex flex-row justify-end">
-        <button className="border p-2 bg-teal-600 rounded-md text-white hover:bg-teal-800">
-          수정
-        </button>
-        <button className="border p-2 bg-red-700 rounded-md text-white mr-5 hover:bg-red-800">
-          삭제
-        </button>
-      </div>
+
+      {user.body[0].id === post.userId && (
+        <div className="flex flex-row justify-end">
+          <button className="border p-2 bg-teal-600 rounded-md text-white hover:bg-teal-800">
+            수정
+          </button>
+          <button className="border p-2 bg-red-700 rounded-md text-white mr-5 hover:bg-red-800">
+            삭제
+          </button>
+        </div>
+      )}
 
       {/* 댓글 뷰 */}
       <div className="flex flex-col p-6 bg-white rounded-lg border">
