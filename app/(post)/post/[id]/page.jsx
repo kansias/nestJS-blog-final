@@ -1,34 +1,44 @@
 "use client";
 
-import executeQuery from "../../../_lib/db";
+import { useEffect, useState } from "react";
 import { useAuth } from "../../../util/AuthContext";
-import { DetailDTO } from "../../../util/PostResponse";
+import axios from "axios";
 
-export default async function Detail({ params }) {
+export default function Detail({ params }) {
   const { user } = useAuth();
+  const [post, setPost] = useState(null);
   console.log("param = " + JSON.stringify(params));
   const { id } = params;
 
-  const sql = "select * from post_tb where id = ?";
-  const data = await executeQuery(sql, [id]); //id 배열로 전달
-  console.log("data = " + JSON.stringify(data));
-  // json 데이터를 객체로 다시 !
-  const getdata = JSON.parse(JSON.stringify(data));
+  useEffect(() => {
+    const fetchPost = async () => {
+      try {
+        // 애가 request에 담겨야하는데
+        const res = await axios.post(`/api/detail/${id}`, {
+          id,
+        });
 
-  //   TODO: 데이터가 존재하지 않을때... 유효성검사 필요 (서버에서)
+        console.log("resssss " + JSON.stringify(res));
 
-  // DTO로 데이터 가공
-  const post =
-    getdata.length > 0
-      ? new DetailDTO(
-          getdata[0].id,
-          getdata[0].title,
-          getdata[0].content,
-          getdata[0].created_at,
-          getdata[0].user_id
-        )
-      : null;
-  console.log("Post Detail = " + JSON.stringify(post));
+        if (res.status === 200) {
+          // alert("성공!!");
+          setPost(res.data.body);
+          console.log("sss " + JSON.stringify(res.data));
+          console.log("sss " + JSON.stringify(res.data.body[0].id));
+        }
+      } catch (error) {
+        if (error.response) {
+          // console.log("에러에러");
+          alert(error.response.data.msg);
+        }
+      }
+    };
+    fetchPost();
+  }, [id]);
+
+  if (!post) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="flex flex-col mx-4 h-screen justify-start gap-y-4">
@@ -41,7 +51,7 @@ export default async function Detail({ params }) {
         <h4 className="mb-40">{post.content}</h4>
       </div>
 
-      {user.body[0].id === post.userId && (
+      {user && user.body[0].id === post.userId && (
         <div className="flex flex-row justify-end">
           <button className="border p-2 bg-teal-600 rounded-md text-white hover:bg-teal-800">
             수정

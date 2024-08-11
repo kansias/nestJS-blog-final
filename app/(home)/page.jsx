@@ -13,7 +13,13 @@ export default async function Index() {
   // DTO로 데이터 가공
   const indexList = getdata.map(
     (item) =>
-      new IndexDTO(item.id, item.title, item.content, item.thumbnail_file)
+      new IndexDTO(
+        item.id,
+        item.title,
+        item.content,
+        item.thumbnail_file,
+        item.user_id
+      )
   );
   console.log("main Index = " + JSON.stringify(indexList));
 
@@ -37,8 +43,9 @@ export default async function Index() {
                 </div>
                 <div className="ml-7">
                   <div className="text-2xl text-teal-500 w-auto mt-3 mb-8">
-                    {post.title}
+                    {post.title} ({post.user_id})
                   </div>
+
                   <div className={`${styles.textClamp} w-auto`}>
                     {post.content}
                     {/* dkldkkd */}
