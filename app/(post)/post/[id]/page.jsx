@@ -36,10 +36,10 @@ export default async function Detail({ params }) {
         <h4 className="mb-40">{post.content}</h4>
       </div>
       <div className="flex flex-row justify-end">
-        <button className="border p-2 bg-teal-700 rounded-md text-white">
+        <button className="border p-2 bg-teal-600 rounded-md text-white hover:bg-teal-800">
           수정
         </button>
-        <button className="border p-2 bg-red-700 rounded-md text-white mr-5">
+        <button className="border p-2 bg-red-700 rounded-md text-white mr-5 hover:bg-red-800">
           삭제
         </button>
       </div>
