@@ -28,7 +28,7 @@ export default function MyEditor() {
   return (
     <form>
       <select className="w-full p-2 mt-3 border rounded-md">
-        <option value="">선택하세요</option>
+        <option value="">카테고리를 선택하세요</option>
         <option value="option1">옵션 1</option>
         <option value="option2">옵션 2</option>
         <option value="option3">옵션 3</option>
