@@ -24,8 +24,8 @@ export default function LoginForm() {
       if (res.status === 200) {
         alert("로그인 성공!!");
         // 애를 호출해야지 true 가 되지!!
-        console.log("sss " + JSON.stringify(res.data));
-        console.log("sss " + JSON.stringify(res.data.body[0].id));
+        console.log("sss11 " + JSON.stringify(res.data));
+        console.log("sss22 " + JSON.stringify(res.data.body[0].id));
         login(res.data);
         router.push("/");
       }

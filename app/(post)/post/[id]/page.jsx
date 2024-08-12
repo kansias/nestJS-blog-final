@@ -3,13 +3,16 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../../../util/AuthContext";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 
 export default function Detail({ params }) {
+  const router = useRouter();
   const { user } = useAuth();
   const [post, setPost] = useState(null);
   console.log("param = " + JSON.stringify(params));
   const { id } = params;
 
+  // 게시글 상세 조회
   useEffect(() => {
     const fetchPost = async () => {
       try {
@@ -27,6 +30,7 @@ export default function Detail({ params }) {
           console.log("sss " + JSON.stringify(res.data.body[0].id));
         }
       } catch (error) {
+        console.log("에러 발생:", error);
         if (error.response) {
           // console.log("에러에러");
           alert(error.response.data.msg);
@@ -39,6 +43,38 @@ export default function Detail({ params }) {
   if (!post) {
     return <div>Loading...</div>;
   }
+  // 게시글 상세 조회 끝
+
+  // 게시글 삭제
+
+  const deletePost = async () => {
+    if (!confirm("정말 삭제하시겠습니까?")) {
+      return;
+    }
+
+    try {
+      // 애가 request에 담겨야하는데
+      const res = await axios.delete(`/api/post/delete/${id}`);
+
+      // console.log("resssss " + JSON.stringify(res));
+
+      if (res.status === 200) {
+        console.log("작동???????");
+        // console.log("sss " + JSON.stringify(res.data));
+        alert("삭제되었습니다");
+        router.push("/");
+        setTimeout(() => {
+          window.location.reload(); // 새로고침
+        }, 100); // 100ms 후 새로고침
+      }
+    } catch (error) {
+      if (error.response) {
+        // console.log("에러에러");
+        alert(error.response.data.msg);
+      }
+    }
+  };
+  // 게시글 삭제 끝
 
   return (
     <div className="flex flex-col mx-4 h-screen justify-start gap-y-4">
@@ -56,7 +92,10 @@ export default function Detail({ params }) {
           <button className="border p-2 bg-teal-600 rounded-md text-white hover:bg-teal-800">
             수정
           </button>
-          <button className="border p-2 bg-red-700 rounded-md text-white mr-5 hover:bg-red-800">
+          <button
+            className="border p-2 bg-red-700 rounded-md text-white mr-5 hover:bg-red-800"
+            onClick={deletePost}
+          >
             삭제
           </button>
         </div>
