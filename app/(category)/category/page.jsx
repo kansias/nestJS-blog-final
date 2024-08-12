@@ -14,13 +14,14 @@ export default function CategoryForm() {
   console.log("userId = " + userId);
   const router = useRouter();
 
+  // user가 null일 경우 로그인 페이지로 리다이렉트
   useEffect(() => {
-    // user가 null일 경우 로그인 페이지로 리다이렉트
     if (!user) {
       alert("로그인이 필요합니다.");
-      router.push("/uesr/loginForm");
+      router.push("/user/loginForm");
     }
   }, [user, router]); // user가 변경될 때마다 체크
+  // user가 null일 경우 로그인 페이지로 리다이렉트
 
   // 전송할거
   const submitCategory = async (e) => {
@@ -34,11 +35,11 @@ export default function CategoryForm() {
       });
 
       if (res.status === 200) {
-        alert("성공!!");
-        console.log("sss11 " + JSON.stringify(res.data));
-        console.log("sss22 " + JSON.stringify(res.data.body[0].id));
-        // login(res.data);
-        // router.push("/");
+        console.log("되나요000");
+        alert("카테고리 등록 성공!!");
+        console.log("되나요111");
+        setCategoryName("");
+        console.log("되나요222");
       }
     } catch (error) {
       if (error.response) {

@@ -10,16 +10,15 @@ export async function POST(request) {
     const { userId, categoryName } = dataJson; // username과 password 추출
 
     const sql =
-      "insert into category_tb (user_id, category_name) values (?, ?)";
+      "insert into category_tb (user_id, category_name, created_at) values (?, ?, now())";
     const data = await executeQuery(sql, [userId, categoryName]);
 
     console.log("dataJson = " + JSON.stringify(dataJson));
 
-    // 세션에 있는 유저 정보가 없으면 돌아가! 하면 됨
-    if (userId.length > 0) {
+    if (data.affectedRows > 0) {
       return success(data);
     } else {
-      return fail(null, 403, "로그인 하세요~~~");
+      return fail(null, 403, "중복된 카테고리 등록 불가!");
     }
   } catch {
     // console.log("error ");
