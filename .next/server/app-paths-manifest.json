@@ -1,7 +1,5 @@
 {
+  "/(post)/post/writeForm/page": "app/(post)/post/writeForm/page.js",
   "/(home)/page": "app/(home)/page.js",
-  "/(user)/user/loginForm/page": "app/(user)/user/loginForm/page.js",
-  "/api/login/route": "app/api/login/route.js",
-  "/(category)/category/page": "app/(category)/category/page.js",
-  "/api/category/route": "app/api/category/route.js"
+  "/(user)/user/loginForm/page": "app/(user)/user/loginForm/page.js"
 }

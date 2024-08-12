@@ -70,7 +70,7 @@ export default function CategoryForm() {
 
           <button
             type="submit"
-            className="w-full bg-gray-400 text-white p-2 rounded mt-4"
+            className="w-full bg-gray-400 text-white p-2 rounded mt-4 hover:bg-teal-600"
           >
             카테고리 등록
           </button>
