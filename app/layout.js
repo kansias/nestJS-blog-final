@@ -2,6 +2,7 @@ import Footer from "../components/footer";
 import Navigation from "../components/navigation";
 import "../styles/global.css";
 import { AuthProvider } from "./util/AuthContext";
+import "react-quill/dist/quill.snow.css";
 
 export const metadata = {
   title: "Home",

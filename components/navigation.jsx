@@ -30,6 +30,9 @@ export default function Navigation() {
                 <span className={styles.linkCheck}></span>
               </Link>
             </li>
+            <li className={path === "/post/writeForm" ? styles.active : ""}>
+              <Link href="/post/writeForm">글쓰기</Link>
+            </li>
             <li className={path === "/user/updateForm" ? styles.active : ""}>
               <Link href="/user/updateForm">계정관리</Link>
             </li>
