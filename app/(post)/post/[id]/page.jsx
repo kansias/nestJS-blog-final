@@ -65,7 +65,7 @@ export default function Detail({ params }) {
         router.push("/");
         setTimeout(() => {
           window.location.reload(); // 새로고침
-        }, 100); // 100ms 후 새로고침
+        }, 50); // 100ms 후 새로고침
       }
     } catch (error) {
       if (error.response) {

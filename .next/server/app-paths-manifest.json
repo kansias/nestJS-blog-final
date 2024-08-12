@@ -1,8 +1,8 @@
 {
-  "/(post)/post/[id]/page": "app/(post)/post/[id]/page.js",
-  "/api/post/delete/[id]/route": "app/api/post/delete/[id]/route.js",
-  "/api/detail/[id]/route": "app/api/detail/[id]/route.js",
   "/(user)/user/loginForm/page": "app/(user)/user/loginForm/page.js",
   "/api/login/route": "app/api/login/route.js",
-  "/(home)/page": "app/(home)/page.js"
+  "/(home)/page": "app/(home)/page.js",
+  "/(post)/post/[id]/page": "app/(post)/post/[id]/page.js",
+  "/api/detail/[id]/route": "app/api/detail/[id]/route.js",
+  "/api/post/delete/[id]/route": "app/api/post/delete/[id]/route.js"
 }
