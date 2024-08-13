@@ -89,6 +89,7 @@ export default function MyEditor() {
       return;
     }
     console.log("file = " + formData.file);
+    console.log("file = " + JSON.stringify(formData.file));
 
     console.log("formData = " + JSON.stringify(formData));
     // category_id, title, content, thumbnail_file, user_id, created_at,
@@ -165,6 +166,7 @@ export default function MyEditor() {
           id="file"
           type="file"
           onChange={(e) =>
+            console.log("e.target.files[0] = " + e.target.files[0]) ||
             setFormData({ ...formData, file: e.target.files[0] })
           }
           className="w-full p-2 mt-3 border rounded-md"

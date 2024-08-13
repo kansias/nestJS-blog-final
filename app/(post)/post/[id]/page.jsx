@@ -89,7 +89,10 @@ export default function Detail({ params }) {
 
       {user && user.body[0].id === post.userId && (
         <div className="flex flex-row justify-end">
-          <button className="border p-2 bg-teal-600 rounded-md text-white hover:bg-teal-800">
+          <button
+            className="border p-2 bg-teal-600 rounded-md text-white hover:bg-teal-800"
+            onClick={() => router.push("/post/updateForm")}
+          >
             수정
           </button>
           <button
