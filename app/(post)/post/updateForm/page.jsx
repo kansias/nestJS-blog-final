@@ -1,7 +1,9 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
+import { useAuth } from "../../../util/AuthContext";
+import axios from "axios";
 
 // SSR 시 react-quill을 제외하기 위해 동적 import
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
@@ -22,17 +24,65 @@ const modules = {
   ],
 };
 
-export default function UpdateForm() {
+export default function UpdateForm({ isCategorySelected }) {
   const [value, setValue] = useState("");
+  const [categories, setCategories] = useState([]); // 카테고리 리스트 상태
+  const [selectedCategory, setSelectedCategory] = useState(isCategorySelected); // 선택한 카테고리 상태
+  const { user } = useAuth();
+  const userId = user && user.body[0].id;
+
+  // 카테고리 선택
+  useEffect(() => {
+    const categoryList = async () => {
+      // e.preventDefault();
+      console.log("userId = " + userId);
+      console.log("isCategorySelected = " + isCategorySelected);
+
+      try {
+        const res = await axios.get("/api/category/list", {
+          params: { userId }, // 쿼리 파라미터로 userId 전달
+        });
+
+        if (res.status === 200) {
+          setCategories(res.data.body); // API 응답의 데이터를 상태로 저장 (배열 다 저장)
+          // console.log("res222222 = " + JSON.stringify(res.data.body));
+          // alert("성공!!");
+          if (isCategorySelected) {
+            setSelectedCategory(isCategorySelected);
+          }
+        }
+      } catch (error) {
+        if (error.response) {
+          alert(error.response.data.msg);
+        }
+      }
+    };
+
+    if (userId) {
+      categoryList();
+    }
+  }, [userId, isCategorySelected]);
+
+  const handleCategoryChange = (e) => {
+    setSelectedCategory(e.target.value); // 사용자가 선택한 카테고리 저장
+  };
+  // 카테고리 선택 끝
 
   return (
     <form>
-      <select className="w-full p-2 mt-3 border rounded-md">
-        <option value="">선택하세요</option>
-        <option value="option1">옵션 1</option>
-        <option value="option2">옵션 2</option>
-        <option value="option3">옵션 3</option>
+      <select
+        className="w-full p-2 mt-3 border rounded-md"
+        value={selectedCategory}
+        onChange={handleCategoryChange}
+      >
+        <option value="">카테고리를 선택하세요</option>
+        {categories.map((category) => (
+          <option key={category.id} value={category.id}>
+            {category.category_name}
+          </option>
+        ))}
       </select>
+
       <input
         id="title"
         type="text"
@@ -54,10 +104,6 @@ export default function UpdateForm() {
         <input
           id="file"
           type="file"
-          onChange={(e) =>
-            console.log("e.target.files[0] = " + e.target.files[0]) ||
-            setFormData({ ...formData, file: e.target.files[0] })
-          }
           className="w-full p-2 mt-3 border rounded-md"
         ></input>
       </div>
