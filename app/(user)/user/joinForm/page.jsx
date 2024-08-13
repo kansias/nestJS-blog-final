@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { debounce } from "lodash";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 
 export default function JoinForm() {
   const [username, setUsername] = useState("");
@@ -12,6 +13,7 @@ export default function JoinForm() {
   const [checkPassword, setCheckPassword] = useState(true);
   const [email, setEmail] = useState("");
   const [checkEmail, setCheckEmail] = useState(null);
+  const router = useRouter(); //라우터
 
   // 이메일 인증 말고 실시간 체크로 변경
   const emailCheck = useCallback(
@@ -126,6 +128,30 @@ export default function JoinForm() {
 
   // 비밀번호 / 비밀번호 일치 여부 확인 로직 끝!!
 
+  // 회원가입 제출 시작
+  const join = async (e) => {
+    e.preventDefault();
+
+    try {
+      // 애가 request에 담겨야하는데
+      const res = await axios.post("/api/join", {
+        username,
+        password,
+        email,
+      });
+
+      if (res.status === 200) {
+        alert("회원가입 성공!!");
+        router.push("/");
+      }
+    } catch (error) {
+      if (error.response) {
+        alert(error.response.data.msg);
+      }
+    }
+  };
+  // 회원가입 제출 끝
+
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100">
       <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
@@ -134,7 +160,7 @@ export default function JoinForm() {
           마음을 담아 만드는 JStory
         </p>
 
-        <form>
+        <form onSubmit={join}>
           <div className="mb-4">
             <label htmlFor="username" className="block text-gray-700">
               유저네임
