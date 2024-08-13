@@ -81,41 +81,47 @@ export default function MyEditor() {
   };
   // 카테고리 선택 끝
 
+  /* file 타입에 대한 onChange 이벤트 별도 처리 
+     (향후 파일의 사이즈 검사 등의 로직 추가를 위해 확장성을 고려하여 별도 이벤트 생성) */
+  const handleFileChange = (e) => {
+    const selectedFile = e.target.files[0];
+    setFile(selectedFile);
+    setFormData((prevData) => ({
+      ...prevData,
+      file: selectedFile,
+    }));
+  };
+
   // 글쓰기 제출
   const write = async (e) => {
     e.preventDefault();
-    if (formData.file === null) {
-      alert("파일을 선택하세요");
-      return;
-    }
-    console.log("file = " + formData.file);
-    console.log("file = " + JSON.stringify(formData.file));
 
-    console.log("formData = " + JSON.stringify(formData));
-    // category_id, title, content, thumbnail_file, user_id, created_at,
-    // const formData = new FormData(); // 땡
-    // formData.append("selectedCategory", selectedCategory);
-    // formData.append("title", title);
-    // formData.append("content", content);
-    // formData.append("userId", userId);
-    // formData.append("file", file);
-    // 이름 or 객체
-    // console.log("file = " + file);
-    // console.log("file name: " + file.name);
-    // console.log("file size: " + file.size);
-    // console.log("file type: " + file.type);
+    const formResult = new FormData();
+
+    // formData 객체에 state 값 추가하는 방식으로 진행
+    formResult.append("selectedCategory", formData.selectedCategory);
+    formResult.append("title", formData.title);
+    formResult.append("content", formData.content);
+    formResult.append("userId", formData.userId);
+
+    if (formData.file) {
+      formResult.append("file", formData.file);
+    } else {
+      formResult.append("file", null);
+    }
 
     try {
       // FormData 객체는 그 자체로 전송
-      const res = await axios.post("/api/post/write", formData, {
+      const res = await axios.post("/api/post/write", formResult, {
         headers: {
           "Content-Type": "multipart/form-data",
+          charset: "utf-8",
         },
       });
 
       if (res.status === 200) {
-        alert("회원가입 성공!!");
-        router.push("/");
+        alert("글 등록 성공!!");
+        // router.push("/");
       }
     } catch (error) {
       console.log("error = " + error);
@@ -165,10 +171,7 @@ export default function MyEditor() {
         <input
           id="file"
           type="file"
-          onChange={(e) =>
-            console.log("e.target.files[0] = " + e.target.files[0]) ||
-            setFormData({ ...formData, file: e.target.files[0] })
-          }
+          onChange={handleFileChange}
           className="w-full p-2 mt-3 border rounded-md"
         ></input>
       </div>

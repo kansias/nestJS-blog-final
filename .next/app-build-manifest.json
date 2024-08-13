@@ -27,10 +27,10 @@
       "static/chunks/main-app.js",
       "static/chunks/app/(post)/post/[id]/page.js"
     ],
-    "/(post)/post/updateForm/page": [
+    "/(post)/post/updateForm/[id]/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/(post)/post/updateForm/page.js"
+      "static/chunks/app/(post)/post/updateForm/[id]/page.js"
     ]
   }
 }

@@ -1,7 +1,7 @@
 import { success, fail } from "../../../util/ApiUtil";
 import executeQuery from "../../../_lib/db";
-// multipart/form-data 형식으로 전송된 데이터를 처리하기 위해 formidable 모듈 사용
-// import { IncomingForm } from "formidable";
+import path from "path";
+import fs from "fs";
 
 export const config = {
   api: {
@@ -9,49 +9,49 @@ export const config = {
   },
 };
 
-export async function POST(request) {
-  console.log("request = " + request);
-  try {
-    const data = request.formData();
-    const dataObject = Array.from(data).reduce((acc, [key, value]) => {
-      acc[key] = value;
-      return acc;
-    }, {});
+const uploadDir = "../../../_lib/"; // 파일 업로드 디렉토리 로컬 또는 서버에 저장할 경로 등
 
-    console.log("dataObject(server) = " + dataObject);
+export async function POST(request) {
+  try {
+    const data = await request.formData();
+    // key - value로 나눠줌
+    const dataObject = Array.from(data.entries()).reduce(
+      (acc, [key, value]) => ({
+        ...acc,
+        [key]: value,
+      }),
+      {}
+    );
+    const { selectedCategory, title, content, userId, file } = dataObject;
+
+    let filePath = null;
+    if (file) {
+      const buffer = await file.arrayBuffer(); // 파일을 버퍼로 변환 ( 파일을 읽어오기 위해 사용하며 일반적으로 파일을 읽어오는 방법 )
+      const filename = `${Date.now()}-${file.name}`; // 파일명 중복 방지를 위해 현재 날짜와 시간을 파일명에 붙였음
+      filePath = path.join(uploadDir, filename); // 파일 경로
+
+      if (!fs.existsSync(uploadDir)) {
+        fs.mkdirSync(uploadDir, { recursive: true });
+      }
+      fs.writeFileSync(filePath, Buffer.from(new Uint8Array(buffer))); // 파일 저장
+      console.log("filePath = " + filePath);
+    }
+
+    console.log("dataObject(server) = " + JSON.stringify(dataObject));
+
+    const sql =
+      "insert into post_tb (category_id, title, content, user_id, thumbnail_file, created_at) values (?, ?, ?, ?, ?, now())";
+    const writeDB = await executeQuery(sql, [
+      selectedCategory,
+      title,
+      content,
+      userId,
+      filePath, // 파일 경로를 DB에 저장 (파일 자체를 저장 XXX)
+    ]);
+
+    return success(dataObject);
   } catch (error) {
     console.error("Error parsing form data:", error);
     return fail(null, 500, "서버 오류");
   }
-
-  // const form = new IncomingForm();
-
-  // form.parse(request, async (err, fields, files) => {
-  //   if (err) {
-  //     console.error("Error parsing form data:", err);
-  //     return fail(null, 500, "서버 오류");
-  //   }
-  //   const { selectedCategory, title, content, userId } = fields;
-  //   const { thumbnailFile } = files;
-
-  //   // 파일 정보를 DB에 저장할 때 사용하거나, 필요에 따라 파일을 서버에 저장
-  //   const thumbnailFilePath = thumbnailFile?.filepath; // 파일 경로 또는 저장 경로
-
-  //   try {
-  //     const sql =
-  //       "insert into post_tb (category_id, title, content, user_id, thumbnail_file, created_at) values (?, ?, ?, ?, ?, now())";
-  //     const data = await executeQuery(sql, [
-  //       selectedCategory,
-  //       title,
-  //       content,
-  //       userId,
-  //       thumbnailFilePath, // 파일 경로를 DB에 저장 (파일 자체를 저장 XXX)
-  //     ]);
-
-  //     return success(data);
-  //   } catch (error) {
-  //     console.error("Database error:", error);
-  //     return fail(null, 500, "서버 오류");
-  //   }
-  // });
 }

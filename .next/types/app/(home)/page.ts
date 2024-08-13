@@ -1,4 +1,4 @@
-// File: C:\Users\aico-2\Desktop\workspace\nestJS-blog-final\app\(home)\page.jsx
+// File: C:\workspace\nextJS-blog-test 222\app\(home)\page.jsx
 import * as entry from '../../../../app/(home)/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

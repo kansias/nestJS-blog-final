@@ -5,6 +5,7 @@ import { useAuth } from "../../../util/AuthContext";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 
+// /post/123과 같은 URL로 접근하면, params 객체는 { id: "123" }와 같은 형태로 컴포넌트에 전달
 export default function Detail({ params }) {
   const router = useRouter();
   const { user } = useAuth();
@@ -59,7 +60,7 @@ export default function Detail({ params }) {
       // console.log("resssss " + JSON.stringify(res));
 
       if (res.status === 200) {
-        console.log("작동???????");
+        // console.log("작동???????");
         // console.log("sss " + JSON.stringify(res.data));
         alert("삭제되었습니다");
         router.push("/");
@@ -91,7 +92,7 @@ export default function Detail({ params }) {
         <div className="flex flex-row justify-end">
           <button
             className="border p-2 bg-teal-600 rounded-md text-white hover:bg-teal-800"
-            onClick={() => router.push("/post/updateForm")}
+            onClick={() => router.push(`/post/updateForm/${id}`)}
           >
             수정
           </button>
