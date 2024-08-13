@@ -10,6 +10,47 @@ export default function JoinForm() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [checkPassword, setCheckPassword] = useState(true);
+  const [email, setEmail] = useState("");
+  const [checkEmail, setCheckEmail] = useState(null);
+
+  // 이메일 인증 말고 실시간 체크로 변경
+  const emailCheck = useCallback(
+    // db에 한번 더 들어가지 말고, null 값이면 바로 return
+    // value = 유저네임에 입력되는 값!
+    debounce(async (value) => {
+      // console.log("111111111" + value);
+      if (value === "") {
+        setCheckEmail(null);
+        return;
+      }
+
+      // console.log("왜안타");
+      try {
+        const res = await axios.post("/api/emailCheck", {
+          email: value,
+        });
+
+        if (res.status === 200) {
+          console.log("성공");
+          setCheckEmail(true);
+        }
+      } catch (error) {
+        if (error.response) {
+          setCheckEmail(false);
+        }
+      }
+    }, 500),
+    [email]
+  );
+
+  const handleEmailChange = (e) => {
+    const { value } = e.target;
+    console.log(value);
+    setEmail(value);
+    emailCheck(value);
+  };
+
+  // 이메일 인증 끝
 
   // 유저네임 실시간 체크 시작 (db랑)
   const usernameCheck = useCallback(
@@ -155,12 +196,23 @@ export default function JoinForm() {
               <input
                 type="email"
                 id="email"
+                value={email}
+                onChange={handleEmailChange}
                 className="w-full p-2 border border-gray-300 rounded-l mt-1"
               />
               <button className="bg-green-500 text-white px-4 rounded-r mt-1">
                 인증하기
               </button>
             </div>
+            {checkEmail === true && (
+              <span className="text-green-500 mb-2">
+                사용가능한 이메일입니다
+              </span>
+            )}
+            {checkEmail === false && (
+              <span className="text-red-500 mb-2">중복된 이메일입니다</span>
+            )}
+            {checkEmail === null && <span></span>}
           </div>
 
           <button
