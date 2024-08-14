@@ -23,6 +23,15 @@ export default async function Index() {
   );
   // console.log("main Index = " + JSON.stringify(indexList));
 
+  const removeImagesFromContent = (content) => {
+    // 이미지 태그 제거
+    const cleanedContent = content.replace(/<img[^>]*src="[^"]*"[^>]*>/gi, "");
+    // 남은 HTML 태그 제거 (예: <p>, <br> 등)
+    const textOnly = cleanedContent.replace(/<[^>]+>/g, " ");
+    // 남은 공백 및 줄바꿈 정리
+    return textOnly.replace(/\s+/g, " ").trim();
+  };
+
   return (
     <div className="flex flex-col mx-4 justify-start gap-y-4">
       <h1 className="text-4xl py-4">JSTORY MAIN</h1>
@@ -46,10 +55,13 @@ export default async function Index() {
                     {post.title} ({post.user_id})
                   </div>
 
-                  <div className={`${styles.textClamp} w-auto`}>
-                    {post.content}
-                    {/* dkldkkd */}
-                  </div>
+                  {/*  html 태그 안보이게 */}
+                  <div
+                    className={`${styles.textClamp} w-auto`}
+                    dangerouslySetInnerHTML={{
+                      __html: removeImagesFromContent(post.content),
+                    }}
+                  />
                 </div>
               </div>
             </Link>
