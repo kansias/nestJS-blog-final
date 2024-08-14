@@ -36,6 +36,15 @@ export default function UpdateForm({ params }) {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [file, setFile] = useState("");
+  const [formData, setFormData] = useState(null);
+
+  // const [formData, setFormData] = useState({
+  //   selectedCategory: "",
+  //   title: "",
+  //   content: "",
+  //   userId: userId,
+  //   file: null,
+  // });
 
   // 카테고리 선택
   useEffect(() => {
@@ -63,7 +72,8 @@ export default function UpdateForm({ params }) {
   }, [userId]);
 
   const handleCategoryChange = (e) => {
-    setSelectedCategory(e.target.value); // 사용자가 선택한 카테고리 저장
+    setFormData({ ...formData, selectedCategory: e.target.value });
+    // setSelectedCategory(e.target.value); // 사용자가 선택한 카테고리 저장
   };
   // 카테고리 선택 끝
 
@@ -88,9 +98,18 @@ export default function UpdateForm({ params }) {
           );
 
           const postData = res.data.body[0];
-          setTitle(postData.title);
-          setContent(postData.content);
-          setSelectedCategory(postData.category_id);
+          // setTitle(postData.title);
+          // setContent(postData.content);
+          // setSelectedCategory(postData.category_id);
+
+          // formData 객체에 state 값 추가하는 방식으로 진행
+          setFormData({
+            selectedCategory: postData.category_id,
+            title: postData.title,
+            content: postData.content,
+            userId: userId,
+            file: null,
+          });
         }
       } catch (error) {
         if (error.response) {
@@ -101,16 +120,62 @@ export default function UpdateForm({ params }) {
     postById();
   }, [postId]);
 
+  // formData가 null이면 로딩 중 표시
+  if (formData === null) {
+    return <p>Loading...</p>;
+  }
+
   const handlePostChange = (e) => {
     // setSelectedCategory(e.target.value); // 사용자가 선택한 카테고리 저장
   };
   // 글 선택 끝
 
+  // updateForm 제출
+  const update = async (e) => {
+    e.preventDefault();
+
+    const formResult = new FormData();
+
+    // formData 객체에 state 값 추가하는 방식으로 진행
+    formResult.append("selectedCategory", formData.selectedCategory);
+    formResult.append("title", formData.title);
+    formResult.append("content", formData.content);
+    formResult.append("userId", formData.userId);
+
+    if (formData.file) {
+      formResult.append("file", formData.file);
+    } else {
+      formResult.append("file", null);
+    }
+
+    try {
+      // FormData 객체는 그 자체로 전송
+      const res = await axios.put(`/api/post/update/${postId}`, formResult, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          charset: "utf-8",
+        },
+      });
+
+      if (res.status === 200) {
+        alert("글 수정 성공!!");
+        // router.push("/");
+      }
+    } catch (error) {
+      console.log("error = " + error);
+      if (error.response) {
+        alert(error.response.data.msg);
+      }
+    }
+  };
+
+  // updateForm 끝
+
   return (
-    <form>
+    <form onSubmit={update}>
       <select
         className="w-full p-2 mt-3 border rounded-md"
-        value={selectedCategory}
+        value={formData.selectedCategory}
         onChange={handleCategoryChange}
       >
         <option value="">카테고리를 선택하세요</option>
@@ -126,15 +191,15 @@ export default function UpdateForm({ params }) {
         type="text"
         placeholder="제목을 입력하세요"
         className="w-full p-2 mt-3 border rounded-md"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
+        value={formData.title}
+        onChange={(e) => setFormData({ ...formData, title: e.target.value })}
       ></input>
 
       <div className="mb-10 mt-3" id="content">
         <ReactQuill
           theme="snow"
-          value={content}
-          onChange={setContent}
+          value={formData.content}
+          onChange={(value) => setFormData({ ...formData, content: value })}
           modules={modules}
           style={{ height: "500px" }}
         />
