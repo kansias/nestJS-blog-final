@@ -25,7 +25,7 @@ export default function Navigation() {
         {isLogin ? (
           <>
             <li className={path === "/post" ? styles.active : ""}>
-              <Link href="/post">
+              <Link href="/post/myList">
                 내블로그
                 <span className={styles.linkCheck}></span>
               </Link>

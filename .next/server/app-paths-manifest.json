@@ -1,7 +1,5 @@
 {
-  "/(home)/page": "app/(home)/page.js",
-  "/(post)/post/[id]/page": "app/(post)/post/[id]/page.js",
   "/(user)/user/loginForm/page": "app/(user)/user/loginForm/page.js",
-  "/(post)/post/updateForm/[id]/page": "app/(post)/post/updateForm/[id]/page.js",
-  "/api/detail/[id]/route": "app/api/detail/[id]/route.js"
+  "/(home)/page": "app/(home)/page.js",
+  "/(post)/post/myList/page": "app/(post)/post/myList/page.js"
 }
