@@ -17,6 +17,11 @@
       "static/chunks/main-app.js",
       "static/chunks/app/(user)/user/loginForm/page.js"
     ],
+    "/(post)/post/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(post)/post/page.js"
+    ],
     "/(post)/post/[id]/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",

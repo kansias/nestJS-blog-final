@@ -32,7 +32,7 @@ export default function UpdateForm({ params }) {
   const userId = user && user.body[0].id;
   // console.log("param 111= " + JSON.stringify(params));
   const postId = params.id; // == const { postId } = params;
-  // console.log("postId id id " + postId);
+  console.log("postId id id " + postId);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [file, setFile] = useState("");
