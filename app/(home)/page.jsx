@@ -21,7 +21,7 @@ export default async function Index() {
         item.user_id
       )
   );
-  console.log("main Index = " + JSON.stringify(indexList));
+  // console.log("main Index = " + JSON.stringify(indexList));
 
   return (
     <div className="flex flex-col mx-4 justify-start gap-y-4">

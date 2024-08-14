@@ -10,7 +10,7 @@ export default function Detail({ params }) {
   const router = useRouter();
   const { user } = useAuth();
   const [post, setPost] = useState(null);
-  console.log("param = " + JSON.stringify(params));
+  // console.log("param = " + JSON.stringify(params));
   const { id } = params;
 
   // 게시글 상세 조회
@@ -22,13 +22,13 @@ export default function Detail({ params }) {
           id,
         });
 
-        console.log("resssss " + JSON.stringify(res));
+        // console.log("resssss " + JSON.stringify(res));
 
         if (res.status === 200) {
           // alert("성공!!");
           setPost(res.data.body);
-          console.log("sss " + JSON.stringify(res.data));
-          console.log("sss " + JSON.stringify(res.data.body[0].id));
+          // console.log("sss " + JSON.stringify(res.data));
+          // console.log("sss " + JSON.stringify(res.data.body[0].id));
         }
       } catch (error) {
         console.log("에러 발생:", error);

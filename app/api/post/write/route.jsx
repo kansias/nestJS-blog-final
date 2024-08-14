@@ -9,12 +9,13 @@ export const config = {
   },
 };
 
-const uploadDir = "../../../_lib/"; // 파일 업로드 디렉토리 로컬 또는 서버에 저장할 경로 등
+// const uploadDir = "../../../_lib/"; // 파일 업로드 디렉토리 로컬 또는 서버에 저장할 경로 등
+const uploadDir = "../../../../public/img"; // 파일 업로드 디렉토리 로컬 또는 서버에 저장할 경로 등
 
 export async function POST(request) {
   try {
     const data = await request.formData();
-    // key - value로 나눠줌
+    // key - value로 나눠줌 (분해)
     const dataObject = Array.from(data.entries()).reduce(
       (acc, [key, value]) => ({
         ...acc,

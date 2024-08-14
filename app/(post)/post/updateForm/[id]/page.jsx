@@ -25,14 +25,17 @@ const modules = {
 };
 
 export default function UpdateForm({ params }) {
-  const [value, setValue] = useState("");
+  // const [value, setValue] = useState("");
   const [categories, setCategories] = useState([]); // 카테고리 리스트 상태
-  const [selectedCategory, setSelectedCategory] = useState(); // 선택한 카테고리 상태
+  const [selectedCategory, setSelectedCategory] = useState(""); // 선택한 카테고리 상태
   const { user } = useAuth();
   const userId = user && user.body[0].id;
   // console.log("param 111= " + JSON.stringify(params));
   const postId = params.id; // == const { postId } = params;
-  console.log("postId " + postId);
+  // console.log("postId id id " + postId);
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
+  const [file, setFile] = useState("");
 
   // 카테고리 선택
   useEffect(() => {
@@ -65,28 +68,42 @@ export default function UpdateForm({ params }) {
   // 카테고리 선택 끝
 
   // 글 선택
-  // useEffect(() => {
-  //   const postById = async () => {
-  //     // e.preventDefault();
+  useEffect(() => {
+    const postById = async () => {
+      // e.preventDefault();
 
-  //     try {
-  //       const res = await axios.get("/api/updateForm", {
-  //         params: { postId },
-  //       });
+      console.log("p11111111111");
 
-  //       if (res.status === 200) {
-  //       }
-  //     } catch (error) {
-  //       if (error.response) {
-  //         alert(error.response.data.msg);
-  //       }
-  //     }
-  //   };
-  // }, [userId]);
+      try {
+        const res = await axios.get(`/api/post/updateForm/${postId}`, {
+          // postId,
+          params: { postId },
+        });
 
-  // const handlePostChange = (e) => {
-  //   // setSelectedCategory(e.target.value); // 사용자가 선택한 카테고리 저장
-  // };
+        console.log("p222222222222");
+
+        if (res.status === 200) {
+          console.log(
+            "res.data.body 확인용!! = " + JSON.stringify(res.data.body)
+          );
+
+          const postData = res.data.body[0];
+          setTitle(postData.title);
+          setContent(postData.content);
+          setSelectedCategory(postData.category_id);
+        }
+      } catch (error) {
+        if (error.response) {
+          alert(error.response.data.msg);
+        }
+      }
+    };
+    postById();
+  }, [postId]);
+
+  const handlePostChange = (e) => {
+    // setSelectedCategory(e.target.value); // 사용자가 선택한 카테고리 저장
+  };
   // 글 선택 끝
 
   return (
@@ -109,13 +126,15 @@ export default function UpdateForm({ params }) {
         type="text"
         placeholder="제목을 입력하세요"
         className="w-full p-2 mt-3 border rounded-md"
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
       ></input>
 
       <div className="mb-10 mt-3" id="content">
         <ReactQuill
           theme="snow"
-          value={value}
-          onChange={setValue}
+          value={content}
+          onChange={setContent}
           modules={modules}
           style={{ height: "500px" }}
         />

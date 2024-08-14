@@ -23,8 +23,8 @@ export function AuthProvider({ children }) {
     route.push("/");
   };
 
-  console.log("로그인 상태 " + isLogin);
-  console.log("로그인 유저 정보 " + JSON.stringify(user));
+  // console.log("로그인 상태 " + isLogin);
+  // console.log("로그인 유저 정보 " + JSON.stringify(user));
 
   return (
     <AuthContext.Provider value={{ isLogin, login, logout, user }}>
