@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import { useAuth } from "../../../../util/AuthContext";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 
 // SSR 시 react-quill을 제외하기 위해 동적 import
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
@@ -37,6 +38,8 @@ export default function UpdateForm({ params }) {
   const [content, setContent] = useState("");
   const [file, setFile] = useState("");
   const [formData, setFormData] = useState(null);
+
+  let router = useRouter();
 
   // const [formData, setFormData] = useState({
   //   selectedCategory: "",
@@ -159,7 +162,7 @@ export default function UpdateForm({ params }) {
 
       if (res.status === 200) {
         alert("글 수정 성공!!");
-        // router.push("/");
+        router.push(`/post/${postId}`);
       }
     } catch (error) {
       console.log("error = " + error);

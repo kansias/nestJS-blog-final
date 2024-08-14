@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useAuth } from "../../../util/AuthContext";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import DOMPurify from "dompurify";
 
 // /post/123과 같은 URL로 접근하면, params 객체는 { id: "123" }와 같은 형태로 컴포넌트에 전달
 export default function Detail({ params }) {
@@ -77,6 +78,8 @@ export default function Detail({ params }) {
   };
   // 게시글 삭제 끝
 
+  const cleanContent = DOMPurify.sanitize(post.content);
+
   return (
     <div className="flex flex-col mx-4 h-screen justify-start gap-y-4">
       <div className="flex flex-row justify-between">
@@ -84,9 +87,10 @@ export default function Detail({ params }) {
         <p className="mt-auto mr-5">{post.createdAt}</p>
       </div>
       <hr></hr>
-      <div>
-        <h4 className="mb-40">{post.content}</h4>
-      </div>
+      <div
+        className="mb-40"
+        dangerouslySetInnerHTML={{ __html: cleanContent }}
+      />
 
       {user && user.body[0].id === post.userId && (
         <div className="flex flex-row justify-end">

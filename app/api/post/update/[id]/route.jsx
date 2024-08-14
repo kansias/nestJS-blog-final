@@ -20,9 +20,6 @@ export async function PUT(request) {
     const url = new URL(request.url);
     const postId = url.pathname.split("/").pop(); // URL 경로에서 마지막 부분을 가져옴
     console.log("postId 있지요? = " + postId);
-    // const { searchParams } = new URL(request.url);
-    // const postId = searchParams.get("postId");
-    // console.log("postId 있지요? = " + postId);
 
     console.log("222222222222");
 
