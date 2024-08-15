@@ -83,10 +83,12 @@ export default function Detail({ params }) {
   const cleanContent = DOMPurify.sanitize(post.content);
 
   // 댓글 save
-  const replySave = async () => {
+  const replySave = async (e) => {
+    e.preventDefault();
+
     try {
       // body로 전송
-      console.log("id " + id + " userId " + userId);
+      // console.log("id " + id + " userId " + userId);
       const res = await axios.post(`/api/reply`, {
         id,
         userId,
