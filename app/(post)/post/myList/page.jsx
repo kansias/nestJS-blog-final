@@ -1,8 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useAuth } from "../../../util/AuthContext";
 import axios from "axios";
+import Link from "next/link";
 
 export default function myList() {
   const { user } = useAuth();
@@ -13,6 +14,9 @@ export default function myList() {
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false); // 데이터 로딩 상태
   const [hasNextPage, setHasNextPage] = useState(true); // 다음 페이지 여부 (마지막 페이지 알림)
+
+  // 스크롤 위치를 저장하기 위한 ref
+  const scrollRef = useRef(0);
 
   useEffect(() => {
     const myBlogPost = async (page) => {
@@ -70,6 +74,8 @@ export default function myList() {
     window.addEventListener("scroll", handleScroll);
 
     return () => {
+      // 컴포넌트 언마운트 전 스크롤 위치 저장
+      scrollRef.current = window.scrollY;
       window.removeEventListener("scroll", handleScroll);
     };
   }, [loading, hasNextPage]);
@@ -79,6 +85,13 @@ export default function myList() {
       alert("마지막 페이지입니다!");
     }
   }, [hasNextPage, loading]);
+
+  useEffect(() => {
+    // 컴포넌트가 마운트되면 저장된 스크롤 위치로 복원
+    if (scrollRef.current) {
+      window.scrollTo(0, scrollPositionRef.current);
+    }
+  }, []);
 
   return (
     <div className="max-w-4xl mx-auto py-10">
@@ -98,14 +111,13 @@ export default function myList() {
             />
           </div>
 
-          <div className="p-6">
-            <h2 className="text-2xl font-bold mb-2">{post.title}</h2>
-            <p className="text-gray-600 mb-4">{post.date} (10:08)</p>
-            <p className="text-gray-800 mb-4">{post.content}</p>
-            <button className="bg-green-500 text-white py-2 px-4 rounded">
-              Read More
-            </button>
-          </div>
+          <Link href={`/post/${post.id}`}>
+            <div className="p-6">
+              <h2 className="text-2xl font-bold mb-2">{post.title}</h2>
+              <p className="text-gray-600 mb-4">{post.date} (10:08)</p>
+              <p className="text-gray-800 mb-4">{post.content}</p>
+            </div>
+          </Link>
         </div>
       ))}
       {loading && <p>Loading...</p>} {/* 로딩 중일 때 표시 */}
