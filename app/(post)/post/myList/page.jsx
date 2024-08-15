@@ -26,6 +26,7 @@ export default function myList() {
 
         if (res.status === 200) {
           console.log("성공!!!");
+          console.log("res.data.body = " + JSON.stringify(res.data.body));
           // setBlogPosts(res.data.body); // 블로그 포스트 데이터를 상태에 저장
           setBlogPosts((prevPosts) => [...prevPosts, ...res.data.body.posts]);
           setHasNextPage(res.data.body.hasNextPage); // 다음 페이지 여부 업데이트
