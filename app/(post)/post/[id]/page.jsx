@@ -10,9 +10,11 @@ import DOMPurify from "dompurify";
 export default function Detail({ params }) {
   const router = useRouter();
   const { user } = useAuth();
+  const userId = user && user.body[0].id;
   const [post, setPost] = useState(null);
   // console.log("param = " + JSON.stringify(params));
   const { id } = params;
+  const [comment, setComment] = useState("");
 
   // 게시글 상세 조회
   useEffect(() => {
@@ -80,6 +82,36 @@ export default function Detail({ params }) {
 
   const cleanContent = DOMPurify.sanitize(post.content);
 
+  // 댓글 save
+  const replySave = async () => {
+    try {
+      // body로 전송
+      console.log("id " + id + " userId " + userId);
+      const res = await axios.post(`/api/reply`, {
+        id,
+        userId,
+        comment, // 입력된 댓글 전달
+      });
+
+      console.log("resssss " + JSON.stringify(res));
+
+      if (res.status === 200) {
+        alert("성공!!");
+        setComment(""); // 댓글 등록 후 textarea 초기화
+        // console.log("sss " + JSON.stringify(res.data));
+        // console.log("sss " + JSON.stringify(res.data.body[0].id));
+      }
+    } catch (error) {
+      console.log("에러 발생:", error);
+      if (error.response) {
+        // console.log("에러에러");
+        alert(error.response.data.msg);
+      }
+    }
+  };
+
+  // 댓글
+
   return (
     <div className="flex flex-col mx-4 h-screen justify-start gap-y-4">
       <div className="flex flex-row justify-between">
@@ -110,15 +142,19 @@ export default function Detail({ params }) {
       )}
 
       {/* 댓글 뷰 */}
-      <div className="flex flex-col p-6 bg-white rounded-lg border">
-        <textarea
-          className="w-full h-24 p-2 border border-gray-300 rounded-md"
-          placeholder="댓글을 입력하세요"
-        />
-        <button className="mt-2 w-full bg-teal-500 text-white py-2 rounded-md hover:bg-teal-700">
-          등록
-        </button>
 
+      <div className="flex flex-col p-6 bg-white rounded-lg border">
+        <form onSubmit={replySave}>
+          <textarea
+            className="w-full h-24 p-2 border border-gray-300 rounded-md"
+            placeholder="댓글을 입력하세요"
+            value={comment}
+            onChange={(e) => setComment(e.target.value)}
+          />
+          <button className="mt-2 w-full bg-teal-500 text-white py-2 rounded-md hover:bg-teal-700">
+            등록
+          </button>
+        </form>
         <div className="text-lg font-semibold mt-6 mb-4">댓글 리스트</div>
 
         <div className="space-y-4">
@@ -135,19 +171,6 @@ export default function Detail({ params }) {
             </div>
           </div>
           {/* 댓글 1 끝 */}
-          {/* 댓글 2 */}
-          <div className="flex items-start p-4 bg-gray-100 rounded-lg shadow-sm">
-            <div className="flex-shrink-0 mr-3">
-              <div className="w-10 h-10 rounded-full bg-green-500 flex items-center justify-center text-white font-bold">
-                C
-              </div>
-            </div>
-            <div>
-              <div className="text-sm font-bold">cos</div>
-              <div className="text-gray-700">댓글2</div>
-            </div>
-          </div>
-          {/* 댓글 2 끝 */}
         </div>
       </div>
     </div>
