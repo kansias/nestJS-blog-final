@@ -184,22 +184,33 @@ export default function Detail({ params }) {
           </button>
         </div>
       )}
+
+      {!user && <div></div>}
       {/* 게시글!! */}
 
       {/* 댓글 뷰 */}
 
       <div className="flex flex-col p-6 bg-white rounded-lg border">
-        <form onSubmit={replySave}>
+        {user && (
+          <form onSubmit={replySave}>
+            <textarea
+              className="w-full h-24 p-2 border border-gray-300 rounded-md"
+              placeholder="댓글을 입력하세요"
+              value={comment}
+              onChange={(e) => setComment(e.target.value)}
+            />
+            <button className="mt-2 w-full bg-teal-500 text-white py-2 rounded-md hover:bg-teal-700">
+              등록
+            </button>
+          </form>
+        )}
+        {!user && (
           <textarea
             className="w-full h-24 p-2 border border-gray-300 rounded-md"
-            placeholder="댓글을 입력하세요"
-            value={comment}
-            onChange={(e) => setComment(e.target.value)}
+            placeholder="댓글을 쓰려면 로그인 먼저 하세요!"
+            readOnly
           />
-          <button className="mt-2 w-full bg-teal-500 text-white py-2 rounded-md hover:bg-teal-700">
-            등록
-          </button>
-        </form>
+        )}
         <div className="text-lg font-semibold mt-6 mb-4">댓글 리스트</div>
 
         {repliesRes.map((reply) => (
@@ -219,6 +230,7 @@ export default function Detail({ params }) {
               </div>
             </div>
             <div className="flex flex-row justify-end">
+              {/* 여기에 isReplyOwner */}
               <button
                 className="border p-2 bg-teal-600 rounded-md text-white hover:bg-teal-800"
                 onClick={() => router.push(`/post/updateForm/${id}`)}
@@ -231,6 +243,7 @@ export default function Detail({ params }) {
               >
                 삭제
               </button>
+              {/* 여기에 isReplyOwner */}
             </div>
             {/* 댓글 1 끝 */}
             <br></br>
