@@ -1,10 +1,8 @@
 {
   "/_not-found/page": "app/_not-found/page.js",
-  "/(post)/post/[id]/page": "app/(post)/post/[id]/page.js",
   "/(home)/page": "app/(home)/page.js",
   "/(user)/user/loginForm/page": "app/(user)/user/loginForm/page.js",
-  "/api/detail/[id]/route": "app/api/detail/[id]/route.js",
-  "/api/reply/list/route": "app/api/reply/list/route.js",
-  "/(post)/post/updateForm/[id]/page": "app/(post)/post/updateForm/[id]/page.js",
-  "/api/post/updateForm/[id]/route": "app/api/post/updateForm/[id]/route.js"
+  "/(post)/post/myList/page": "app/(post)/post/myList/page.js",
+  "/api/post/myList/route": "app/api/post/myList/route.js",
+  "/api/login/route": "app/api/login/route.js"
 }

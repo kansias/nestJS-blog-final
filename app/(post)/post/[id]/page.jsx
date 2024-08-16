@@ -229,22 +229,22 @@ export default function Detail({ params }) {
                 <div className="text-gray-700">{reply.comment}</div>
               </div>
             </div>
-            <div className="flex flex-row justify-end">
-              {/* 여기에 isReplyOwner */}
-              <button
-                className="border p-2 bg-teal-600 rounded-md text-white hover:bg-teal-800"
-                onClick={() => router.push(`/post/updateForm/${id}`)}
-              >
-                수정
-              </button>
-              <button
-                className="border p-2 bg-red-700 rounded-md text-white mr-5 hover:bg-red-800"
-                onClick={deleteReply}
-              >
-                삭제
-              </button>
-              {/* 여기에 isReplyOwner */}
-            </div>
+            {user && user.body[0].id === post.userId && (
+              <div className="flex flex-row justify-end">
+                <button
+                  className="border p-2 bg-teal-600 rounded-md text-white hover:bg-teal-800"
+                  onClick={() => router.push(`/post/updateForm/${id}`)}
+                >
+                  수정
+                </button>
+                <button
+                  className="border p-2 bg-red-700 rounded-md text-white mr-5 hover:bg-red-800"
+                  onClick={deleteReply}
+                >
+                  삭제
+                </button>
+              </div>
+            )}
             {/* 댓글 1 끝 */}
             <br></br>
           </div>
