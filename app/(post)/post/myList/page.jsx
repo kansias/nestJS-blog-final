@@ -4,6 +4,8 @@ import { useEffect, useRef, useState } from "react";
 import { useAuth } from "../../../util/AuthContext";
 import axios from "axios";
 import Link from "next/link";
+import DOMPurify from "dompurify";
+import styles from "../../../../styles/mylist.module.css";
 
 export default function myList() {
   const { user } = useAuth();
@@ -93,33 +95,51 @@ export default function myList() {
     }
   }, []);
 
+  // 이미지 태그 제거 함수
+  const removeImagesFromContent = (content) => {
+    // 이미지 태그 제거
+    const cleanedContent = content.replace(/<img[^>]*src="[^"]*"[^>]*>/gi, "");
+    // 남은 HTML 태그 제거 (예: <p>, <br> 등)
+    const textOnly = cleanedContent.replace(/<[^>]+>/g, " ");
+    // 남은 공백 및 줄바꿈 정리
+    return textOnly.replace(/\s+/g, " ").trim();
+  };
+
+  // const cleanContent = DOMPurify.sanitize(blogPosts);
   return (
     <div className="max-w-4xl mx-auto py-10">
       <h1 className="text-4xl font-bold mb-10">cos's Blog</h1>
       {/* 각 포스트를 반복하여 렌더링 */}
-      {blogPosts.map((post, index) => (
-        <div
-          className="flex flex-row mb-8 border rounded-lg overflow-hidden shadow-lg transform transition-transform duration-300 hover:scale-105 hover:cursor-pointer"
-          key={`${post.id}-${index}`} // 고유한 key 속성 추가
-        >
-          <div className="flex justify-center">
-            <img
-              src={`/img/${post.thumbnail_file}`}
-              alt={post.thumbnail_file}
-              width={350}
-              height={200}
-            />
-          </div>
+      {blogPosts.map((post, index) => {
+        const cleanContent = DOMPurify.sanitize(post.content); // 각 포스트의 콘텐츠를 정화
+        const textOnly = removeImagesFromContent(cleanContent); // 이미지 태그 제거 및 텍스트만 남기기
 
-          <Link href={`/post/${post.id}`}>
-            <div className="p-6">
-              <h2 className="text-2xl font-bold mb-2">{post.title}</h2>
-              <p className="text-gray-600 mb-4">{post.date} (10:08)</p>
-              <p className="text-gray-800 mb-4">{post.content}</p>
+        return (
+          <div
+            className="flex flex-row mb-8 border rounded-lg overflow-hidden shadow-lg transform transition-transform duration-300 hover:scale-105 hover:cursor-pointer"
+            key={`${post.id}-${index}`} // 고유한 key 속성 추가
+          >
+            <div className="flex justify-center">
+              <img
+                src={`/img/${post.thumbnail_file}`}
+                alt={post.thumbnail_file}
+                width={350}
+                height={200}
+              />
             </div>
-          </Link>
-        </div>
-      ))}
+
+            <Link href={`/post/${post.id}`}>
+              <div className="p-6">
+                <h2 className="text-2xl font-bold mb-2">{post.title}</h2>
+                <p className="text-gray-600 mb-4">{post.created_at}</p>
+                <p className={`${styles.textOverflow} text-gray-800 mb-4`}>
+                  {textOnly}
+                </p>
+              </div>
+            </Link>
+          </div>
+        );
+      })}
       {loading && <p>Loading...</p>} {/* 로딩 중일 때 표시 */}
     </div>
   );

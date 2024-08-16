@@ -1,0 +1,7 @@
+.textOverflow {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3; /* 최대 3줄 표시 */
+  overflow: hidden;
+  text-overflow: ellipsis; /* 넘치는 텍스트는 '...'으로 표시 */
+}
