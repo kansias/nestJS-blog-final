@@ -17,12 +17,6 @@
       "static/chunks/main-app.js",
       "static/chunks/app/(user)/user/loginForm/page.js"
     ],
-    "/(post)/post/myList/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/css/app/(post)/post/myList/page.css",
-      "static/chunks/app/(post)/post/myList/page.js"
-    ],
     "/(post)/post/[id]/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
