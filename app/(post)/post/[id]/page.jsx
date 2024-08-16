@@ -104,9 +104,12 @@ export default function Detail({ params }) {
         // 새 댓글을 댓글 리스트에 추가
         const newReply = {
           id: res.data.body.id, // 서버에서 반환된 댓글 ID를 사용
-          user_id: userId,
+          user_id: res.data.body.user_id, // 서버에서 반환된 댓글 작성자 ID를 사용
           comment, // 입력된 댓글 내용
+          shortUsername: user.body[0].username.slice(0, 1), // 댓글 작성자의 첫 글자만 사용
+          originalUsername: user.body[0].username, // 댓글 작성자의 전체 이름 사용
         };
+        console.log("newReply " + JSON.stringify(newReply));
         setRepliesRes((prevReplies) => [newReply, ...prevReplies]); // 새 댓글을 가장 위에 추가
         alert("댓글 save 성공!!");
         setComment(""); // 댓글 등록 후 textarea 초기화
@@ -121,7 +124,39 @@ export default function Detail({ params }) {
   };
   // 댓글 save 끝
 
+  // 댓글 삭제
+
+  const deleteReply = async () => {
+    if (!confirm("정말 삭제하시겠습니까?")) {
+      return;
+    }
+
+    try {
+      // 애가 request에 담겨야하는데
+      const res = await axios.delete(`/api/post/delete/${id}`);
+
+      // console.log("resssss " + JSON.stringify(res));
+
+      if (res.status === 200) {
+        // console.log("작동???????");
+        // console.log("sss " + JSON.stringify(res.data));
+        alert("삭제되었습니다");
+        router.push("/");
+        setTimeout(() => {
+          window.location.reload(); // 새로고침
+        }, 50); // 100ms 후 새로고침
+      }
+    } catch (error) {
+      if (error.response) {
+        // console.log("에러에러");
+        alert(error.response.data.msg);
+      }
+    }
+  };
+  // 댓글 삭제 끝
+
   return (
+    // 게시글
     <div className="flex flex-col mx-4 h-screen justify-start gap-y-4">
       <div className="flex flex-row justify-between">
         <h4 className="text-4xl py-4">{post.title}</h4>
@@ -149,6 +184,7 @@ export default function Detail({ params }) {
           </button>
         </div>
       )}
+      {/* 게시글!! */}
 
       {/* 댓글 뷰 */}
 
@@ -181,6 +217,20 @@ export default function Detail({ params }) {
                 </div>
                 <div className="text-gray-700">{reply.comment}</div>
               </div>
+            </div>
+            <div className="flex flex-row justify-end">
+              <button
+                className="border p-2 bg-teal-600 rounded-md text-white hover:bg-teal-800"
+                onClick={() => router.push(`/post/updateForm/${id}`)}
+              >
+                수정
+              </button>
+              <button
+                className="border p-2 bg-red-700 rounded-md text-white mr-5 hover:bg-red-800"
+                onClick={deleteReply}
+              >
+                삭제
+              </button>
             </div>
             {/* 댓글 1 끝 */}
             <br></br>

@@ -1,10 +1,9 @@
 {
   "pages": {
-    "/(home)/page": [
+    "/(post)/post/[id]/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/css/app/(home)/page.css",
-      "static/chunks/app/(home)/page.js"
+      "static/chunks/app/(post)/post/[id]/page.js"
     ],
     "/layout": [
       "static/chunks/webpack.js",
@@ -12,15 +11,37 @@
       "static/css/app/layout.css",
       "static/chunks/app/layout.js"
     ],
+    "/(home)/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/(home)/page.css",
+      "static/chunks/app/(home)/page.js"
+    ],
     "/(user)/user/loginForm/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/(user)/user/loginForm/page.js"
     ],
-    "/(post)/post/[id]/page": [
+    "/(post)/post/myList/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/(post)/post/[id]/page.js"
+      "static/css/app/(post)/post/myList/page.css",
+      "static/chunks/app/(post)/post/myList/page.js"
+    ],
+    "/(post)/post/updateForm/[id]/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(post)/post/updateForm/[id]/page.js"
+    ],
+    "/(sub)/sub/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(sub)/sub/page.js"
+    ],
+    "/(post)/post/writeForm/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(post)/post/writeForm/page.js"
     ]
   }
 }
