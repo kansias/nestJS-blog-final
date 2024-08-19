@@ -14,6 +14,21 @@ export default function UpdateForm() {
   const [checkNewPassowrd, setNewCheckPassowrd] = useState("");
   const [confirmPassword, setConfirmPassword] = useState(null); // true, false 값
 
+  // 기존 비밀번호랑 수정 비밀번호가 같으면 안되게 할 것임
+  const [oldPassAndNewPass, setOldPassAndNewPass] = useState(null);
+
+  useEffect(() => {
+    if (oldPassword === "" && newPassword === "") {
+      setOldPassAndNewPass(null); // 둘 다 비어있으면 null
+    } else if (oldPassword === newPassword) {
+      setOldPassAndNewPass(false); // 비밀번호가 같으면 false
+    } else {
+      setOldPassAndNewPass(true); // 비밀번호가 다르면 true
+    }
+  }, [newPassword, oldPassword]);
+
+  // 기존 비밀번호랑 수정 비밀번호가 같으면 안되게 할 것임
+
   const { user } = useAuth();
   const userId = user && user.body[0].id;
   // console.log("userId = " + userId);
@@ -144,6 +159,12 @@ export default function UpdateForm() {
               value={newPassword}
               onChange={newPasswordAndPasswordCheck}
             />
+            {oldPassAndNewPass === false && (
+              <span className="text-red-500 mb-2">
+                기존 비밀번호와 동일한 번호는 사용할 수 없습니다
+              </span>
+            )}
+            {oldPassAndNewPass === null && <span></span>}
           </div>
           <div>
             <label className="block text-gray-600 text-sm">비밀번호 확인</label>
@@ -176,8 +197,14 @@ export default function UpdateForm() {
           </div>
         </div>
         <button
-          className="w-full mt-6 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer"
-          disabled
+          className={`w-full mt-6 py-2 ${
+            oldPasswordConfirm && confirmPassword && oldPassAndNewPass
+              ? "bg-teal-500 text-white hover:bg-teal-800 cursor-pointer"
+              : "bg-gray-300 text-gray-700 cursor-not-allowed"
+          }`}
+          disabled={
+            !(oldPasswordConfirm && confirmPassword && oldPassAndNewPass)
+          }
         >
           회원정보수정
         </button>
