@@ -1,6 +1,5 @@
 {
-  "/(home)/page": "app/(home)/page.js",
   "/(user)/user/loginForm/page": "app/(user)/user/loginForm/page.js",
-  "/(user)/user/updateForm/page": "app/(user)/user/updateForm/page.js",
-  "/api/userUpdateForm/oldPassCheck/route": "app/api/userUpdateForm/oldPassCheck/route.js"
+  "/(home)/page": "app/(home)/page.js",
+  "/(user)/user/updateForm/page": "app/(user)/user/updateForm/page.js"
 }

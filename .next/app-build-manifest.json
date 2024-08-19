@@ -21,6 +21,11 @@
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/(user)/user/updateForm/page.js"
+    ],
+    "/(post)/post/writeForm/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(post)/post/writeForm/page.js"
     ]
   }
 }

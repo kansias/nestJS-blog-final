@@ -11,7 +11,7 @@ export default function UpdateForm() {
   const [oldPasswordConfirm, setOldPasswordConfirm] = useState(null);
 
   const [newPassword, setNewPassword] = useState("");
-  const [checkPassowrd, setCheckPassowrd] = useState("");
+  const [checkNewPassowrd, setNewCheckPassowrd] = useState("");
   const [confirmPassword, setConfirmPassword] = useState(null); // true, false 값
 
   const { user } = useAuth();
@@ -21,7 +21,7 @@ export default function UpdateForm() {
   // 기존 비밀번호 실시간 체크
   const oldPasswordCheck = useCallback(
     debounce(async (value) => {
-      console.log("value 확인 " + value);
+      // console.log("value 확인 " + value);
       if (value === "") {
         setOldPasswordConfirm(null);
         return;
@@ -55,6 +55,45 @@ export default function UpdateForm() {
 
   // 기존 비밀번호 실시간 체크 끝
 
+  // 수정 비밀번호와 비밀번호 확인 비교 로직
+
+  const newPasswordAndPasswordCheck = (e) => {
+    e.preventDefault();
+
+    const { id, value } = e.target;
+    // console.log("front id " + id);
+    // console.log("front value " + value);
+
+    if (id === "newPassword") {
+      setNewPassword(value);
+    } else if (id === "checkNewPassowrd") {
+      setNewCheckPassowrd(value);
+    }
+  };
+
+  const handelConfirmPassword = useCallback(
+    debounce((newPassword) => {
+      if (newPassword === "" && checkNewPassowrd === "") {
+        setConfirmPassword(null); // 둘 다 비어있으면 null
+        return;
+      }
+
+      if (newPassword !== checkNewPassowrd) {
+        setConfirmPassword(false);
+      } else {
+        setConfirmPassword(true);
+      }
+    }, 1000),
+    // 의존성 내부에 있는 값이 변경되지 않는 이상 값이 초기화 되지 않는다
+    [newPassword, checkNewPassowrd]
+  );
+
+  useEffect(() => {
+    handelConfirmPassword(newPassword);
+  }, [newPassword, checkNewPassowrd]);
+
+  // 수정 비밀번호와 비밀번호 확인 비교 로직 끝
+
   return (
     <div className="flex items-center justify-center h-screen bg-gray-50">
       <div className="bg-white p-6 rounded-lg shadow-lg max-w-sm w-full">
@@ -80,12 +119,12 @@ export default function UpdateForm() {
               />
               {oldPasswordConfirm === true && (
                 <span className="text-green-500 mb-2">
-                  비밀번호가 일치합니다
+                  기존 비밀번호가 일치합니다
                 </span>
               )}
               {oldPasswordConfirm === false && (
                 <span className="text-red-500 mb-2">
-                  비밀번호가 일치하지 않습니다
+                  기존 비밀번호가 일치하지 않습니다
                 </span>
               )}
               {oldPasswordConfirm === null && <span></span>}
@@ -103,18 +142,28 @@ export default function UpdateForm() {
               id="newPassword"
               className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               value={newPassword}
-              onChange={(e) => setNewPassword(e.target.value)}
+              onChange={newPasswordAndPasswordCheck}
             />
           </div>
           <div>
             <label className="block text-gray-600 text-sm">비밀번호 확인</label>
             <input
               type="password"
-              id="checkPassowrd"
+              id="checkNewPassowrd"
               className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              value={checkPassowrd}
-              onChange={(e) => setCheckPassowrd(e.target.value)}
+              value={checkNewPassowrd}
+              onChange={newPasswordAndPasswordCheck}
             />
+            {/* 일치 여부 글자 띄우기 */}
+            {confirmPassword === true && (
+              <span className="text-green-500 mb-2">비밀번호가 일치합니다</span>
+            )}
+            {confirmPassword === false && (
+              <span className="text-red-500 mb-2">
+                비밀번호가 일치하지 않습니다
+              </span>
+            )}
+            {confirmPassword === null && <span></span>}
           </div>
           <div>
             {/* TODO : 개발자 모드에서 이메일 value값 변경 되니까 서버에서 막아야함  */}
