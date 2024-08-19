@@ -14,8 +14,15 @@ export default function UpdateForm() {
   const [checkNewPassowrd, setNewCheckPassowrd] = useState("");
   const [confirmPassword, setConfirmPassword] = useState(null); // true, false 값
 
+  const [showPassword, setShowPassword] = useState(false); // 비밀번호 눈
+
   // 기존 비밀번호랑 수정 비밀번호가 같으면 안되게 할 것임
   const [oldPassAndNewPass, setOldPassAndNewPass] = useState(null);
+
+  // 별 클릭시 동작하는 이벤트 핸들러 생성
+  const togglePasswordVisible = () => {
+    setShowPassword(!showPassword);
+  };
 
   useEffect(() => {
     if (oldPassword === "" && newPassword === "") {
@@ -31,6 +38,7 @@ export default function UpdateForm() {
 
   const { user } = useAuth();
   const userId = user && user.body[0].id;
+  const username = user && user.body[0].username;
   // console.log("userId = " + userId);
 
   // 기존 비밀번호 실시간 체크
@@ -118,14 +126,14 @@ export default function UpdateForm() {
             alt="profile"
             className="w-20 h-20 rounded-full object-cover"
           />
-          <p className="mt-4 text-lg font-semibold">ssar</p>
+          <p className="mt-4 text-lg font-semibold">{username}</p>
         </div>
         <div className="space-y-4">
           <div>
             <label className="block text-gray-600 text-sm">기존 비밀번호</label>
             <div className="relative">
               <input
-                type="password"
+                type={showPassword ? "text" : "password"}
                 id="oldPassword"
                 className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 value={oldPassword}
@@ -144,8 +152,11 @@ export default function UpdateForm() {
               )}
               {oldPasswordConfirm === null && <span></span>}
               {/* 눈 감기기 */}
-              <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 cursor-pointer">
-                ★
+              <span
+                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 cursor-pointer"
+                onClick={togglePasswordVisible}
+              >
+                {showPassword ? "☆" : "★"}
               </span>
               {/* 눈 감기기~~ */}
             </div>
@@ -153,7 +164,7 @@ export default function UpdateForm() {
           <div>
             <label className="block text-gray-600 text-sm">수정 비밀번호</label>
             <input
-              type="password"
+              type={showPassword ? "text" : "password"}
               id="newPassword"
               className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               value={newPassword}
@@ -169,7 +180,7 @@ export default function UpdateForm() {
           <div>
             <label className="block text-gray-600 text-sm">비밀번호 확인</label>
             <input
-              type="password"
+              type={showPassword ? "text" : "password"}
               id="checkNewPassowrd"
               className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               value={checkNewPassowrd}
