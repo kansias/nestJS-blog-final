@@ -180,10 +180,21 @@ export default function Detail({ params }) {
   };
 
   const saveUpdatedReply = async (replyId) => {
+    console.log("replyId is?  " + replyId);
     try {
       const res = await axios.put(`/api/reply/update/${replyId}`, {
+        replyId,
         comment: updateComment,
+        userId,
       });
+
+      console.log("resssss " + JSON.stringify(res));
+
+      // const res = await axios.post(`/api/reply/save`, {
+      //   id,
+      //   userId,
+      //   comment, // 입력된 댓글 전달
+      // });
 
       if (res.status === 200) {
         setRepliesRes((prevReplies) =>
@@ -303,6 +314,7 @@ export default function Detail({ params }) {
                 {/* 댓글 */}
                 {user && user.body[0].id === reply.user_id && (
                   <div className="flex flex-row justify-end">
+                    {/* 편집 모드일 때  */}
                     {editMode === reply.replyId ? (
                       <>
                         <button
@@ -319,6 +331,7 @@ export default function Detail({ params }) {
                         </button>
                       </>
                     ) : (
+                      // 일반 모드일 때
                       <>
                         <button
                           className="border p-2 bg-teal-600 rounded-md text-white hover:bg-teal-800"

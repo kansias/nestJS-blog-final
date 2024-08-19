@@ -2,10 +2,13 @@ import { success, fail } from "../../../../util/ApiUtil";
 import executeQuery from "../../../../_lib/db";
 
 export async function PUT(request) {
+  console.log("request 11" + request);
   console.log("reqest " + JSON.stringify(request));
   console.log("111111111");
   try {
-    const { id, userId, comment } = await request.json();
+    const { replyId, userId, comment } = await request.json();
+
+    console.log("222222222222");
 
     const sql = "update reply_tb set comment = ? where id = ? and user_id = ?";
     const data = await executeQuery(sql, [comment, replyId, userId]); // id == replyId
@@ -13,14 +16,19 @@ export async function PUT(request) {
     console.log("getdata = " + getdata);
     console.log("getdata = " + JSON.stringify(getdata));
 
+    console.log("333333333333");
+
     if (data.affectedRows > 0) {
+      console.log("444444");
+
       //   const responseBody = {
       //     insertId: getdata.insertId, // 댓글 ID
       //     userId: userId, // 작성자의 user_id 추가
       //   };
-      return success(getdata);
+
+      return success(data);
     } else {
-      return fail(null, 404, "게시글이 없습니다!");
+      return fail(null, 404, "댓글이 없습니다!");
     }
   } catch {
     // console.log("error ");
