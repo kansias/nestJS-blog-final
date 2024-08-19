@@ -12,15 +12,15 @@
       "static/css/app/layout.css",
       "static/chunks/app/layout.js"
     ],
-    "/(post)/post/[id]/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/(post)/post/[id]/page.js"
-    ],
     "/(user)/user/loginForm/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/(user)/user/loginForm/page.js"
+    ],
+    "/(post)/post/[id]/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(post)/post/[id]/page.js"
     ],
     "/(post)/post/myList/page": [
       "static/chunks/webpack.js",

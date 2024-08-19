@@ -1,10 +1,9 @@
 {
   "/_not-found/page": "app/_not-found/page.js",
   "/(home)/page": "app/(home)/page.js",
-  "/(post)/post/[id]/page": "app/(post)/post/[id]/page.js",
-  "/(user)/user/loginForm/page": "app/(user)/user/loginForm/page.js",
   "/api/detail/[id]/route": "app/api/detail/[id]/route.js",
+  "/(user)/user/loginForm/page": "app/(user)/user/loginForm/page.js",
+  "/(post)/post/[id]/page": "app/(post)/post/[id]/page.js",
   "/api/reply/list/route": "app/api/reply/list/route.js",
-  "/api/login/route": "app/api/login/route.js",
   "/api/reply/delete/[id]/route": "app/api/reply/delete/[id]/route.js"
 }

@@ -144,17 +144,16 @@ export default function Detail({ params }) {
       // console.log("resssss " + JSON.stringify(res));
 
       if (res.status === 200) {
-        // 댓글 리스트에서 해당 댓글을 제거
-        setRepliesRes((prevReplies) =>
-          prevReplies.filter((reply) => reply.id !== replyId)
+        // 댓글 리스트에서 댓글 제거하는 로직
+        setRepliesRes(
+          (prevReplies) =>
+            prevReplies.filter((reply) => reply.replyId !== replyId) // replyId로 필터링
         );
-
-        console.log("Updated replies:", repliesRes);
+        // 댓글 삭제하면 댓글 리스트에서 새로고침 하지 않고도 바로 반영하고싶다 ㅠㅠ
+        // repliesRes에 새로운 상태를 반영해주면 되는것 아닌가 -> list에서 댓글을 다시 불러오는 로직을 추가해주면 될것 같다
+        fetchPostAndReply();
 
         alert("삭제되었습니다");
-        // setTimeout(() => {
-        //   window.location.reload(); // 새로고침
-        // }, 50); // 100ms 후 새로고침
       }
     } catch (error) {
       if (error.response) {
