@@ -16,12 +16,17 @@ export async function POST(request) {
     const data = await executeQuery(sql, [id, userId, comment]);
     const getdata = JSON.parse(JSON.stringify(data));
     console.log("getdata = " + getdata);
+    console.log("getdata = " + JSON.stringify(getdata));
 
     console.log("333333333333");
 
     if (data.affectedRows > 0) {
       console.log("444444");
-      return success(getdata);
+      const responseBody = {
+        insertId: getdata.insertId, // 댓글 ID
+        userId: userId, // 작성자의 user_id 추가
+      };
+      return success(responseBody);
     } else {
       console.log("55555");
       return fail(null, 404, "게시글이 없습니다!");

@@ -29,7 +29,7 @@ export default function myList() {
           params: { userId, page }, // 쿼리 파라미터로 userId 전달 (페이징 할거니까 page도 전달. /api/post/myList?userId=1?page=1 이런 형식)
         });
 
-        console.log("resssss " + JSON.stringify(res));
+        // console.log("resssss " + JSON.stringify(res));
 
         if (res.status === 200) {
           console.log("성공!!!");

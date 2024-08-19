@@ -101,10 +101,13 @@ export default function Detail({ params }) {
       console.log("resssss " + JSON.stringify(res));
 
       if (res.status === 200) {
+        console.log("res ? " + JSON.stringify(res));
+        console.log("res ds? " + JSON.stringify(res.data.body));
+        console.log("ddddddddd " + res.data.body.user_id);
         // 새 댓글을 댓글 리스트에 추가
         const newReply = {
           id: res.data.body.id, // 서버에서 반환된 댓글 ID를 사용
-          user_id: res.data.body.user_id, // 서버에서 반환된 댓글 작성자 ID를 사용
+          user_id: res.data.body.userId, // 서버에서 반환된 댓글 작성자 ID를 사용
           comment, // 입력된 댓글 내용
           shortUsername: user.body[0].username.slice(0, 1), // 댓글 작성자의 첫 글자만 사용
           originalUsername: user.body[0].username, // 댓글 작성자의 전체 이름 사용
@@ -213,8 +216,13 @@ export default function Detail({ params }) {
         )}
         <div className="text-lg font-semibold mt-6 mb-4">댓글 리스트</div>
 
-        {repliesRes.map((reply) => (
-          <div className="space-y-4" key={reply.id}>
+        {repliesRes.map((reply, index) => (
+          // console.log("reply " + JSON.stringify(reply)),
+          // console.log("reply.comment " + JSON.stringify(reply.comment)),
+          // console.log("reply.id " + JSON.stringify(reply.id)),
+          // console.log("reply.user_id " + JSON.stringify(reply.user_id)),
+          // console.log("user.body[0].id " + JSON.stringify(user.body[0].id)),
+          <div className="space-y-4" key={`${reply.id}-${index}`}>
             {/* 댓글1 */}
             <div className="flex items-start p-4 bg-gray-100 rounded-lg shadow-sm">
               <div className="flex-shrink-0 mr-3">
@@ -229,7 +237,7 @@ export default function Detail({ params }) {
                 <div className="text-gray-700">{reply.comment}</div>
               </div>
             </div>
-            {user && user.body[0].id === post.userId && (
+            {user && user.body[0].id === reply.user_id && (
               <div className="flex flex-row justify-end">
                 <button
                   className="border p-2 bg-teal-600 rounded-md text-white hover:bg-teal-800"
