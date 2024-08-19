@@ -17,6 +17,9 @@ export default function Detail({ params }) {
   const [comment, setComment] = useState("");
   const [repliesRes, setRepliesRes] = useState([]); // 댓글 리스트
 
+  const [editMode, setEditMode] = useState(null); // 수정 모드
+  const [updateComment, setUpdateComment] = useState(""); // 수정할 댓글
+
   // 게시글 상세 조회 + 댓글 조회
   useEffect(() => {
     const fetchPostAndReply = async () => {
@@ -164,6 +167,46 @@ export default function Detail({ params }) {
   };
   // 댓글 삭제 끝
 
+  // 댓글 수정 시작
+
+  const toggleEditMode = (replyId, currentComment) => {
+    setEditMode(replyId);
+    setUpdateComment(currentComment);
+  };
+
+  const cancelEdit = () => {
+    setEditMode(null);
+    setUpdateComment("");
+  };
+
+  const saveUpdatedReply = async (replyId) => {
+    try {
+      const res = await axios.put(`/api/reply/update/${replyId}`, {
+        comment: updateComment,
+      });
+
+      if (res.status === 200) {
+        setRepliesRes((prevReplies) =>
+          prevReplies.map((reply) =>
+            reply.replyId === replyId
+              ? { ...reply, comment: updateComment }
+              : reply
+          )
+        );
+        setEditMode(null);
+        setUpdateComment("");
+        alert("댓글 수정 성공!!");
+      }
+    } catch (error) {
+      console.log("에러 발생:", error);
+      if (error.response) {
+        alert(error.response.data.msg);
+      }
+    }
+  };
+
+  // 댓글 수정 끝
+
   return (
     // 게시글
     <div className="flex flex-col mx-4 h-screen justify-start gap-y-4">
@@ -227,6 +270,7 @@ export default function Detail({ params }) {
             console.log("reply " + JSON.stringify(reply)),
             // console.log("reply.comment " + JSON.stringify(reply.comment)),
             console.log("reply.id " + JSON.stringify(reply.replyId)),
+            console.log("reply.comment " + JSON.stringify(reply.comment)),
             (
               // console.log("reply.user_id " + JSON.stringify(reply.user_id)),
               // console.log("user.body[0].id " + JSON.stringify(user.body[0].id)),
@@ -238,31 +282,63 @@ export default function Detail({ params }) {
                       {reply.shortUsername}
                     </div>
                   </div>
+                  {/* 댓글 수정 */}
                   <div>
                     <div className="text-sm font-bold">
                       {reply.originalUsername}
                     </div>
-                    <div className="text-gray-700">{reply.comment}</div>
+                    {/* 수정 모드면 textarea */}
+                    {editMode === reply.replyId ? (
+                      <textarea
+                        className="w-full p-2 border border-gray-300 rounded-md"
+                        value={updateComment}
+                        onChange={(e) => setUpdateComment(e.target.value)}
+                      />
+                    ) : (
+                      // 수정 모드가 아니면 댓글 내용
+                      <div className="text-gray-700">{reply.comment}</div>
+                    )}
                   </div>
                 </div>
+                {/* 댓글 */}
                 {user && user.body[0].id === reply.user_id && (
                   <div className="flex flex-row justify-end">
-                    <button
-                      className="border p-2 bg-teal-600 rounded-md text-white hover:bg-teal-800"
-                      onClick={() => router.push(`/post/updateForm/${id}`)}
-                    >
-                      수정
-                    </button>
-                    <button
-                      className="border p-2 bg-red-700 rounded-md text-white mr-5 hover:bg-red-800"
-                      onClick={() => deleteReply(reply.replyId)}
-                    >
-                      삭제
-                    </button>
+                    {editMode === reply.replyId ? (
+                      <>
+                        <button
+                          className="border p-2 bg-teal-600 rounded-md text-white hover:bg-teal-800"
+                          onClick={() => saveUpdatedReply(reply.replyId)}
+                        >
+                          저장
+                        </button>
+                        <button
+                          className="border p-2 bg-gray-500 rounded-md text-white mr-5 hover:bg-gray-700"
+                          onClick={cancelEdit}
+                        >
+                          취소
+                        </button>
+                      </>
+                    ) : (
+                      <>
+                        <button
+                          className="border p-2 bg-teal-600 rounded-md text-white hover:bg-teal-800"
+                          onClick={() =>
+                            toggleEditMode(reply.replyId, reply.comment)
+                          }
+                        >
+                          수정
+                        </button>
+                        <button
+                          className="border p-2 bg-red-700 rounded-md text-white mr-5 hover:bg-red-800"
+                          onClick={() => deleteReply(reply.replyId)}
+                        >
+                          삭제
+                        </button>
+                      </>
+                    )}
                   </div>
                 )}
-                {/* 댓글 1 끝 */}
-                <br></br>
+                <br />
               </div>
             )
           )
