@@ -182,7 +182,7 @@ export default function Detail({ params }) {
   const saveUpdatedReply = async (replyId) => {
     console.log("replyId is?  " + replyId);
     try {
-      const res = await axios.put(`/api/reply/update/${replyId}`, {
+      const res = await axios.put(`/api/reply/update`, {
         replyId,
         comment: updateComment,
         userId,
