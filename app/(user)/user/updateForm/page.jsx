@@ -8,44 +8,52 @@ import { useAuth } from "../../../util/AuthContext";
 
 export default function UpdateForm() {
   const [oldPassword, setOldPassword] = useState("");
+  const [oldPasswordConfirm, setOldPasswordConfirm] = useState(null);
+
   const [newPassword, setNewPassword] = useState("");
   const [checkPassowrd, setCheckPassowrd] = useState("");
   const [confirmPassword, setConfirmPassword] = useState(null); // true, false 값
 
   const { user } = useAuth();
   const userId = user && user.body[0].id;
-  console.log("userId = " + userId);
+  // console.log("userId = " + userId);
 
+  // 기존 비밀번호 실시간 체크
   const oldPasswordCheck = useCallback(
-    // db에 한번 더 들어가지 말고, null 값이면 바로 return
-    // value = 유저네임에 입력되는 값!
     debounce(async (value) => {
-      // console.log("111111111" + value);
+      console.log("value 확인 " + value);
       if (value === "") {
-        setOldPassword(null);
+        setOldPasswordConfirm(null);
         return;
       }
 
       // console.log("왜안타");
       try {
-        const res = await axios.post("/api/usernameCheck", {
-          username: value,
+        const res = await axios.get("/api/userUpdateForm/oldPassCheck", {
+          params: { oldPassword: value, userId },
         });
 
         if (res.status === 200) {
           console.log("성공");
-          setCheckUsername(true);
+          setOldPasswordConfirm(true);
         }
       } catch (error) {
         if (error.response) {
-          // console.log("에러에러");
-          setCheckUsername(false);
-          // alert(error.response.data.msg);
+          setOldPasswordConfirm(false);
         }
       }
-    }, 500),
-    [username]
+    }, 800),
+    [oldPassword]
   );
+
+  const handlePasswordChange = (e) => {
+    const { value } = e.target;
+    console.log("value 확인 " + value);
+    setOldPassword(value);
+    oldPasswordCheck(value);
+  };
+
+  // 기존 비밀번호 실시간 체크 끝
 
   return (
     <div className="flex items-center justify-center h-screen bg-gray-50">
@@ -67,11 +75,25 @@ export default function UpdateForm() {
                 id="oldPassword"
                 className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 value={oldPassword}
-                onChange={(e) => setOldPassword(e.target.value)}
+                onChange={handlePasswordChange}
+                // onChange={(e) => setOldPassword(e.target.value)}
               />
+              {oldPasswordConfirm === true && (
+                <span className="text-green-500 mb-2">
+                  비밀번호가 일치합니다
+                </span>
+              )}
+              {oldPasswordConfirm === false && (
+                <span className="text-red-500 mb-2">
+                  비밀번호가 일치하지 않습니다
+                </span>
+              )}
+              {oldPasswordConfirm === null && <span></span>}
+              {/* 눈 감기기 */}
               <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 cursor-pointer">
                 ★
               </span>
+              {/* 눈 감기기~~ */}
             </div>
           </div>
           <div>

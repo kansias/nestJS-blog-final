@@ -1,28 +1,36 @@
 import { success, fail } from "../../../util/ApiUtil";
 import executeQuery from "../../../_lib/db";
 
-export async function POST(request) {
-  console.log("!11111111 " + request);
-  //   console.log("request = " + JSON.stringify(request));
+export async function GET(request) {
+  console.log("server 11111 ");
 
   try {
-    const dataJson = await request.json(); // request에서 JSON 데이터 읽기
+    console.log("server 222222 ");
+    const { searchParams } = new URL(request.url);
+    console.log("seachParams ? " + searchParams);
 
-    const { username, password, email } = dataJson; // username과 password 추출
+    // 쿼리 매개변수에서 값 꺼내기
+    const oldPassword = searchParams.get("oldPassword");
+    console.log("server oldPassword " + oldPassword);
+    const userId = searchParams.get("userId");
+    console.log("server userId " + userId);
 
-    const sql =
-      "insert into user_tb (username, password, email, created_at) values (?, ?, ?, now())";
-    const data = await executeQuery(sql, [username, password, email]);
+    const sql = "select id, password from user_tb where id = ?";
+    const data = await executeQuery(sql, [userId]);
+    const getdata = JSON.parse(JSON.stringify(data));
 
-    console.log("dataJson = " + JSON.stringify(dataJson));
+    console.log("server getdata " + JSON.stringify(getdata));
+    // console.log("server getdata " + JSON.stringify(getdata.password));
 
-    if (data.affectedRows > 0) {
-      return success(data);
+    // GET으로 쓸 때엔 length ! // 배열이라 getdata[0] 으로 값을 들고와야함
+    if (getdata.length > 0 && getdata[0].password === oldPassword) {
+      console.log("server 4444 ");
+      return success(getdata);
     } else {
-      return fail(null, 500, "회원가입 실패");
+      return fail(null, 403, "비밀번호가 일치하지 않습니다!");
     }
   } catch {
-    console.error("회원가입 중 오류 발생:", error);
+    console.error("오류 발생:", error);
     return fail(null, 500, "서버 오류");
   }
 }
