@@ -13,7 +13,7 @@ export async function GET(request) {
     // console.log("222222222222 ");
 
     const sql =
-      "select * from reply_tb r join user_tb u on r.user_id = u.id where r.post_id = ? order by r.id desc";
+      "select r.id as replyId, r.post_id, r.user_id, r.created_at, r.comment, u.username from reply_tb r join user_tb u on r.user_id = u.id where r.post_id = ? order by r.id desc";
     const data = await executeQuery(sql, [postId]);
     const getdata = JSON.parse(JSON.stringify(data));
 

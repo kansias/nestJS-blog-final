@@ -101,9 +101,9 @@ export default function Detail({ params }) {
       console.log("resssss " + JSON.stringify(res));
 
       if (res.status === 200) {
-        console.log("res ? " + JSON.stringify(res));
-        console.log("res ds? " + JSON.stringify(res.data.body));
-        console.log("ddddddddd " + res.data.body.user_id);
+        // console.log("res ? " + JSON.stringify(res));
+        // console.log("res ds? " + JSON.stringify(res.data.body));
+        // console.log("ddddddddd " + res.data.body.user_id);
         // 새 댓글을 댓글 리스트에 추가
         const newReply = {
           id: res.data.body.id, // 서버에서 반환된 댓글 ID를 사용
@@ -112,6 +112,7 @@ export default function Detail({ params }) {
           shortUsername: user.body[0].username.slice(0, 1), // 댓글 작성자의 첫 글자만 사용
           originalUsername: user.body[0].username, // 댓글 작성자의 전체 이름 사용
         };
+
         console.log("newReply " + JSON.stringify(newReply));
         setRepliesRes((prevReplies) => [newReply, ...prevReplies]); // 새 댓글을 가장 위에 추가
         alert("댓글 save 성공!!");
@@ -129,25 +130,31 @@ export default function Detail({ params }) {
 
   // 댓글 삭제
 
-  const deleteReply = async () => {
+  const deleteReply = async (replyId) => {
+    console.log("replyId why " + replyId);
+
     if (!confirm("정말 삭제하시겠습니까?")) {
       return;
     }
 
     try {
       // 애가 request에 담겨야하는데
-      const res = await axios.delete(`/api/post/delete/${id}`);
+      const res = await axios.delete(`/api/reply/delete/${replyId}`);
 
       // console.log("resssss " + JSON.stringify(res));
 
       if (res.status === 200) {
-        // console.log("작동???????");
-        // console.log("sss " + JSON.stringify(res.data));
+        // 댓글 리스트에서 해당 댓글을 제거
+        setRepliesRes((prevReplies) =>
+          prevReplies.filter((reply) => reply.id !== replyId)
+        );
+
+        console.log("Updated replies:", repliesRes);
+
         alert("삭제되었습니다");
-        router.push("/");
-        setTimeout(() => {
-          window.location.reload(); // 새로고침
-        }, 50); // 100ms 후 새로고침
+        // setTimeout(() => {
+        //   window.location.reload(); // 새로고침
+        // }, 50); // 100ms 후 새로고침
       }
     } catch (error) {
       if (error.response) {
@@ -216,47 +223,51 @@ export default function Detail({ params }) {
         )}
         <div className="text-lg font-semibold mt-6 mb-4">댓글 리스트</div>
 
-        {repliesRes.map((reply, index) => (
-          // console.log("reply " + JSON.stringify(reply)),
-          // console.log("reply.comment " + JSON.stringify(reply.comment)),
-          // console.log("reply.id " + JSON.stringify(reply.id)),
-          // console.log("reply.user_id " + JSON.stringify(reply.user_id)),
-          // console.log("user.body[0].id " + JSON.stringify(user.body[0].id)),
-          <div className="space-y-4" key={`${reply.id}-${index}`}>
-            {/* 댓글1 */}
-            <div className="flex items-start p-4 bg-gray-100 rounded-lg shadow-sm">
-              <div className="flex-shrink-0 mr-3">
-                <div className="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center text-white font-bold">
-                  {reply.shortUsername}
+        {repliesRes.map(
+          (reply, index) => (
+            console.log("reply " + JSON.stringify(reply)),
+            // console.log("reply.comment " + JSON.stringify(reply.comment)),
+            console.log("reply.id " + JSON.stringify(reply.replyId)),
+            (
+              // console.log("reply.user_id " + JSON.stringify(reply.user_id)),
+              // console.log("user.body[0].id " + JSON.stringify(user.body[0].id)),
+              <div className="space-y-4" key={`${reply.id}-${index}`}>
+                {/* 댓글1 */}
+                <div className="flex items-start p-4 bg-gray-100 rounded-lg shadow-sm">
+                  <div className="flex-shrink-0 mr-3">
+                    <div className="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center text-white font-bold">
+                      {reply.shortUsername}
+                    </div>
+                  </div>
+                  <div>
+                    <div className="text-sm font-bold">
+                      {reply.originalUsername}
+                    </div>
+                    <div className="text-gray-700">{reply.comment}</div>
+                  </div>
                 </div>
+                {user && user.body[0].id === reply.user_id && (
+                  <div className="flex flex-row justify-end">
+                    <button
+                      className="border p-2 bg-teal-600 rounded-md text-white hover:bg-teal-800"
+                      onClick={() => router.push(`/post/updateForm/${id}`)}
+                    >
+                      수정
+                    </button>
+                    <button
+                      className="border p-2 bg-red-700 rounded-md text-white mr-5 hover:bg-red-800"
+                      onClick={() => deleteReply(reply.replyId)}
+                    >
+                      삭제
+                    </button>
+                  </div>
+                )}
+                {/* 댓글 1 끝 */}
+                <br></br>
               </div>
-              <div>
-                <div className="text-sm font-bold">
-                  {reply.originalUsername}
-                </div>
-                <div className="text-gray-700">{reply.comment}</div>
-              </div>
-            </div>
-            {user && user.body[0].id === reply.user_id && (
-              <div className="flex flex-row justify-end">
-                <button
-                  className="border p-2 bg-teal-600 rounded-md text-white hover:bg-teal-800"
-                  onClick={() => router.push(`/post/updateForm/${id}`)}
-                >
-                  수정
-                </button>
-                <button
-                  className="border p-2 bg-red-700 rounded-md text-white mr-5 hover:bg-red-800"
-                  onClick={deleteReply}
-                >
-                  삭제
-                </button>
-              </div>
-            )}
-            {/* 댓글 1 끝 */}
-            <br></br>
-          </div>
-        ))}
+            )
+          )
+        )}
       </div>
     </div>
   );
