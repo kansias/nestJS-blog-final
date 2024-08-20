@@ -1,13 +1,7 @@
 {
-  "/_not-found/page": "app/_not-found/page.js",
+  "/(post)/post/[id]/page": "app/(post)/post/[id]/page.js",
   "/(home)/page": "app/(home)/page.js",
-  "/api/login/route": "app/api/login/route.js",
   "/(user)/user/loginForm/page": "app/(user)/user/loginForm/page.js",
   "/(sub)/sub/page": "app/(sub)/sub/page.js",
-  "/api/sub/list/route": "app/api/sub/list/route.js",
-  "/(post)/post/[id]/page": "app/(post)/post/[id]/page.js",
-  "/api/detail/[id]/route": "app/api/detail/[id]/route.js",
-  "/api/reply/list/route": "app/api/reply/list/route.js",
-  "/api/reply/save/route": "app/api/reply/save/route.js",
-  "/api/reply/update/route": "app/api/reply/update/route.js"
+  "/api/index/route": "app/api/index/route.js"
 }

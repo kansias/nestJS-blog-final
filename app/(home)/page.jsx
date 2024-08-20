@@ -1,27 +1,39 @@
-import executeQuery from "../_lib/db";
+"use client";
+
 import styles from "../../styles/index.module.css";
-import { IndexDTO } from "../util/IndexResponse";
 import Link from "next/link";
+import axios from "axios";
+import Image from "next/image";
+import { useEffect, useState } from "react";
 
-export default async function Index() {
-  const sql = "select * from post_tb order by rand() limit 8";
-  const data = await executeQuery(sql, "");
-  // json 데이터를 객체로 다시 !
-  const getdata = JSON.parse(JSON.stringify(data));
-  // console.log("main Index = " + getdata);
+export default function Index() {
+  const [index, setIndex] = useState([]);
 
-  // DTO로 데이터 가공
-  const indexList = getdata.map(
-    (item) =>
-      new IndexDTO(
-        item.id,
-        item.title,
-        item.content,
-        item.thumbnail_file,
-        item.user_id
-      )
-  );
-  // console.log("main Index = " + JSON.stringify(indexList));
+  // 서버 요청
+  useEffect(() => {
+    // console.log("front 111 ");
+
+    const indexList = async () => {
+      try {
+        const res = await axios.get(`/api/index`, {});
+
+        // console.log("front 222 ");
+        // console.log("index ? " + JSON.stringify(res));
+        // console.log("res.data.body = " + JSON.stringify(res.data.body));
+
+        if (res.status === 200) {
+          setIndex(res.data.body);
+        }
+      } catch (error) {
+        if (error.response) {
+          alert(error.response.data.msg);
+        }
+      }
+    };
+
+    indexList();
+  }, []);
+  // 서버 요청 끝
 
   const removeImagesFromContent = (content) => {
     // 이미지 태그 제거
@@ -36,14 +48,14 @@ export default async function Index() {
     <div className="flex flex-col mx-4 justify-start gap-y-4">
       <h1 className="text-4xl py-4">JSTORY MAIN</h1>
       <div className="flex flex-wrap">
-        {indexList.map((post) => (
+        {index.map((post) => (
           <div key={post.id} className="sm:w-1/2 p-2">
             <Link href={`/post/${post.id}`}>
               <div
                 className={`${styles.card} flex flex-row w-auto h-auto border rounded-xl`}
               >
                 <div className="sm:w-64 sm:h-30 w-6 flex justify-center items-center bg-gray-100">
-                  <img
+                  <Image // webpack을 통해 이미지 최적화 (용량 감소) 및 lazy 로딩
                     src={`/img/${post.thumbnail_file}`}
                     alt={post.thumbnail_file}
                     width={1500}
