@@ -34,8 +34,6 @@ export default function otherBlogList() {
   const blogUserId = pathNumber[1];
 
   useEffect(() => {
-    if (!hasNextPage || loading) return; // 중복 요청 방지
-
     // console.log("blogUserId = " + blogUserId);
 
     const otherBlogPost = async (page) => {

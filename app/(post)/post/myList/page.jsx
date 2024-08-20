@@ -11,6 +11,7 @@ import Image from "next/image";
 export default function myList() {
   const { user } = useAuth();
   const userId = user && user.body[0].id;
+  const username = user && user.body[0].username;
   const [blogPosts, setBlogPosts] = useState([]);
 
   // 페이징 번호
@@ -109,7 +110,7 @@ export default function myList() {
   // const cleanContent = DOMPurify.sanitize(blogPosts);
   return (
     <div className="max-w-4xl mx-auto py-10">
-      <h1 className="text-4xl font-bold mb-10">cos's Blog</h1>
+      <h1 className="text-4xl font-bold mb-10">{username}'s Blog</h1>
       {/* 각 포스트를 반복하여 렌더링 */}
       {blogPosts.map((post, index) => {
         const cleanContent = DOMPurify.sanitize(post.content); // 각 포스트의 콘텐츠를 정화
