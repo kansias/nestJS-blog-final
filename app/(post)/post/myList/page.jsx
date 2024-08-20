@@ -121,18 +121,18 @@ export default function myList() {
             key={`${post.id}-${index}`} // 고유한 key 속성 추가
           >
             <div className="flex justify-center">
-              <img
-                src={`/img/${post.thumbnail_file}`}
-                alt={post.thumbnail_file}
-                width={350}
-                height={200}
-              />
-              {/* <Image // webpack을 통해 이미지 최적화 (용량 감소) 및 lazy 로딩
+              {/* <img
                 src={`/img/${post.thumbnail_file}`}
                 alt={post.thumbnail_file}
                 width={350}
                 height={200}
               /> */}
+              <Image // webpack을 통해 이미지 최적화 (용량 감소) 및 lazy 로딩
+                src={`/img/${post.thumbnail_file}`}
+                alt={post.thumbnail_file}
+                width={350}
+                height={200}
+              />
             </div>
 
             <Link href={`/post/${post.id}`}>

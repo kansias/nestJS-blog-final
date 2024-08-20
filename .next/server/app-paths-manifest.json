@@ -1,8 +1,8 @@
 {
-  "/(home)/page": "app/(home)/page.js",
-  "/api/login/route": "app/api/login/route.js",
+  "/_not-found/page": "app/_not-found/page.js",
   "/(user)/user/loginForm/page": "app/(user)/user/loginForm/page.js",
-  "/api/userUpdateForm/oldPassCheck/route": "app/api/userUpdateForm/oldPassCheck/route.js",
-  "/(user)/user/updateForm/page": "app/(user)/user/updateForm/page.js",
-  "/api/userUpdateForm/update/route": "app/api/userUpdateForm/update/route.js"
+  "/(sub)/sub/page": "app/(sub)/sub/page.js",
+  "/api/login/route": "app/api/login/route.js",
+  "/(home)/page": "app/(home)/page.js",
+  "/api/sub/list/route": "app/api/sub/list/route.js"
 }

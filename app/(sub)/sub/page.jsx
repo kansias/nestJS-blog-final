@@ -1,54 +1,95 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { useAuth } from "../../util/AuthContext";
+import { useRouter } from "next/navigation";
+
 export default function SubList() {
+  // 로그인 한 유저
+  const { user } = useAuth();
+  const userId = user && user.body[0].id;
+  const username = user && user.body[0].username;
+  // 로그인 한 유저 정보 끝
+
+  const router = useRouter();
+
+  // 내 구독리스트 배열로 상태 저장
+  const [mySubList, setMySubList] = useState([]);
+
+  // 서버 요청
+  useEffect(() => {
+    if (!user) {
+      alert("로그인이 필요합니다.");
+      router.push("/user/loginForm");
+      return;
+    }
+
+    console.log("front 111 ");
+
+    const mySubscribeList = async () => {
+      try {
+        const res = await axios.get(`/api/sub/list`, {
+          params: { userId },
+        });
+
+        console.log("front 222 ");
+        console.log("mySubList ? " + JSON.stringify(res.data.body));
+
+        if (res.status === 200) {
+          // console.log("성공!!!");
+          setMySubList(res.data.body);
+          // console.log("res.data.body = " + JSON.stringify(res.data.body));
+        }
+      } catch (error) {
+        if (error.response) {
+          alert(error.response.data.msg);
+        }
+      }
+    };
+
+    mySubscribeList();
+  }, [userId]);
+  // 서버 요청 끝
+
+  // 새로운 배열 생성 (reduce 메서드 사용)
+  const newSubList = mySubList.reduce((acc, post) => {
+    if (!acc[post.username]) {
+      acc[post.username] = [];
+    }
+    acc[post.username].push(post);
+    return acc;
+  }, {});
+  // username 별로 모아서 post를 뿌릴 것임 (구독 중인 블로그 목록)
+
   return (
     <div className="min-h-screen bg-gray-100 p-8">
       <div className="max-w-4xl mx-auto">
-        <h1 className="text-2xl font-bold mb-4">구독 중인 블로그</h1>
+        <h1 className="text-2xl font-bold mb-4">
+          {username}님이 구독 중인 블로그
+        </h1>
+        {/* map 돌리기 */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="border rounded-lg p-4 shadow-sm flex justify-between items-start bg-white">
-            <div>
-              <h3 className="text-xl font-bold mb-2">love 블로그</h3>
-              <p className="text-red-500 text-sm mb-1">
-                [최신글] 요즘 인기 있는 드라마!! "굿파트너"
-              </p>
-              <p className="text-red-500 text-sm mb-1">
-                [최신글] "오타쿠의 사랑" 리뷰
-              </p>
+          {Object.entries(newSubList).map(([username, posts]) => (
+            <div
+              key={username}
+              className="border rounded-lg p-4 shadow-sm flex justify-between items-start bg-white"
+            >
+              <div>
+                <h3 className="text-xl font-bold mb-2">{username} 블로그</h3>
+                {posts.map((post) => (
+                  <p className="text-red-500 text-sm mb-1">
+                    [최신글] {post.title}
+                  </p>
+                ))}
+              </div>
+              <button className="bg-red-500 text-white py-1 px-4 rounded">
+                구독취소
+              </button>
             </div>
-            <button className="bg-red-500 text-white py-1 px-4 rounded">
-              구독취소
-            </button>
-          </div>
-
-          <div className="border rounded-lg p-4 shadow-sm flex justify-between items-start bg-white">
-            <div>
-              <h3 className="text-xl font-bold mb-2">vivi 블로그</h3>
-              <p className="text-red-500 text-sm mb-1">
-                [최신글] 효율적인 디버깅을 위한 팁
-              </p>
-              <p className="text-red-500 text-sm mb-1">
-                [최신글] 코드 리팩토링: 잘못된 코드 수정하기
-              </p>
-            </div>
-            <button className="bg-red-500 text-white py-1 px-4 rounded">
-              구독취소
-            </button>
-          </div>
-
-          <div className="border rounded-lg p-4 shadow-sm flex justify-between items-start bg-white">
-            <div>
-              <h3 className="text-xl font-bold mb-2">cos 블로그</h3>
-              <p className="text-red-500 text-sm mb-1">
-                [최신글] 전라도 맛집 여행: 여수 편
-              </p>
-              <p className="text-red-500 text-sm mb-1">
-                [최신글] 전라도 맛집 여행: 전주 편
-              </p>
-            </div>
-            <button className="bg-red-500 text-white py-1 px-4 rounded">
-              구독취소
-            </button>
-          </div>
+          ))}
         </div>
+        {/* map 돌리기 */}
       </div>
     </div>
   );
