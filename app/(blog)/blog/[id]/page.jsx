@@ -21,7 +21,9 @@ export default function otherBlogList() {
   const [hasNextPage, setHasNextPage] = useState(true); // 다음 페이지 여부 (마지막 페이지 알림)
 
   const [username, setUsername] = useState("");
+
   const [isSubscribe, setIsSubscribe] = useState(false); // 일단 false로 설정한다. 구독여부 상태 확인
+  const [isMyBlog, setIsMyBlog] = useState(false); // 내 블로그 여부
 
   // 스크롤 위치를 저장하기 위한 ref
   const scrollRef = useRef(0);
@@ -146,7 +148,23 @@ export default function otherBlogList() {
   // 구독하기 save 끝
 
   // 구독하기 useEffect
-  useEffect(() => {}, [isSubscribe]);
+  // useEffect(() => {
+  //   const checkSubstribeState = async () => {
+  //     // 로그인 정보 있으면
+  //     if (user) {
+  //       const res = await axios.get(
+  //         `/api/sub/check/${sessionUserId}/${blogUserId}`
+  //       );
+
+  //       console.log("front res " + res.data);
+
+  //       setIsSubscribe(res.data.isSubscribed);
+  //       setIsMyBlog(res.data.isMyBlog);
+  //     }
+  //   };
+
+  //   checkSubstribeState();
+  // }, [user, blogUserId, isSubscribe]);
 
   // 구독 취소
 
@@ -186,24 +204,40 @@ export default function otherBlogList() {
       <div className="flex flex-row justify-between">
         <h1 className="text-4xl font-bold mb-10">{username}'s Blog</h1>
 
-        {/* 여기다 삼항연산자 로직 넣기!!!! */}
-        {/* 구독하기 */}
-        <h1
-          className="text-3 font-bold mb-10 bg-teal-500 rounded-full p-2 text-white cursor-pointer"
-          onClick={subSave}
-        >
-          구독하기
-        </h1>
-        {/* 구독하기 */}
+        {/* 로그인을 하지 않은 경우 */}
+        {!user && (
+          <Link href={`/user/loginForm`}>
+            <h1 className="text-3 font-bold mb-10 bg-teal-500 rounded-full p-2 text-white cursor-pointer">
+              구독하기
+            </h1>
+          </Link>
+        )}
+
+        {/* {isMyBlog && <Link href={`/post/myList`}></Link>} */}
 
         {/* 구독취소 */}
-        <h1
-          className="text-3 font-bold mb-10 bg-red-500 rounded-full p-2 text-white cursor-pointer"
-          onClick={subDelete}
-        >
-          구독취소
-        </h1>
+        {/* {isSubscribe && !isMyBlog && user && ( */}
+        {isSubscribe && user && (
+          <h1
+            className="text-3 font-bold mb-10 bg-red-500 rounded-full p-2 text-white cursor-pointer"
+            onClick={subDelete}
+          >
+            구독취소
+          </h1>
+        )}
         {/* 구독취소 */}
+
+        {/* 구독하기 */}
+        {/* {!isSubscribe && !isMyBlog && user && ( */}
+        {!isSubscribe && user && (
+          <h1
+            className="text-3 font-bold mb-10 bg-teal-500 rounded-full p-2 text-white cursor-pointer"
+            onClick={subSave}
+          >
+            구독하기
+          </h1>
+        )}
+        {/* 구독하기 */}
       </div>
       {/* 각 포스트를 반복하여 렌더링 */}
       {blogPosts.map((post, index) => {

@@ -1,10 +1,12 @@
 {
   "/(home)/page": "app/(home)/page.js",
-  "/(user)/user/loginForm/page": "app/(user)/user/loginForm/page.js",
-  "/(post)/post/[id]/page": "app/(post)/post/[id]/page.js",
-  "/(blog)/blog/[id]/page": "app/(blog)/blog/[id]/page.js",
   "/api/index/route": "app/api/index/route.js",
+  "/(user)/user/loginForm/page": "app/(user)/user/loginForm/page.js",
   "/api/blog/route": "app/api/blog/route.js",
+  "/(blog)/blog/[id]/page": "app/(blog)/blog/[id]/page.js",
+  "/api/login/route": "app/api/login/route.js",
   "/api/sub/cancel/[sessionUserId]/[blogUserId]/route": "app/api/sub/cancel/[sessionUserId]/[blogUserId]/route.js",
-  "/api/sub/subscribe/route": "app/api/sub/subscribe/route.js"
+  "/api/sub/subscribe/route": "app/api/sub/subscribe/route.js",
+  "/(post)/post/writeForm/page": "app/(post)/post/writeForm/page.js",
+  "/api/category/list/route": "app/api/category/list/route.js"
 }

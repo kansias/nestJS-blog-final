@@ -11,6 +11,7 @@ export async function DELETE(request, { params }) {
   try {
     console.log("22222222");
 
+    // 바로 삭제해도 되긴하지만............ 한 번 조회하고 들어가면?
     const selectSql = `select id from subscribe_tb where from_user_id = ? and to_user_id = ?`;
     const selectData = await executeQuery(selectSql, [
       sessionUserId,
