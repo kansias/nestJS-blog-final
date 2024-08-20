@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useAuth } from "../../util/AuthContext";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function SubList() {
   // 로그인 한 유저
@@ -78,9 +79,11 @@ export default function SubList() {
               <div>
                 <h3 className="text-xl font-bold mb-2">{username} 블로그</h3>
                 {posts.map((post) => (
-                  <p className="text-red-500 text-sm mb-1">
-                    [최신글] {post.title}
-                  </p>
+                  <Link href={`/post/${post.post_id}`} key={post.post_id}>
+                    <p className="text-red-500 text-sm mb-1">
+                      [최신글] {post.title}
+                    </p>
+                  </Link>
                 ))}
               </div>
               <button className="bg-red-500 text-white py-1 px-4 rounded">
