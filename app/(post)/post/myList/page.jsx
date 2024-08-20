@@ -110,7 +110,14 @@ export default function myList() {
   // const cleanContent = DOMPurify.sanitize(blogPosts);
   return (
     <div className="max-w-4xl mx-auto py-10">
-      <h1 className="text-4xl font-bold mb-10">{username}'s Blog</h1>
+      <div className="flex flex-row justify-between">
+        <h1 className="text-4xl font-bold mb-10">{username}'s Blog</h1>
+        <Link href="/post/writeForm">
+          <h1 className="text-4xl font-bold mb-10 bg-teal-600 rounded-full p-2">
+            ✏️
+          </h1>
+        </Link>
+      </div>
       {/* 각 포스트를 반복하여 렌더링 */}
       {blogPosts.map((post, index) => {
         const cleanContent = DOMPurify.sanitize(post.content); // 각 포스트의 콘텐츠를 정화

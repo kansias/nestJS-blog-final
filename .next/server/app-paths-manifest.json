@@ -1,11 +1,10 @@
 {
-  "/(blog)/blog/[id]/page": "app/(blog)/blog/[id]/page.js",
   "/(home)/page": "app/(home)/page.js",
-  "/api/index/route": "app/api/index/route.js",
   "/(user)/user/loginForm/page": "app/(user)/user/loginForm/page.js",
-  "/api/login/route": "app/api/login/route.js",
   "/(post)/post/myList/page": "app/(post)/post/myList/page.js",
+  "/api/index/route": "app/api/index/route.js",
+  "/api/login/route": "app/api/login/route.js",
   "/api/post/myList/route": "app/api/post/myList/route.js",
-  "/(sub)/sub/page": "app/(sub)/sub/page.js",
-  "/api/sub/list/route": "app/api/sub/list/route.js"
+  "/(post)/post/writeForm/page": "app/(post)/post/writeForm/page.js",
+  "/api/category/list/route": "app/api/category/list/route.js"
 }
