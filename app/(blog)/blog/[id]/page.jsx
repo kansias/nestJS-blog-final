@@ -132,18 +132,8 @@ export default function otherBlogList() {
       console.log("resssss " + JSON.stringify(res));
 
       if (res.status === 200) {
-        const newReply = {
-          id: res.data.body.id, // 서버에서 반환된 댓글 ID를 사용
-          user_id: res.data.body.userId, // 서버에서 반환된 댓글 작성자 ID를 사용
-          comment, // 입력된 댓글 내용
-          shortUsername: user.body[0].username.slice(0, 1), // 댓글 작성자의 첫 글자만 사용
-          originalUsername: user.body[0].username, // 댓글 작성자의 전체 이름 사용
-        };
-
-        console.log("newReply " + JSON.stringify(newReply));
-        setRepliesRes((prevReplies) => [newReply, ...prevReplies]); // 새 댓글을 가장 위에 추가
-        alert("댓글 save 성공!!");
-        setComment(""); // 댓글 등록 후 textarea 초기화
+        setIsSubscribe(true);
+        alert("구독 완료!!");
       }
     } catch (error) {
       console.log("에러 발생:", error);
@@ -154,6 +144,9 @@ export default function otherBlogList() {
     }
   };
   // 구독하기 save 끝
+
+  // 구독하기 useEffect
+  useEffect(() => {}, [isSubscribe]);
 
   // 구독 취소
 
