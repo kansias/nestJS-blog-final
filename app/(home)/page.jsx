@@ -19,7 +19,7 @@ export default function Index() {
 
         // console.log("front 222 ");
         // console.log("index ? " + JSON.stringify(res));
-        // console.log("res.data.body = " + JSON.stringify(res.data.body));
+        console.log("res.data.body = " + JSON.stringify(res.data.body));
 
         if (res.status === 200) {
           setIndex(res.data.body);
@@ -49,8 +49,8 @@ export default function Index() {
       <h1 className="text-4xl py-4">JSTORY MAIN</h1>
       <div className="flex flex-wrap">
         {index.map((post) => (
-          <div key={post.id} className="sm:w-1/2 p-2">
-            <Link href={`/post/${post.id}`}>
+          <div key={post.post_id} className="sm:w-1/2 p-2">
+            <Link href={`/post/${post.post_id}`}>
               <div
                 className={`${styles.card} flex flex-row w-auto h-auto border rounded-xl`}
               >
@@ -64,7 +64,7 @@ export default function Index() {
                 </div>
                 <div className="ml-7">
                   <div className="text-2xl text-teal-500 w-auto mt-3 mb-8">
-                    {post.title} ({post.user_id})
+                    {post.title}
                   </div>
 
                   {/*  html 태그 안보이게 */}
@@ -75,6 +75,11 @@ export default function Index() {
                     }}
                   />
                 </div>
+              </div>
+            </Link>
+            <Link href={`/user`}>
+              <div className="mt-4 p-2 bg-teal-500 text-white rounded-md text-center">
+                {post.username} 블로그 바로가기
               </div>
             </Link>
           </div>
