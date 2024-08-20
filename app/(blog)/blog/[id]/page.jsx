@@ -21,6 +21,7 @@ export default function otherBlogList() {
   const [hasNextPage, setHasNextPage] = useState(true); // 다음 페이지 여부 (마지막 페이지 알림)
 
   const [username, setUsername] = useState("");
+  const [isSubscribe, setIsSubscribe] = useState(false); // 일단 false로 설정한다. 구독여부 상태 확인
 
   // 스크롤 위치를 저장하기 위한 ref
   const scrollRef = useRef(0);
@@ -120,10 +121,99 @@ export default function otherBlogList() {
     return textOnly.replace(/\s+/g, " ").trim();
   };
 
+  // 구독하기 save
+  const subSave = async () => {
+    try {
+      const res = await axios.post(`/api/sub/subscribe`, {
+        sessionUserId,
+        blogUserId,
+      });
+
+      console.log("resssss " + JSON.stringify(res));
+
+      if (res.status === 200) {
+        const newReply = {
+          id: res.data.body.id, // 서버에서 반환된 댓글 ID를 사용
+          user_id: res.data.body.userId, // 서버에서 반환된 댓글 작성자 ID를 사용
+          comment, // 입력된 댓글 내용
+          shortUsername: user.body[0].username.slice(0, 1), // 댓글 작성자의 첫 글자만 사용
+          originalUsername: user.body[0].username, // 댓글 작성자의 전체 이름 사용
+        };
+
+        console.log("newReply " + JSON.stringify(newReply));
+        setRepliesRes((prevReplies) => [newReply, ...prevReplies]); // 새 댓글을 가장 위에 추가
+        alert("댓글 save 성공!!");
+        setComment(""); // 댓글 등록 후 textarea 초기화
+      }
+    } catch (error) {
+      console.log("에러 발생:", error);
+      if (error.response) {
+        // console.log("에러에러");
+        alert(error.response.data.msg);
+      }
+    }
+  };
+  // 구독하기 save 끝
+
+  // 구독 취소
+
+  const subDelete = async (replyId) => {
+    console.log("replyId why " + replyId);
+
+    if (!confirm("정말 삭제하시겠습니까?")) {
+      return;
+    }
+
+    try {
+      // DELETE는 URL에 리소스 정보를 포함시켜 요청
+      const res = await axios.delete(`/api/sub/cancel`);
+
+      if (res.status === 200) {
+        // 댓글 리스트에서 댓글 제거하는 로직
+        setRepliesRes(
+          (prevReplies) =>
+            prevReplies.filter((reply) => reply.replyId !== replyId) // replyId로 필터링
+        );
+        // 댓글 삭제하면 댓글 리스트에서 새로고침 하지 않고도 바로 반영하고싶다 ㅠㅠ
+        // repliesRes에 새로운 상태를 반영해주면 되는것 아닌가 -> list에서 댓글을 다시 불러오는 로직을 추가해주면 될것 같다
+        fetchPostAndReply();
+
+        alert("삭제되었습니다");
+      }
+    } catch (error) {
+      if (error.response) {
+        // console.log("에러에러");
+        alert(error.response.data.msg);
+      }
+    }
+  };
+  // 구독 취소 끝
+
   // const cleanContent = DOMPurify.sanitize(blogPosts);
   return (
     <div className="max-w-4xl mx-auto py-10">
-      <h1 className="text-4xl font-bold mb-10">{username}'s Blog</h1>
+      <div className="flex flex-row justify-between">
+        <h1 className="text-4xl font-bold mb-10">{username}'s Blog</h1>
+
+        {/* 여기다 삼항연산자 로직 넣기!!!! */}
+        {/* 구독하기 */}
+        <h1
+          className="text-3 font-bold mb-10 bg-teal-500 rounded-full p-2 text-white cursor-pointer"
+          onClick={subSave}
+        >
+          구독하기
+        </h1>
+        {/* 구독하기 */}
+
+        {/* 구독취소 */}
+        <h1
+          className="text-3 font-bold mb-10 bg-red-500 rounded-full p-2 text-white cursor-pointer"
+          onClick={subDelete}
+        >
+          구독취소
+        </h1>
+        {/* 구독취소 */}
+      </div>
       {/* 각 포스트를 반복하여 렌더링 */}
       {blogPosts.map((post, index) => {
         const cleanContent = DOMPurify.sanitize(post.content); // 각 포스트의 콘텐츠를 정화
