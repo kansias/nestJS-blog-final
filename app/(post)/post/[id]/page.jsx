@@ -65,14 +65,11 @@ export default function Detail({ params }) {
     }
 
     try {
-      // 애가 request에 담겨야하는데
       const res = await axios.delete(`/api/post/delete/${id}`);
 
       // console.log("resssss " + JSON.stringify(res));
 
       if (res.status === 200) {
-        // console.log("작동???????");
-        // console.log("sss " + JSON.stringify(res.data));
         alert("삭제되었습니다");
         router.push("/");
         setTimeout(() => {
@@ -141,7 +138,6 @@ export default function Detail({ params }) {
     }
 
     try {
-      // 애가 request에 담겨야하는데
       const res = await axios.delete(`/api/reply/delete/${replyId}`);
 
       // console.log("resssss " + JSON.stringify(res));

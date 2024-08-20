@@ -1,6 +1,7 @@
 import { success, fail } from "../../../../util/ApiUtil";
 import executeQuery from "../../../../_lib/db";
 
+// id로 받았는데 왜 params를 썻지? request.url 안쓰고..
 export async function DELETE(request, { params }) {
   console.log("params ", params);
   const { id } = params; //url에서 id값 (replyId) 가져오기

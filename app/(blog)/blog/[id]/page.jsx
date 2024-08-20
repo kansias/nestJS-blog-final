@@ -150,28 +150,26 @@ export default function otherBlogList() {
 
   // 구독 취소
 
-  const subDelete = async (replyId) => {
-    console.log("replyId why " + replyId);
-
-    if (!confirm("정말 삭제하시겠습니까?")) {
+  const subDelete = async () => {
+    if (!confirm("구독 취소하시겠습니까?")) {
       return;
     }
 
+    console.log("front 111111");
+
     try {
+      console.log("front 222222");
+
       // DELETE는 URL에 리소스 정보를 포함시켜 요청
-      const res = await axios.delete(`/api/sub/cancel`);
+      const res = await axios.delete(
+        `/api/sub/cancel/${sessionUserId}/${blogUserId}`
+      );
+
+      console.log("front 333333");
 
       if (res.status === 200) {
-        // 댓글 리스트에서 댓글 제거하는 로직
-        setRepliesRes(
-          (prevReplies) =>
-            prevReplies.filter((reply) => reply.replyId !== replyId) // replyId로 필터링
-        );
-        // 댓글 삭제하면 댓글 리스트에서 새로고침 하지 않고도 바로 반영하고싶다 ㅠㅠ
-        // repliesRes에 새로운 상태를 반영해주면 되는것 아닌가 -> list에서 댓글을 다시 불러오는 로직을 추가해주면 될것 같다
-        fetchPostAndReply();
-
-        alert("삭제되었습니다");
+        setIsSubscribe(false);
+        alert("구독이 취소되었습니다.");
       }
     } catch (error) {
       if (error.response) {
