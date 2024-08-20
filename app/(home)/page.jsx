@@ -77,7 +77,7 @@ export default function Index() {
                 </div>
               </div>
             </Link>
-            <Link href={`/user`}>
+            <Link href={`/blog/${post.user_id}`}>
               <div className="mt-4 p-2 bg-teal-500 text-white rounded-md text-center">
                 {post.username} 블로그 바로가기
               </div>
