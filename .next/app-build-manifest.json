@@ -21,12 +21,6 @@
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/(post)/post/[id]/page.js"
-    ],
-    "/(post)/post/myList/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/css/app/(post)/post/myList/page.css",
-      "static/chunks/app/(post)/post/myList/page.js"
     ]
   }
 }

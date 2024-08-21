@@ -23,8 +23,8 @@ export default function otherBlogList() {
 
   const [username, setUsername] = useState("");
 
-  const [isSubscribe, setIsSubscribe] = useState(null); // 일단 false로 설정한다. 구독여부 상태 확인
-  const [isMyBlog, setIsMyBlog] = useState(null); // 내 블로그 여부
+  const [isSubscribe, setIsSubscribe] = useState(false); // 일단 false로 설정한다. 구독여부 상태 확인
+  const [isMyBlog, setIsMyBlog] = useState(false); // 내 블로그 여부
 
   // 스크롤 위치를 저장하기 위한 ref
   const scrollRef = useRef(0);

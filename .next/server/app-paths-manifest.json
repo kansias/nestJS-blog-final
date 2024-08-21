@@ -2,9 +2,8 @@
   "/(home)/page": "app/(home)/page.js",
   "/(user)/user/loginForm/page": "app/(user)/user/loginForm/page.js",
   "/(post)/post/[id]/page": "app/(post)/post/[id]/page.js",
-  "/api/index/route": "app/api/index/route.js",
   "/api/detail/[id]/route": "app/api/detail/[id]/route.js",
   "/api/reply/list/route": "app/api/reply/list/route.js",
-  "/api/reply/delete/[id]/route": "app/api/reply/delete/[id]/route.js",
-  "/api/reply/save/route": "app/api/reply/save/route.js"
+  "/api/index/route": "app/api/index/route.js",
+  "/api/login/route": "app/api/login/route.js"
 }
