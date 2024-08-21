@@ -7,9 +7,10 @@ import Link from "next/link";
 import DOMPurify from "dompurify";
 import styles from "../../../../styles/mylist.module.css";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 export default function otherBlogList() {
+  const router = useRouter();
   const { user } = useAuth();
   const sessionUserId = user && user.body[0].id;
 
@@ -22,8 +23,8 @@ export default function otherBlogList() {
 
   const [username, setUsername] = useState("");
 
-  const [isSubscribe, setIsSubscribe] = useState(false); // 일단 false로 설정한다. 구독여부 상태 확인
-  const [isMyBlog, setIsMyBlog] = useState(false); // 내 블로그 여부
+  const [isSubscribe, setIsSubscribe] = useState(null); // 일단 false로 설정한다. 구독여부 상태 확인
+  const [isMyBlog, setIsMyBlog] = useState(null); // 내 블로그 여부
 
   // 스크롤 위치를 저장하기 위한 ref
   const scrollRef = useRef(0);
@@ -102,7 +103,7 @@ export default function otherBlogList() {
 
   useEffect(() => {
     if (!hasNextPage && !loading && blogPosts.length > 0) {
-      alert("마지막 페이지입니다!");
+      // alert("마지막 페이지입니다!");
     }
   }, [hasNextPage, loading]);
 
@@ -147,24 +148,27 @@ export default function otherBlogList() {
   };
   // 구독하기 save 끝
 
-  // 구독하기 useEffect
-  // useEffect(() => {
-  //   const checkSubstribeState = async () => {
-  //     // 로그인 정보 있으면
-  //     if (user) {
-  //       const res = await axios.get(
-  //         `/api/sub/check/${sessionUserId}/${blogUserId}`
-  //       );
+  // 구독하기 useEffect (처음 화면이 랜더링 되었을 때, 구독여부 확인 및 내블로그 여부 확인)
+  useEffect(() => {
+    const checkSubstribeState = async () => {
+      // 로그인 정보 있으면
+      if (user) {
+        const res = await axios.get(`/api/sub/check`, {
+          params: { sessionUserId, blogUserId },
+        });
 
-  //       console.log("front res " + res.data);
+        // console.log("front res 1 " + JSON.stringify(res));
+        // console.log("front res 2 " + JSON.stringify(res.data.body.isSubscribe));
 
-  //       setIsSubscribe(res.data.isSubscribed);
-  //       setIsMyBlog(res.data.isMyBlog);
-  //     }
-  //   };
+        setIsMyBlog(res.data.body.isMyBlog);
+        setIsSubscribe(res.data.body.isSubscribe);
+      }
+    };
 
-  //   checkSubstribeState();
-  // }, [user, blogUserId, isSubscribe]);
+    checkSubstribeState();
+    // isSubscribe 포함 X
+  }, [user, blogUserId]);
+  // 구독하기 useEffect 끝
 
   // 구독 취소
 
@@ -213,11 +217,17 @@ export default function otherBlogList() {
           </Link>
         )}
 
-        {/* {isMyBlog && <Link href={`/post/myList`}></Link>} */}
+        {/* 내 블로그인 경우 */}
+        {isMyBlog && (
+          <Link href="/post/writeForm">
+            <h1 className="text-4xl font-bold mb-10 bg-teal-600 rounded-full p-2">
+              ✏️
+            </h1>
+          </Link>
+        )}
 
         {/* 구독취소 */}
-        {/* {isSubscribe && !isMyBlog && user && ( */}
-        {isSubscribe && user && (
+        {isSubscribe && !isMyBlog && user && (
           <h1
             className="text-3 font-bold mb-10 bg-red-500 rounded-full p-2 text-white cursor-pointer"
             onClick={subDelete}
@@ -228,8 +238,7 @@ export default function otherBlogList() {
         {/* 구독취소 */}
 
         {/* 구독하기 */}
-        {/* {!isSubscribe && !isMyBlog && user && ( */}
-        {!isSubscribe && user && (
+        {!isSubscribe && !isMyBlog && user && (
           <h1
             className="text-3 font-bold mb-10 bg-teal-500 rounded-full p-2 text-white cursor-pointer"
             onClick={subSave}

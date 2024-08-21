@@ -1,4 +1,4 @@
-// File: C:\workspace\nextJS-blog-test 222\app\api\sub\cancel\[sessionUserId]\[blogUserId]\route.jsx
+// File: C:\Users\aico-2\Desktop\workspace\nestJS-blog-final\app\api\sub\cancel\[sessionUserId]\[blogUserId]\route.jsx
 import * as entry from '../../../../../../../../app/api/sub/cancel/[sessionUserId]/[blogUserId]/route.js'
 import type { NextRequest } from 'next/server.js'
 
