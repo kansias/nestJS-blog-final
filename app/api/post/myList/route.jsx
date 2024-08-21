@@ -9,7 +9,7 @@ export async function GET(request) {
     const userId = searchParams.get("userId");
     const page = parseInt(searchParams.get("page")) || 1; // 페이지 번호
     const pageSize = 5; // 한 페이지에 표시할 데이터 개수
-    const offset = (page - 1) * pageSize; // 페이지의 시작점 계산
+    const offset = (page - 1) * pageSize; // 페이지의 시작점 계산 (몇 번째 데이터부터 가져올지)
 
     console.log("222222222222 userId:", userId, "page:", page);
 

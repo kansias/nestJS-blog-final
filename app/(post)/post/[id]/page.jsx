@@ -20,9 +20,47 @@ export default function Detail({ params }) {
   const [editMode, setEditMode] = useState(null); // 수정 모드
   const [updateComment, setUpdateComment] = useState(""); // 수정할 댓글
 
+  // 댓글 페이징 상태
+  const [page, setPage] = useState(1);
+  const [hasNextPage, setHasNextPage] = useState(true);
+
+  // 댓글 페이징
+  useEffect(() => {
+    const replyPaging = async () => {
+      try {
+        const res = await axios.get(`/api/reply/paging`, {
+          params: { id, page }, // postId 전달
+        });
+
+        // console.log("res 1 " + JSON.stringify(res.data.body.hasNextPage));
+        console.log("res 1 " + JSON.stringify(res.data.body.replys));
+
+        if (res.status === 200) {
+          console.log("성공!");
+          setRepliesRes((prevReplies) => [
+            ...prevReplies,
+            ...res.data.body.replys, // 새 댓글 추가
+          ]);
+          setHasNextPage(res.data.body.hasNextPage);
+        }
+      } catch (error) {
+        if (error.response.status === 404) {
+          setHasNextPage(false);
+        } else {
+          alert("에러!!");
+          console.log("에러 발생:", error);
+        }
+      }
+    };
+
+    if (hasNextPage) {
+      replyPaging();
+    }
+  }, [page, hasNextPage, id]); //postId가 변경될 때에도 다시 ㄱㄱ
+
   // 게시글 상세 조회 + 댓글 조회
   useEffect(() => {
-    const fetchPostAndReply = async () => {
+    const fetchPost = async () => {
       try {
         // 애가 request에 담겨야하는데
         const res = await axios.post(`/api/detail/${id}`, {
@@ -32,24 +70,11 @@ export default function Detail({ params }) {
         if (res.status === 200) {
           setPost(res.data.body);
         }
-
-        const repliesRes = await axios.get(`/api/reply/list`, {
-          params: { id }, // id == postId
-          // params: { userId, id }, // id == postId
-        });
-        if (repliesRes.status === 200) {
-          setRepliesRes(repliesRes.data.body);
-          // console.log("repliesRes " + JSON.stringify(repliesRes.data.body));
-        }
       } catch (error) {
         console.log("에러 발생:", error);
-        if (error.response) {
-          // console.log("에러에러");
-          // alert(error.response.data.msg);
-        }
       }
     };
-    fetchPostAndReply();
+    fetchPost();
   }, [id, userId]);
 
   if (!post) {
@@ -343,6 +368,16 @@ export default function Detail({ params }) {
             <br />
           </div>
         ))}
+
+        {/* 댓글 페이징 클릭 이벤트로 구현 */}
+        {hasNextPage && (
+          <button
+            className="mt-4 w-full bg-teal-500 text-white py-2 rounded-md hover:bg-teal-700"
+            onClick={() => setPage((prevPage) => prevPage + 1)}
+          >
+            + 더보기
+          </button>
+        )}
       </div>
     </div>
   );
