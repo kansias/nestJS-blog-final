@@ -9,7 +9,7 @@ export default function Navigation() {
   const path = usePathname();
   // login은 true, false 상태값이 필요하니까 isLogin으로 가져왔고, logout은 logout이라 그대로 가져옴
   const { isLogin, logout } = useAuth();
-  console.log("로그인 상태 " + isLogin);
+  // console.log("로그인 상태 " + isLogin);
 
   return (
     <nav className={styles.nav}>

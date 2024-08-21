@@ -269,86 +269,80 @@ export default function Detail({ params }) {
         )}
         <div className="text-lg font-semibold mt-6 mb-4">댓글 리스트</div>
 
-        {repliesRes.map(
-          (reply, index) => (
-            console.log("reply " + JSON.stringify(reply)),
-            // console.log("reply.comment " + JSON.stringify(reply.comment)),
-            console.log("reply.id " + JSON.stringify(reply.id)),
-            console.log("reply.comment " + JSON.stringify(reply.comment)),
-            (
-              // console.log("reply.user_id " + JSON.stringify(reply.user_id)),
-              // console.log("user.body[0].id " + JSON.stringify(user.body[0].id)),
-              <div className="space-y-4" key={`${reply.id}-${index}`}>
-                {/* 댓글1 */}
-                <div className="flex items-start p-4 bg-gray-100 rounded-lg shadow-sm">
-                  <div className="flex-shrink-0 mr-3">
-                    <div className="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center text-white font-bold">
-                      {reply.shortUsername}
-                    </div>
-                  </div>
-                  {/* 댓글 수정 */}
-                  <div>
-                    <div className="text-sm font-bold">
-                      {reply.originalUsername}
-                    </div>
-                    {/* 수정 모드면 textarea */}
-                    {editMode === reply.id ? (
-                      <textarea
-                        className="w-full p-2 border border-gray-300 rounded-md"
-                        value={updateComment}
-                        onChange={(e) => setUpdateComment(e.target.value)}
-                      />
-                    ) : (
-                      // 수정 모드가 아니면 댓글 내용
-                      <div className="text-gray-700">{reply.comment}</div>
-                    )}
-                  </div>
+        {repliesRes.map((reply, index) => (
+          // console.log("reply " + JSON.stringify(reply)),
+          // console.log("reply.comment " + JSON.stringify(reply.comment)),
+          // console.log("reply.id " + JSON.stringify(reply.id)),
+          // console.log("reply.comment " + JSON.stringify(reply.comment)),
+          // console.log("reply.user_id " + JSON.stringify(reply.user_id)),
+          // console.log("user.body[0].id " + JSON.stringify(user.body[0].id)),
+          <div className="space-y-4" key={`${reply.id}-${index}`}>
+            {/* 댓글1 */}
+            <div className="flex items-start p-4 bg-gray-100 rounded-lg shadow-sm">
+              <div className="flex-shrink-0 mr-3">
+                <div className="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center text-white font-bold">
+                  {reply.shortUsername}
                 </div>
-                {/* 댓글 */}
-                {user && user.body[0].id === reply.user_id && (
-                  <div className="flex flex-row justify-end">
-                    {/* 편집 모드일 때  */}
-                    {editMode === reply.id ? (
-                      <>
-                        <button
-                          className="border p-2 bg-teal-600 rounded-md text-white hover:bg-teal-800"
-                          onClick={() => saveUpdatedReply(reply.id)}
-                        >
-                          저장
-                        </button>
-                        <button
-                          className="border p-2 bg-gray-500 rounded-md text-white mr-5 hover:bg-gray-700"
-                          onClick={cancelEdit}
-                        >
-                          취소
-                        </button>
-                      </>
-                    ) : (
-                      // 일반 모드일 때
-                      <>
-                        <button
-                          className="border p-2 bg-teal-600 rounded-md text-white hover:bg-teal-800"
-                          onClick={() =>
-                            toggleEditMode(reply.id, reply.comment)
-                          }
-                        >
-                          수정
-                        </button>
-                        <button
-                          className="border p-2 bg-red-700 rounded-md text-white mr-5 hover:bg-red-800"
-                          onClick={() => deleteReply(reply.id)}
-                        >
-                          삭제
-                        </button>
-                      </>
-                    )}
-                  </div>
-                )}
-                <br />
               </div>
-            )
-          )
-        )}
+              {/* 댓글 수정 */}
+              <div>
+                <div className="text-sm font-bold">
+                  {reply.originalUsername}
+                </div>
+                {/* 수정 모드면 textarea */}
+                {editMode === reply.id ? (
+                  <textarea
+                    className="w-full p-2 border border-gray-300 rounded-md"
+                    value={updateComment}
+                    onChange={(e) => setUpdateComment(e.target.value)}
+                  />
+                ) : (
+                  // 수정 모드가 아니면 댓글 내용
+                  <div className="text-gray-700">{reply.comment}</div>
+                )}
+              </div>
+            </div>
+            {/* 댓글 */}
+            {user && user.body[0].id === reply.user_id && (
+              <div className="flex flex-row justify-end">
+                {/* 편집 모드일 때  */}
+                {editMode === reply.id ? (
+                  <>
+                    <button
+                      className="border p-2 bg-teal-600 rounded-md text-white hover:bg-teal-800"
+                      onClick={() => saveUpdatedReply(reply.id)}
+                    >
+                      저장
+                    </button>
+                    <button
+                      className="border p-2 bg-gray-500 rounded-md text-white mr-5 hover:bg-gray-700"
+                      onClick={cancelEdit}
+                    >
+                      취소
+                    </button>
+                  </>
+                ) : (
+                  // 일반 모드일 때
+                  <>
+                    <button
+                      className="border p-2 bg-teal-600 rounded-md text-white hover:bg-teal-800"
+                      onClick={() => toggleEditMode(reply.id, reply.comment)}
+                    >
+                      수정
+                    </button>
+                    <button
+                      className="border p-2 bg-red-700 rounded-md text-white mr-5 hover:bg-red-800"
+                      onClick={() => deleteReply(reply.id)}
+                    >
+                      삭제
+                    </button>
+                  </>
+                )}
+              </div>
+            )}
+            <br />
+          </div>
+        ))}
       </div>
     </div>
   );
