@@ -39,7 +39,7 @@ export default function Detail({ params }) {
         });
         if (repliesRes.status === 200) {
           setRepliesRes(repliesRes.data.body);
-          console.log("repliesRes " + JSON.stringify(repliesRes.data.body));
+          // console.log("repliesRes " + JSON.stringify(repliesRes.data.body));
         }
       } catch (error) {
         console.log("에러 발생:", error);
@@ -98,15 +98,13 @@ export default function Detail({ params }) {
         comment, // 입력된 댓글 전달
       });
 
-      console.log("resssss " + JSON.stringify(res));
-
       if (res.status === 200) {
-        // console.log("res ? " + JSON.stringify(res));
+        console.log("res ? " + JSON.stringify(res));
         // console.log("res ds? " + JSON.stringify(res.data.body));
-        // console.log("ddddddddd " + res.data.body.user_id);
+        console.log("ddddddddd " + res.data.body.insertId);
         // 새 댓글을 댓글 리스트에 추가
         const newReply = {
-          id: res.data.body.id, // 서버에서 반환된 댓글 ID를 사용
+          id: res.data.body.insertId, // 서버에서 반환된 댓글 ID를 사용
           user_id: res.data.body.userId, // 서버에서 반환된 댓글 작성자 ID를 사용
           comment, // 입력된 댓글 내용
           shortUsername: user.body[0].username.slice(0, 1), // 댓글 작성자의 첫 글자만 사용
@@ -117,6 +115,7 @@ export default function Detail({ params }) {
         setRepliesRes((prevReplies) => [newReply, ...prevReplies]); // 새 댓글을 가장 위에 추가
         alert("댓글 save 성공!!");
         setComment(""); // 댓글 등록 후 textarea 초기화
+        await fetchPostAndReply(); // 댓글 리스트를 다시 가져오기
       }
     } catch (error) {
       console.log("에러 발생:", error);
@@ -145,14 +144,12 @@ export default function Detail({ params }) {
       if (res.status === 200) {
         // 댓글 리스트에서 댓글 제거하는 로직
         setRepliesRes(
-          (prevReplies) =>
-            prevReplies.filter((reply) => reply.replyId !== replyId) // replyId로 필터링
+          (prevReplies) => prevReplies.filter((reply) => reply.id !== replyId) // replyId로 필터링
         );
         // 댓글 삭제하면 댓글 리스트에서 새로고침 하지 않고도 바로 반영하고싶다 ㅠㅠ
         // repliesRes에 새로운 상태를 반영해주면 되는것 아닌가 -> list에서 댓글을 다시 불러오는 로직을 추가해주면 될것 같다
-        fetchPostAndReply();
-
         alert("삭제되었습니다");
+        await fetchPostAndReply(); // 삭제 후 댓글 리스트를 다시 가져오기
       }
     } catch (error) {
       if (error.response) {
@@ -276,7 +273,7 @@ export default function Detail({ params }) {
           (reply, index) => (
             console.log("reply " + JSON.stringify(reply)),
             // console.log("reply.comment " + JSON.stringify(reply.comment)),
-            console.log("reply.id " + JSON.stringify(reply.replyId)),
+            console.log("reply.id " + JSON.stringify(reply.id)),
             console.log("reply.comment " + JSON.stringify(reply.comment)),
             (
               // console.log("reply.user_id " + JSON.stringify(reply.user_id)),
@@ -295,7 +292,7 @@ export default function Detail({ params }) {
                       {reply.originalUsername}
                     </div>
                     {/* 수정 모드면 textarea */}
-                    {editMode === reply.replyId ? (
+                    {editMode === reply.id ? (
                       <textarea
                         className="w-full p-2 border border-gray-300 rounded-md"
                         value={updateComment}
@@ -311,11 +308,11 @@ export default function Detail({ params }) {
                 {user && user.body[0].id === reply.user_id && (
                   <div className="flex flex-row justify-end">
                     {/* 편집 모드일 때  */}
-                    {editMode === reply.replyId ? (
+                    {editMode === reply.id ? (
                       <>
                         <button
                           className="border p-2 bg-teal-600 rounded-md text-white hover:bg-teal-800"
-                          onClick={() => saveUpdatedReply(reply.replyId)}
+                          onClick={() => saveUpdatedReply(reply.id)}
                         >
                           저장
                         </button>
@@ -332,14 +329,14 @@ export default function Detail({ params }) {
                         <button
                           className="border p-2 bg-teal-600 rounded-md text-white hover:bg-teal-800"
                           onClick={() =>
-                            toggleEditMode(reply.replyId, reply.comment)
+                            toggleEditMode(reply.id, reply.comment)
                           }
                         >
                           수정
                         </button>
                         <button
                           className="border p-2 bg-red-700 rounded-md text-white mr-5 hover:bg-red-800"
-                          onClick={() => deleteReply(reply.replyId)}
+                          onClick={() => deleteReply(reply.id)}
                         >
                           삭제
                         </button>
