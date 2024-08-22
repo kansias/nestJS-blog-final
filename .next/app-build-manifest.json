@@ -12,25 +12,20 @@
       "static/css/app/layout.css",
       "static/chunks/app/layout.js"
     ],
-    "/(user)/user/loginForm/page": [
+    "/(post)/post/[id]/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/(user)/user/loginForm/page.js"
+      "static/chunks/app/(post)/post/[id]/page.js"
     ],
-    "/(sub)/sub/page": [
+    "/(post)/post/updateForm/[id]/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/(sub)/sub/page.js"
+      "static/chunks/app/(post)/post/updateForm/[id]/page.js"
     ],
-    "/(post)/post/writeForm/page": [
+    "/_not-found/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/(post)/post/writeForm/page.js"
-    ],
-    "/(category)/category/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/(category)/category/page.js"
+      "static/chunks/app/_not-found/page.js"
     ]
   }
 }

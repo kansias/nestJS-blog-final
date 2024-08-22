@@ -13,6 +13,7 @@ export const config = {
 // const uploadDir = "../../../../public/img"; // 파일 업로드 디렉토리 로컬 또는 서버에 저장할 경로 등
 const uploadDir = path.join(process.cwd(), "public/img"); // 파일 업로드 디렉토리 로컬 또는 서버에 저장할 경로 등
 console.log("uploadDir = " + uploadDir);
+
 export async function POST(request) {
   try {
     const data = await request.formData();
@@ -42,7 +43,7 @@ export async function POST(request) {
     }
 
     console.log("dataObject(server) = " + JSON.stringify(dataObject));
-    fileURL = path.join("http://localhost:3000/img/", fileName);
+    fileURL = path.join("http://localhost:3000/img/", fileName); // public은 제외하고 경로만 저장 (public 은 브라우저에서 접근 가능한 경로)
     console.log("fileURL = " + fileURL);
 
     const sql =

@@ -17,8 +17,8 @@ export default function Index() {
       try {
         const res = await axios.get(`/api/index`, {});
 
-        // console.log("front 222 ");
-        // console.log("index ? " + JSON.stringify(res));
+        console.log(res);
+        console.log("index ? " + JSON.stringify(res));
         console.log("res.data.body = " + JSON.stringify(res.data.body));
 
         if (res.status === 200) {
@@ -57,6 +57,7 @@ export default function Index() {
                 <div className="sm:w-64 sm:h-30 w-6 flex justify-center items-center bg-gray-100">
                   <Image // webpack을 통해 이미지 최적화 (용량 감소) 및 lazy 로딩
                     src={`/img/${post.thumbnail_file}`}
+                    // src={post.thumbnail_file}
                     alt={post.thumbnail_file}
                     width={1500}
                     height={300}

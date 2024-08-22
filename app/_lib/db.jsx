@@ -29,7 +29,7 @@ const executeQuery = (query, arrParams) => {
     try {
       pool.query(query, arrParams, (err, data) => {
         if (err) {
-          console.log("Error in executing the query");
+          console.log("Error in executing the query11");
           reject(err);
         }
         console.log("------db.jsx------");

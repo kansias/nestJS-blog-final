@@ -111,8 +111,12 @@ export default function UpdateForm({ params }) {
             title: postData.title,
             content: postData.content,
             userId: userId,
-            file: null,
+            // 이미 존재하면 파일 그대로 쓰고(DB에서 불러온거), 새로 추가하면 새로운 파일로 대체
+            file: postData.thumbnail_file,
           });
+
+          console.log("front res.data.body = " + JSON.stringify(postData));
+          console.log("front formData = " + JSON.stringify(formData));
         }
       } catch (error) {
         if (error.response) {
@@ -213,6 +217,9 @@ export default function UpdateForm({ params }) {
           id="file"
           type="file"
           className="w-full p-2 mt-3 border rounded-md"
+          onChange={(e) =>
+            setFormData({ ...formData, file: e.target.files[0] })
+          }
         ></input>
       </div>
       <button

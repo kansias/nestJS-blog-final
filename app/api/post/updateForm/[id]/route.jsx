@@ -12,7 +12,7 @@ export async function GET(request) {
     const sql = "select * from post_tb where id = ?";
     const data = await executeQuery(sql, [postId]);
     const getdata = JSON.parse(JSON.stringify(data));
-    console.log("getdata = " + getdata);
+    console.log("getdata = " + JSON.stringify(getdata));
 
     console.log("333333333333");
 
