@@ -1,11 +1,5 @@
 {
-  "/api/index/route": "app/api/index/route.js",
-  "/(post)/post/[id]/page": "app/(post)/post/[id]/page.js",
-  "/(home)/page": "app/(home)/page.js",
-  "/api/detail/[id]/route": "app/api/detail/[id]/route.js",
-  "/api/reply/paging/route": "app/api/reply/paging/route.js",
   "/(post)/post/updateForm/[id]/page": "app/(post)/post/updateForm/[id]/page.js",
-  "/api/category/list/route": "app/api/category/list/route.js",
   "/api/post/updateForm/[id]/route": "app/api/post/updateForm/[id]/route.js",
-  "/api/post/update/[id]/route": "app/api/post/update/[id]/route.js"
+  "/api/category/list/route": "app/api/category/list/route.js"
 }

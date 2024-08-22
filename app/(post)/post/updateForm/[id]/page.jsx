@@ -129,6 +129,38 @@ export default function UpdateForm({ params }) {
   };
   // 글 선택 끝
 
+  // 파일 확장자 체크
+  const checkFileType = (e) => {
+    console.log("checkFileType 1111", e); // 객체로 출력
+    console.log("파일 목록:", e.target.files);
+
+    // 근데 다중 파일이 아니라서 ..
+    const targetFile = e.target.files;
+    const allowType = ["png", "jpg", "jpeg"];
+
+    const file = targetFile[0];
+    const fileType = file.name.split(".").pop().toLowerCase();
+
+    if (!allowType.includes(fileType)) {
+      alert("png, jpg, jpeg 파일만 업로드 가능합니다.");
+      e.target.value = "";
+      return;
+    }
+  };
+
+  // for (let i = 0; i < files.length; i++) {
+  //   const file = files[i];
+  //   const fileType = file.name.split(".").pop().toLowerCase();
+
+  //   if (!allowType.includes(fileType)) {
+  //     alert("png, jpg, jpeg 파일만 업로드 가능합니다.");
+  //     e.target.value = "";
+  //     return;
+  //   }
+  // }
+
+  // 파일 확장자 체크 끝
+
   // updateForm 제출
   const update = async (e) => {
     e.preventDefault();
@@ -208,8 +240,11 @@ export default function UpdateForm({ params }) {
         <input
           id="file"
           type="file"
+          onChage={checkFileType}
           className="w-full p-2 mt-3 border rounded-md"
           onChange={(e) => {
+            checkFileType(e);
+
             if (e.target.files.length > 0) {
               setFormData({ ...formData, file: e.target.files[0] });
             } else {
