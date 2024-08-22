@@ -41,14 +41,6 @@ export default function UpdateForm({ params }) {
 
   let router = useRouter();
 
-  // const [formData, setFormData] = useState({
-  //   selectedCategory: "",
-  //   title: "",
-  //   content: "",
-  //   userId: userId,
-  //   file: null,
-  // });
-
   // 카테고리 선택
   useEffect(() => {
     const categoryList = async () => {
@@ -152,7 +144,7 @@ export default function UpdateForm({ params }) {
     if (formData.file) {
       formResult.append("file", formData.file);
     } else {
-      formResult.append("file", null);
+      formResult.append("file", formData.file);
     }
 
     try {
@@ -217,9 +209,14 @@ export default function UpdateForm({ params }) {
           id="file"
           type="file"
           className="w-full p-2 mt-3 border rounded-md"
-          onChange={(e) =>
-            setFormData({ ...formData, file: e.target.files[0] })
-          }
+          onChange={(e) => {
+            if (e.target.files.length > 0) {
+              setFormData({ ...formData, file: e.target.files[0] });
+            } else {
+              // 파일이 선택되지 않을 경우 기존 파일 경로를 그대로 유지
+              setFormData({ ...formData, file: formData.file });
+            }
+          }}
         ></input>
       </div>
       <button
