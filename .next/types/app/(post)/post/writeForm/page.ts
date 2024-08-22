@@ -1,4 +1,4 @@
-// File: C:\Users\aico-2\Desktop\workspace\nestJS-blog-final\app\(post)\post\writeForm\page.jsx
+// File: C:\workspace\nestJS-blog-final\app\(post)\post\writeForm\page.jsx
 import * as entry from '../../../../../../app/(post)/post/writeForm/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

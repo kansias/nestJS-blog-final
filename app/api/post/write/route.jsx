@@ -43,7 +43,7 @@ export async function POST(request) {
     }
 
     console.log("dataObject(server) = " + JSON.stringify(dataObject));
-    fileURL = path.join("http://localhost:3000/img/", fileName); // public은 제외하고 경로만 저장 (public 은 브라우저에서 접근 가능한 경로)
+    fileURL = path.join("", fileName); // public은 제외하고 경로만 저장 (public 은 브라우저에서 접근 가능한 경로)
     console.log("fileURL = " + fileURL);
 
     const sql =

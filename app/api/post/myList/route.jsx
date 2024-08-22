@@ -13,7 +13,8 @@ export async function GET(request) {
 
     console.log("222222222222 userId:", userId, "page:", page);
 
-    const sql = "select * from post_tb where user_id = ? limit ? offset ?";
+    const sql =
+      "select * from post_tb where user_id = ? order by id desc limit ? offset ?";
     const data = await executeQuery(sql, [userId, pageSize, offset]);
     const getdata = JSON.parse(JSON.stringify(data));
 

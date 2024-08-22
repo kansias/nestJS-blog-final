@@ -14,7 +14,8 @@ export async function GET(request) {
     console.log("222222222222 blogUserId:", blogUserId, "page:", page);
 
     // 첫 번째 쿼리: 포스트 가져오기
-    const sql = "select * from post_tb where user_id = ? limit ? offset ?";
+    const sql =
+      "select * from post_tb where user_id = ? order by id desc limit ? offset ?";
     const data = await executeQuery(sql, [blogUserId, pageSize, offset]);
     const getdata = JSON.parse(JSON.stringify(data));
 
