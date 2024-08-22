@@ -84,7 +84,18 @@ export default function MyEditor() {
   /* file 타입에 대한 onChange 이벤트 별도 처리 
      (향후 파일의 사이즈 검사 등의 로직 추가를 위해 확장성을 고려하여 별도 이벤트 생성) */
   const handleFileChange = (e) => {
+    // 파일 확장자 검사
+    const allowType = ["png", "jpg", "jpeg"];
+
     const selectedFile = e.target.files[0];
+    const fileType = selectedFile.name.split(".").pop().toLowerCase();
+
+    if (!allowType.includes(fileType)) {
+      alert("png, jpg, jpeg 파일만 업로드 가능합니다.");
+      e.target.value = "";
+      return;
+    }
+
     setFile(selectedFile);
     setFormData((prevData) => ({
       ...prevData,

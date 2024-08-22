@@ -134,7 +134,6 @@ export default function UpdateForm({ params }) {
     console.log("checkFileType 1111", e); // 객체로 출력
     console.log("파일 목록:", e.target.files);
 
-    // 근데 다중 파일이 아니라서 ..
     const targetFile = e.target.files;
     const allowType = ["png", "jpg", "jpeg"];
 
@@ -148,6 +147,7 @@ export default function UpdateForm({ params }) {
     }
   };
 
+  // 근데 다중 파일이 아니라서 ..
   // for (let i = 0; i < files.length; i++) {
   //   const file = files[i];
   //   const fileType = file.name.split(".").pop().toLowerCase();

@@ -1,5 +1,6 @@
 {
-  "/(post)/post/updateForm/[id]/page": "app/(post)/post/updateForm/[id]/page.js",
-  "/api/post/updateForm/[id]/route": "app/api/post/updateForm/[id]/route.js",
-  "/api/category/list/route": "app/api/category/list/route.js"
+  "/(home)/page": "app/(home)/page.js",
+  "/api/index/route": "app/api/index/route.js",
+  "/api/category/list/route": "app/api/category/list/route.js",
+  "/(post)/post/writeForm/page": "app/(post)/post/writeForm/page.js"
 }
