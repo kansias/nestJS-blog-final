@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import { useAuth } from "../../../util/AuthContext";
+import { signIn } from "next-auth/react"; // signIn 함수 추가
 
 export default function LoginForm() {
   const [username, setUsername] = useState("");
@@ -15,27 +16,19 @@ export default function LoginForm() {
     e.preventDefault();
 
     try {
-      // 애가 request에 담겨야하는데
-      const res = await axios.post("/api/login", {
+      const res = await signIn("credentials", {
+        redirect: false, // 페이지 리다이렉트 방지
         username,
         password,
       });
 
-      if (res.status === 200) {
+      if (res.ok) {
         alert("로그인 성공!!");
-        // 애를 호출해야지 true 가 되지!!
-        console.log("sss11 " + JSON.stringify(res.data));
-        console.log("sss22 " + JSON.stringify(res.data.body[0].id));
-        login(res.data);
         router.push("/");
+        login(res.data); // 사용자 정보를 context에 저장하는 경우
       }
     } catch (error) {
-      // console.log("1111 " + error);
-      // console.log("1111 " + JSON.stringify(error.response));
-      if (error.response) {
-        // console.log("에러에러");
-        alert(error.response.data.msg);
-      }
+      alert("로그인 실패!!");
     }
   };
 

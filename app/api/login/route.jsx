@@ -2,8 +2,11 @@ import { success, fail } from "../../util/ApiUtil";
 // import { success, fail } from "../../util/ApiUtil";
 import executeQuery from "../../_lib/db";
 
+console.log("00000000");
+
 export async function POST(request) {
-  console.log("!11111111 " + request);
+  console.log("!11111111 ");
+  // console.log("!11111111 " + request);
   //   console.log("request = " + JSON.stringify(request));
 
   try {
@@ -23,6 +26,6 @@ export async function POST(request) {
     }
   } catch {
     // console.log("error ");
-    return fail(null, 500, "서버 오류");
+    return fail(null, 500, "서버 오류11");
   }
 }

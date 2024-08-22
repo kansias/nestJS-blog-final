@@ -1,11 +1,14 @@
 import NextAuth from "next-auth";
-import Providers from "next-auth/providers";
+import CredentialsProvider from "next-auth/providers/credentials"; // 자체 구현 로그인
 import axios from "axios";
 
 export default NextAuth({
   providers: [
-    Providers.Credentials({
-      // 이 부분은 자체 로그인 로직을 구현합니다.
+    CredentialsProvider({
+      name: "Credentials",
+      id: "credentials",
+      // 이 부분은 자체 로그인 로직을 구현
+      // 대소문자 상관 X
       credentials: {
         username: { label: "Username", type: "text" },
         password: { label: "Password", type: "password" },
@@ -14,26 +17,41 @@ export default NextAuth({
         // 외부 서버와 통신하여 유저 정보와 토큰을 가져오는 로직을 여기에 구현합니다.
         const { username, password } = credentials;
 
-        // 외부 서버와의 통신을 통해 유저 정보와 토큰을 가져옵니다.
-        const response = await axios.post(
-          "https://your-external-server.com/api/login",
-          {
+        console.log("nextauth " + username);
+        console.log("nextauth " + password);
+
+        try {
+          console.log("이건 타니??????");
+          // 외부 서버와의 통신을 통해 유저 정보와 토큰을 가져옵니다.
+          const response = await axios.post("/api/login", {
             username,
             password,
+          });
+
+          console.log("왜안돼??");
+
+          // console.log("nextauth res " + response);
+          // console.log("nextauth res " + JSON.stringify(response));
+
+          const data = response.data;
+
+          if (data) {
+            // 유저 정보와 토큰을 NextAuth.js 세션에 저장합니다.
+            console.log("server data = " + data);
+            console.log("server data json = " + JSON.stringify(data));
+
+            return {
+              id: data.id,
+              name: data.username,
+              email: data.email,
+              token: data.token,
+            };
+          } else {
+            // 로그인 실패 시 null을 반환합니다.
+            return null;
           }
-        );
-
-        const data = response.data;
-
-        if (data) {
-          // 유저 정보와 토큰을 NextAuth.js 세션에 저장합니다.
-          return {
-            name: data.name,
-            email: data.email,
-            token: data.token,
-          };
-        } else {
-          // 로그인 실패 시 null을 반환합니다.
+        } catch (error) {
+          console.error("서버 오류11 왜~~~");
           return null;
         }
       },
@@ -48,5 +66,6 @@ export default NextAuth({
   },
   session: {
     jwt: true,
+    maxAge: 30 * 60, // 세션 만료시간 30분
   },
 });
