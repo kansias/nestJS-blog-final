@@ -1,9 +1,9 @@
 {
-  "/api/index/route": "app/api/index/route.js",
   "/(home)/page": "app/(home)/page.js",
   "/(user)/user/loginForm/page": "app/(user)/user/loginForm/page.js",
-  "/api/login/route": "app/api/login/route.js",
-  "/(post)/post/[id]/page": "app/(post)/post/[id]/page.js",
-  "/api/reply/paging/route": "app/api/reply/paging/route.js",
-  "/api/detail/[id]/route": "app/api/detail/[id]/route.js"
+  "/(sub)/sub/page": "app/(sub)/sub/page.js",
+  "/api/index/route": "app/api/index/route.js",
+  "/(category)/category/page": "app/(category)/category/page.js",
+  "/api/sub/list/route": "app/api/sub/list/route.js",
+  "/api/login/route": "app/api/login/route.js"
 }

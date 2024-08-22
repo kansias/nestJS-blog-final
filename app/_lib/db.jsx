@@ -1,9 +1,18 @@
 import { createPool } from "mysql2";
 
+// const pool = createPool({
+//   host: "localhost",
+//   user: "root",
+//   password: "1234",
+//   database: "metadb",
+//   port: 3306,
+//   connectionLimit: 10,
+// });
+
 const pool = createPool({
-  host: "localhost",
-  user: "root",
-  password: "1234",
+  host: "203.232.215.31",
+  user: "aicompany",
+  password: "aico2020!",
   database: "metadb",
   port: 3306,
   connectionLimit: 10,

@@ -17,10 +17,20 @@
       "static/chunks/main-app.js",
       "static/chunks/app/(user)/user/loginForm/page.js"
     ],
-    "/(post)/post/[id]/page": [
+    "/(sub)/sub/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/(post)/post/[id]/page.js"
+      "static/chunks/app/(sub)/sub/page.js"
+    ],
+    "/(post)/post/writeForm/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(post)/post/writeForm/page.js"
+    ],
+    "/(category)/category/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(category)/category/page.js"
     ]
   }
 }

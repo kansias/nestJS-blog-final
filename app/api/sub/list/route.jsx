@@ -32,7 +32,7 @@ export async function GET(request) {
     if (data.length > 0) {
       return success(getdata);
     } else {
-      return fail(null, 404, "존재하지 않는 블로그입니다!");
+      return success([]); // 빈 배열 반환 (NULL처리)
     }
   } catch {
     // console.log("error ");
