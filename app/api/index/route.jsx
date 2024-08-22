@@ -3,10 +3,10 @@ import executeQuery from "../../_lib/db";
 import { IndexDTO } from "../../util/IndexResponse";
 
 export async function GET() {
-  //   console.log("server 111");
+  console.log("server 111");
 
   try {
-    // console.log("server 222");
+    console.log("server 222");
 
     // const sql = "SELECT DISTINCT * FROM post_tb ORDER BY RAND() LIMIT 8";
     const sql = `SELECT DISTINCT p.id as post_id, u.id as user_id, u.username, p.title, p.content, 

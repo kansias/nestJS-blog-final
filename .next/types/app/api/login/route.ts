@@ -1,8 +1,8 @@
-// File: C:\workspace\nextJS-blog-test 222\app\api\reply\save\route.jsx
-import * as entry from '../../../../../../app/api/reply/save/route.js'
+// File: C:\Users\aico-2\Desktop\workspace\nestJS-blog-final\app\api\login\route.jsx
+import * as entry from '../../../../../app/api/login/route.js'
 import type { NextRequest } from 'next/server.js'
 
-type TEntry = typeof import('../../../../../../app/api/reply/save/route.js')
+type TEntry = typeof import('../../../../../app/api/login/route.js')
 
 // Check that the entry is a valid entry
 checkFields<Diff<{
