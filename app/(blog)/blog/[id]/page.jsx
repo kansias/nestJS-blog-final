@@ -50,7 +50,7 @@ export default function otherBlogList() {
           params: { blogUserId, page },
         });
 
-        console.log("resssss " + JSON.stringify(res.data.body));
+        // console.log("resssss " + JSON.stringify(res.data.body));
 
         if (res.status === 200) {
           // console.log("성공!!!");
@@ -74,8 +74,48 @@ export default function otherBlogList() {
 
     // 다음 페이지가 있을 때만 요청!
 
-    otherBlogPost(page);
+    if (hasNextPage) {
+      otherBlogPost(page);
+    }
   }, [page, hasNextPage, blogUserId]);
+
+  console.log(
+    "저는 무엇을 잘못한것인가요11 ",
+    JSON.stringify(window.history.state)
+  );
+
+  const pagingStatus = { idx: page };
+  window.history.pushState(pagingStatus, "", `/blog/${blogUserId}`);
+
+  console.log("window 11 " + pagingStatus.idx);
+
+  // 페이지 이동 시 스크롤 위치 저장
+  sessionStorage.setItem(
+    `__next_scroll_${pagingStatus.idx}`,
+    JSON.stringify({
+      x: window.scrollX,
+      y: window.scrollY,
+    })
+  );
+
+  // 뒤로가기 시, 저장되어 있는 스크롤의 위치로 스크롤을 복원
+  useEffect(() => {
+    window.history.scrollRestoration = "manual";
+
+    // 페이지 이동 후 저장되어 있던 위치로 스크롤 복원
+    const _scroll = sessionStorage.getItem(`__next_scroll_${pagingStatus.idx}`);
+    if (_scroll) {
+      // 스크롤 복원 후 저장된 위치 제거
+      const { x, y } = JSON.parse(_scroll);
+      window.scrollTo(x, y);
+      sessionStorage.removeItem(`__next_scroll_${pagingStatus.idx}`);
+    }
+
+    router.events.on("routeChangeComplete", routeChangeCompleteHandler);
+    return () => {
+      router.events.off("routeChangeComplete", routeChangeCompleteHandler);
+    };
+  }, []);
 
   // 스크롤 페이징
   useEffect(() => {
@@ -101,18 +141,11 @@ export default function otherBlogList() {
     };
   }, [loading, hasNextPage]);
 
-  useEffect(() => {
-    if (!hasNextPage && !loading && blogPosts.length > 0) {
-      // alert("마지막 페이지입니다!");
-    }
-  }, [hasNextPage, loading]);
-
-  useEffect(() => {
-    // 컴포넌트가 마운트되면 저장된 스크롤 위치로 복원
-    if (scrollRef.current) {
-      window.scrollTo(0, scrollPositionRef.current);
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (!hasNextPage && !loading && blogPosts.length > 0) {
+  //     // alert("마지막 페이지입니다!");
+  //   }
+  // }, [hasNextPage, loading]);
 
   // 이미지 태그 제거 함수
   const removeImagesFromContent = (content) => {
@@ -132,7 +165,7 @@ export default function otherBlogList() {
         blogUserId,
       });
 
-      console.log("resssss " + JSON.stringify(res));
+      // console.log("resssss " + JSON.stringify(res));
 
       if (res.status === 200) {
         setIsSubscribe(true);
