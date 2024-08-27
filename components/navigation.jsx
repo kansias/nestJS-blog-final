@@ -3,7 +3,7 @@
 import Link from "next/link";
 import styles from "../styles/navigation.module.css";
 import { usePathname } from "next/navigation";
-// import { useAuth } from "../app/util/AuthContext";
+import { useAuth } from "../app/util/AuthContext";
 import { useSession, signOut } from "next-auth/react"; // NextAuth 훅 추가
 
 export default function Navigation() {
@@ -12,7 +12,7 @@ export default function Navigation() {
   // const { isLogin, logout } = useAuth();
   // console.log("로그인 상태 " + isLogin);
   const { data: session } = useSession(); // 세션 데이터 가져오기
-  const isLogin = !!session; // 세션이 있으면 로그인 상태
+  // const isLogin = !!session; // 세션이 있으면 로그인 상태
 
   return (
     <nav className={styles.nav}>
@@ -25,7 +25,7 @@ export default function Navigation() {
           </Link>
         </li>
 
-        {isLogin ? (
+        {session ? (
           <>
             <li className={path === "/post" ? styles.active : ""}>
               <Link href="/post/myList">

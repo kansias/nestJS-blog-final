@@ -2,6 +2,7 @@
 
 import { createContext, useContext, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useSession, signIn, signOut } from "next-auth/react";
 
 // 리액트 라이브러리 중 createContext   //전역변수 개념
 const AuthContext = createContext();

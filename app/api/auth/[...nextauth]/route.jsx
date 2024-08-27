@@ -67,7 +67,6 @@ export const authOptions = {
   ],
   callbacks: {
     async jwt({ token, user }) {
-      // 변경된 부분
       if (user) {
         token.id = user.id;
         token.token = user.token;
@@ -77,19 +76,20 @@ export const authOptions = {
       return token;
     },
     async session({ session, token }) {
-      // 세션에 토큰 정보를 추가합니다.
-
-      console.log("세션이 있니 = " + session);
-      session.token = token.token;
-
+      console.log("gggggggggggggg " + JSON.stringify(token.id));
+      console.log("세션 있니 11 = ", JSON.stringify(session));
+      session.user.id = token.id; // 세션의 user 객체에 id 추가
+      session.user.token = token.token;
+      console.log("세션 있니 22 = ", JSON.stringify(session));
       return session;
     },
   },
   session: {
-    // jwt: true,
     strategy: "jwt",
-    maxAge: 30 * 60, // 세션 만료시간 30분
+    maxAge: 30 * 60, // 30분
+    updateAge: 24 * 60 * 60, // 24시간마다 세션 갱신
   },
+
   // });
 };
 
