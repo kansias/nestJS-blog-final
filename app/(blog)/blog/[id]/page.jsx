@@ -99,23 +99,23 @@ export default function otherBlogList() {
   );
 
   // 뒤로가기 시, 저장되어 있는 스크롤의 위치로 스크롤을 복원
-  useEffect(() => {
-    window.history.scrollRestoration = "manual";
+  // useEffect(() => {
+  //   window.history.scrollRestoration = "manual";
 
-    // 페이지 이동 후 저장되어 있던 위치로 스크롤 복원
-    const _scroll = sessionStorage.getItem(`__next_scroll_${pagingStatus.idx}`);
-    if (_scroll) {
-      // 스크롤 복원 후 저장된 위치 제거
-      const { x, y } = JSON.parse(_scroll);
-      window.scrollTo(x, y);
-      sessionStorage.removeItem(`__next_scroll_${pagingStatus.idx}`);
-    }
+  //   // 페이지 이동 후 저장되어 있던 위치로 스크롤 복원
+  //   const _scroll = sessionStorage.getItem(`__next_scroll_${pagingStatus.idx}`);
+  //   if (_scroll) {
+  //     // 스크롤 복원 후 저장된 위치 제거
+  //     const { x, y } = JSON.parse(_scroll);
+  //     window.scrollTo(x, y);
+  //     sessionStorage.removeItem(`__next_scroll_${pagingStatus.idx}`);
+  //   }
 
-    router.events.on("routeChangeComplete", routeChangeCompleteHandler);
-    return () => {
-      router.events.off("routeChangeComplete", routeChangeCompleteHandler);
-    };
-  }, []);
+  //   router.events.on("routeChangeComplete", routeChangeCompleteHandler);
+  //   return () => {
+  //     router.events.off("routeChangeComplete", routeChangeCompleteHandler);
+  //   };
+  // }, []);
 
   // 스크롤 페이징
   useEffect(() => {

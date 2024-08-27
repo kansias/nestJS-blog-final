@@ -1,4 +1,7 @@
 {
-  "/(blog)/blog/[id]/page": "app/(blog)/blog/[id]/page.js",
-  "/api/blog/route": "app/api/blog/route.js"
+  "/(home)/page": "app/(home)/page.js",
+  "/api/index/route": "app/api/index/route.js",
+  "/(user)/user/loginForm/page": "app/(user)/user/loginForm/page.js",
+  "/api/auth/[...nextauth]/route": "app/api/auth/[...nextauth]/route.js",
+  "/api/login/route": "app/api/login/route.js"
 }
