@@ -39,14 +39,13 @@ const handler = NextAuth({
 
           if (data) {
             // 유저 정보와 토큰을 NextAuth.js 세션에 저장합니다.
-            console.log("server data = " + data);
             console.log("server data json = " + JSON.stringify(data));
 
             return {
-              id: data.id,
-              name: data.username,
-              email: data.email,
-              token: data.token,
+              id: data.body.id,
+              username: data.body.username,
+              email: data.body.email,
+              //   token: data.token,
             };
           } else {
             // 로그인 실패 시 null을 반환합니다.
@@ -62,12 +61,14 @@ const handler = NextAuth({
   callbacks: {
     async session(session, token) {
       // 세션에 토큰 정보를 추가합니다.
+      // 최초 로그인시에는 jwt 함수는 user값을 받고, 그 다음(업데이트)부터는 token 값이 매개변수로 받는다.
       session.token = token.token;
       return session;
     },
   },
   session: {
-    jwt: true,
+    // jwt: true,
+    strategy: "jwt",
     maxAge: 30 * 60, // 세션 만료시간 30분
   },
 });

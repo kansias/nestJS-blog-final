@@ -1,3 +1,6 @@
+// "use client";
+
+import { SessionProvider } from "next-auth/react";
 import Footer from "../components/footer";
 import Navigation from "../components/navigation";
 import "../styles/global.css";
@@ -13,11 +16,13 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
+        {/* <SessionProvider> */}
         <AuthProvider>
           <Navigation />
           <div id="wrap">{children}</div>
           <Footer />
         </AuthProvider>
+        {/* </SessionProvider> */}
       </body>
     </html>
   );
