@@ -3,13 +3,16 @@
 import Link from "next/link";
 import styles from "../styles/navigation.module.css";
 import { usePathname } from "next/navigation";
-import { useAuth } from "../app/util/AuthContext";
+// import { useAuth } from "../app/util/AuthContext";
+import { useSession, signOut } from "next-auth/react"; // NextAuth 훅 추가
 
 export default function Navigation() {
   const path = usePathname();
   // login은 true, false 상태값이 필요하니까 isLogin으로 가져왔고, logout은 logout이라 그대로 가져옴
-  const { isLogin, logout } = useAuth();
+  // const { isLogin, logout } = useAuth();
   // console.log("로그인 상태 " + isLogin);
+  const { data: session } = useSession(); // 세션 데이터 가져오기
+  const isLogin = !!session; // 세션이 있으면 로그인 상태
 
   return (
     <nav className={styles.nav}>
@@ -44,7 +47,7 @@ export default function Navigation() {
               <Link href="/category">카테고리관리</Link>
             </li>
             <li>
-              <button onClick={logout}>로그아웃</button>
+              <button onClick={() => signOut()}>로그아웃</button>{" "}
             </li>
           </>
         ) : (

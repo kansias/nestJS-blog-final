@@ -1,4 +1,4 @@
-// File: C:\Users\aico-2\Desktop\workspace\nestJS-blog-final\app\layout.js
+// File: C:\workspace\2\nestJS-blog-final\app\layout.js
 import * as entry from '../../../app/layout.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

@@ -3,7 +3,11 @@ import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials"; // 자체 구현 로그인
 import axios from "axios";
 
-const handler = NextAuth({
+// const handler = NextAuth({
+export const authOptions = {
+  pages: {
+    signIn: "/api/login",
+  },
   providers: [
     CredentialsProvider({
       name: "Credentials",
@@ -41,12 +45,15 @@ const handler = NextAuth({
             // 유저 정보와 토큰을 NextAuth.js 세션에 저장합니다.
             console.log("server data json = " + JSON.stringify(data));
 
+            const user = data.body[0];
+            console.log("user = " + JSON.stringify(user));
             return {
-              id: data.body.id,
-              username: data.body.username,
-              email: data.body.email,
-              //   token: data.token,
+              id: user.id,
+              username: user.username,
+              email: user.email,
+              token: data.token, // 이 필드가 jwt 콜백에서 사용됨
             };
+            // return data;
           } else {
             // 로그인 실패 시 null을 반환합니다.
             return null;
@@ -59,10 +66,22 @@ const handler = NextAuth({
     }),
   ],
   callbacks: {
-    async session(session, token) {
+    async jwt({ token, user }) {
+      // 변경된 부분
+      if (user) {
+        token.id = user.id;
+        token.token = user.token;
+      }
+      console.log("토큰이 있니 = " + token);
+      console.log("토큰이 있니 = " + JSON.stringify(token));
+      return token;
+    },
+    async session({ session, token }) {
       // 세션에 토큰 정보를 추가합니다.
-      // 최초 로그인시에는 jwt 함수는 user값을 받고, 그 다음(업데이트)부터는 token 값이 매개변수로 받는다.
+
+      console.log("세션이 있니 = " + session);
       session.token = token.token;
+
       return session;
     },
   },
@@ -71,6 +90,8 @@ const handler = NextAuth({
     strategy: "jwt",
     maxAge: 30 * 60, // 세션 만료시간 30분
   },
-});
+  // });
+};
 
+const handler = NextAuth(authOptions);
 export { handler as GET, handler as POST };

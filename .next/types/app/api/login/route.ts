@@ -1,4 +1,4 @@
-// File: C:\Users\aico-2\Desktop\workspace\nestJS-blog-final\app\api\login\route.jsx
+// File: C:\workspace\2\nestJS-blog-final\app\api\login\route.jsx
 import * as entry from '../../../../../app/api/login/route.js'
 import type { NextRequest } from 'next/server.js'
 
