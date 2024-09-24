@@ -14,10 +14,16 @@ export async function POST(request) {
     const sql = "select * from user_tb where username = ? and password = ?";
     const data = await executeQuery(sql, [username, password]);
 
-    console.log("dataJson = " + JSON.stringify(dataJson));
+    const user = {
+      id: data[0].id,
+      username: data[0].username,
+      email: data[0].email,
+    };
+    console.log("dataExecuteQuery = " + JSON.stringify(data));
+    console.log("user = " + JSON.stringify(user));
 
     if (data.length > 0) {
-      return success(data);
+      return success(data, 200, user);
     } else {
       return fail(null, 401, "아이디 혹은 비밀번호를 확인해주세요");
     }

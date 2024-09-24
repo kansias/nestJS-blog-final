@@ -1,33 +1,53 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
+
 import axios from "axios";
-import { useAuth } from "../../../util/AuthContext";
+// import { useAuth } from "../../../util/AuthContext";
+import { signIn, useSession } from "next-auth/react";
 
 export default function LoginForm() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const { data: session, status } = useSession();
   const router = useRouter(); //라우터
-  const { login } = useAuth();
+  //   const { login } = useAuth();
+
+  if (status === "authenticated") {
+    //로그인이 되어있으면 홈으로 이동.  next-auth 기본 status : authenticated, unauthenticated, loading
+    redirect("/");
+  }
 
   const loginForm = async (e) => {
     e.preventDefault();
 
     try {
       // 애가 request에 담겨야하는데
-      const res = await axios.post("/api/login", {
-        username,
-        password,
+      //   const res = await axios.post("/api/login", {
+      //     username,
+      //     password,
+      //   });
+
+      //   if (res.status === 200) {
+      //     alert("로그인 성공!!");
+      //     // 애를 호출해야지 true 가 되지!!
+      //     console.log("sss11 " + JSON.stringify(res.data));
+      //     console.log("sss22 " + JSON.stringify(res.data.body[0].id));
+      //     login(res.data);
+      //     router.push("/");
+      //   }
+      const result = await signIn("credentials", {
+        username: username,
+        password: password,
+        redirect: false,
       });
 
-      if (res.status === 200) {
-        alert("로그인 성공!!");
-        // 애를 호출해야지 true 가 되지!!
-        console.log("sss11 " + JSON.stringify(res.data));
-        console.log("sss22 " + JSON.stringify(res.data.body[0].id));
-        login(res.data);
-        router.push("/");
+      if (result.error) {
+        console.log("로그인 실패", result.error);
+        alert("로그인 실패");
+      } else {
+        alert("로그인 성공");
       }
     } catch (error) {
       // console.log("1111 " + error);

@@ -3,9 +3,9 @@
 import React, { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
-import { useAuth } from "../../../util/AuthContext";
+// import { useAuth } from "../../../util/AuthContext";
 import axios from "axios";
-
+import { useSession } from "next-auth/react";
 // SSR 시 react-quill을 제외하기 위해 동적 import
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
@@ -28,6 +28,7 @@ const modules = {
 // 퀼 에디터 끝
 
 export default function MyEditor() {
+  const { data: session, status } = useSession(); // next-auth
   // const [value, setValue] = useState(""); // 에디터 내용 상태
   const [categories, setCategories] = useState([]); // 카테고리 리스트 상태
   const [selectedCategory, setSelectedCategory] = useState(""); // 선택한 카테고리 상태
@@ -35,8 +36,9 @@ export default function MyEditor() {
   const [file, setFile] = useState(null); // 파일 상태
   const [content, setContent] = useState(""); // 내용 상태
   const router = useRouter(); //라우터
-  const { user } = useAuth();
-  const userId = user && user.body[0].id;
+  //   const { user } = useAuth();
+  //   const userId = user && user.body[0].id;
+  const userId = session?.user.id;
   // formData 객체 생성 (객체!!)
   const [formData, setFormData] = useState({
     selectedCategory: "",
@@ -49,6 +51,7 @@ export default function MyEditor() {
   // 화면에 첫 랜더링 될 때 실행
   // 카테고리 선택
   useEffect(() => {
+    if (status === "loading") return;
     const categoryList = async () => {
       // e.preventDefault();
 

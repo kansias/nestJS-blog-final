@@ -1,17 +1,23 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { useAuth } from "../../../util/AuthContext";
+// import { useAuth } from "../../../util/AuthContext";
 import axios from "axios";
 import Link from "next/link";
 import DOMPurify from "dompurify";
 import styles from "../../../../styles/mylist.module.css";
 import Image from "next/image";
+import { useSession } from "next-auth/react";
 
 export default function myList() {
-  const { user } = useAuth();
-  const userId = user && user.body[0].id;
-  const username = user && user.body[0].username;
+  const { data: session, status } = useSession(); // next-auth
+  //   const { user } = useAuth();
+  //   const userId = user && user.body[0].id;
+  const userId = session?.user.id;
+  //   const username = user && user.body[0].username;
+  const username = session?.user.name;
+  console.log("session = ", session);
+
   const [blogPosts, setBlogPosts] = useState([]);
 
   // 페이징 번호
@@ -23,6 +29,7 @@ export default function myList() {
   const scrollRef = useRef(0);
 
   useEffect(() => {
+    if (status === "loading") return;
     const myBlogPost = async (page) => {
       try {
         setLoading(true); // 데이터 로딩 중

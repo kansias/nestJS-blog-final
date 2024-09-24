@@ -3,13 +3,15 @@
 import Link from "next/link";
 import styles from "../styles/navigation.module.css";
 import { usePathname } from "next/navigation";
-import { useAuth } from "../app/util/AuthContext";
+// import { useAuth } from "../app/util/AuthContext";
+import { signIn, signOut, useSession } from "next-auth/react";
 
 export default function Navigation() {
   const path = usePathname();
   // login은 true, false 상태값이 필요하니까 isLogin으로 가져왔고, logout은 logout이라 그대로 가져옴
-  const { isLogin, logout } = useAuth();
+  //   const { isLogin, logout } = useAuth();
   // console.log("로그인 상태 " + isLogin);
+  const { data: session } = useSession(); // next-auth
 
   return (
     <nav className={styles.nav}>
@@ -22,7 +24,7 @@ export default function Navigation() {
           </Link>
         </li>
 
-        {isLogin ? (
+        {session ? ( //로그인이 되어있으면? true : next-auth
           <>
             <li className={path === "/post" ? styles.active : ""}>
               <Link href="/post/myList">
@@ -44,13 +46,26 @@ export default function Navigation() {
               <Link href="/category">카테고리관리</Link>
             </li>
             <li>
-              <button onClick={logout}>로그아웃</button>
+              <button
+                onClick={() => {
+                  signOut();
+                }}
+              >
+                로그아웃
+              </button>
             </li>
           </>
         ) : (
           <>
             <li className={path === "/user/loginForm" ? styles.active : ""}>
-              <Link href="/user/loginForm">로그인</Link>
+              {/* <Link href="/user/loginForm">로그인</Link> */}
+              <button
+                onClick={() => {
+                  signIn();
+                }}
+              >
+                로그인
+              </button>
             </li>
             <li className={path === "/user/joinForm" ? styles.active : ""}>
               <Link href="/user/joinForm">회원가입</Link>

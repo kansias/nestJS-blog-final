@@ -1,18 +1,21 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { useAuth } from "../../../util/AuthContext";
+// import { useAuth } from "../../../util/AuthContext";
 import axios from "axios";
 import Link from "next/link";
 import DOMPurify from "dompurify";
 import styles from "../../../../styles/mylist.module.css";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 
 export default function otherBlogList() {
   const router = useRouter();
-  const { user } = useAuth();
-  const sessionUserId = user && user.body[0].id;
+  const { data: session, status } = useSession(); // next-auth
+  //   const { user } = useAuth();
+  //   const sessionUserId = user && user.body[0].id;
+  const sessionUserId = session?.user.id;
 
   const [blogPosts, setBlogPosts] = useState([]);
 
@@ -39,7 +42,7 @@ export default function otherBlogList() {
 
   useEffect(() => {
     // console.log("blogUserId = " + blogUserId);
-
+    if (status === "loading") return;
     const otherBlogPost = async (page) => {
       // console.log("front 111");
 
@@ -152,7 +155,8 @@ export default function otherBlogList() {
   useEffect(() => {
     const checkSubstribeState = async () => {
       // 로그인 정보 있으면
-      if (user) {
+      if (status === "authenticated") {
+        // user -> session 변경
         const res = await axios.get(`/api/sub/check`, {
           params: { sessionUserId, blogUserId },
         });
@@ -167,7 +171,7 @@ export default function otherBlogList() {
 
     checkSubstribeState();
     // isSubscribe 포함 X
-  }, [user, blogUserId]);
+  }, [session, blogUserId]); // user -> session 변경
   // 구독하기 useEffect 끝
 
   // 구독 취소

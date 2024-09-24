@@ -29,7 +29,8 @@ export async function POST(request) {
     let filePath = null;
     let fileName = "";
     let fileURL = "";
-    if (file) {
+    if (file !== "null") {
+      console.log("file = " + JSON.stringify(file));
       const buffer = await file.arrayBuffer(); // 파일을 버퍼로 변환 ( 파일을 읽어오기 위해 사용하며 일반적으로 파일을 읽어오는 방법 )
       fileName = `${Date.now()}-${file.name}`; // 파일명 중복 방지를 위해 현재 날짜와 시간을 파일명에 붙였음
       filePath = path.join(uploadDir, fileName); // 파일 경로

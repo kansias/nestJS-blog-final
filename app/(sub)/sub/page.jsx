@@ -2,15 +2,19 @@
 
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { useAuth } from "../../util/AuthContext";
+// import { useAuth } from "../../util/AuthContext";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { useSession } from "next-auth/react";
 
 export default function SubList() {
+  const { data: session, status } = useSession(); // next-auth
   // 로그인 한 유저
-  const { user } = useAuth();
-  const userId = user && user.body[0].id;
-  const username = user && user.body[0].username;
+  //   const { user } = useAuth();
+  //   const userId = user && user.body[0].id;
+  const userId = session?.user.id;
+  //   const username = user && user.body[0].username;
+  const username = session?.user.username;
   // 로그인 한 유저 정보 끝
 
   const router = useRouter();
@@ -20,15 +24,14 @@ export default function SubList() {
 
   // 서버 요청
   useEffect(() => {
-    if (!user) {
-      alert("로그인이 필요합니다.");
-      router.push("/user/loginForm");
-      return;
-    }
-
-    console.log("front 111 ");
-
     const mySubscribeList = async () => {
+      if (status === "loading") return;
+      if (status === "unauthenticated") {
+        alert("로그인이 필요합니다.");
+        router.push("/user/loginForm");
+        return;
+      }
+      console.log("front 111 ");
       try {
         const res = await axios.get(`/api/sub/list`, {
           params: { userId },
